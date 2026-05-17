@@ -24,6 +24,7 @@ import { loadCorpus, answerQuestion } from './chat.js';
 const __filename = fileURLToPath(import.meta.url);
 const __dirname = path.dirname(__filename);
 const ROOT = path.resolve(__dirname, '..');
+const DIST = path.join(ROOT, 'dist');
 
 const app = express();
 app.use(cors());
@@ -262,6 +263,18 @@ app.post('/api/chat', async (req, res) => {
   }
 });
 
+// ---- static frontend -------------------------------------------------------
+// In production (Render) the built Vite app lives in /dist. We serve it from
+// the same Express process so the whole app is reachable on a single URL.
+// API routes are declared above, so they take precedence; anything else falls
+// through to the single-page-app entry point (index.html) for client routing.
+if (fs.existsSync(DIST)) {
+  app.use(express.static(DIST));
+  app.get('*', (req, res) => {
+    res.sendFile(path.join(DIST, 'index.html'));
+  });
+}
+
 // ---- start -----------------------------------------------------------------
 const PORT = process.env.PORT || 3001;
 
@@ -277,7 +290,7 @@ try {
 }
 
 app.listen(PORT, () => {
-  console.log(`[BFF] Bank of Sandhu BFF listening on http://localhost:${PORT}`);
+  console.log(`[BFF] Bank of Sandhu BFF listening on port ${PORT}`);
   console.log(`[BFF] Active brand: ${BRAND}`);
   console.log(`[BFF] Demo mode: ${DEMO_MODE ? 'ON' : 'OFF'}`);
   console.log(`[BFF] Anthropic API: ${process.env.ANTHROPIC_API_KEY && !process.env.ANTHROPIC_API_KEY.startsWith('sk-ant-...') ? 'configured' : 'NOT configured (chat will return retrieval-only responses)'}`);
