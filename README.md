@@ -2,6 +2,8 @@
 
 A working prototype of a dual-market digital bank with a faith-aware product layer and an AI-powered compliance assistant.
 
+**Live demo:** https://bank-of-sandhu.onrender.com
+
 ## What this is
 
 A weekend build that demonstrates:
