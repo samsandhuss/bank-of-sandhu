@@ -22,9 +22,9 @@ jobs:
         uses: actions/checkout@v4
 
       - name: Set up CodeQL
-        uses: github/codeql-action/init@v3
+        uses: github/codeql-action/init@v4
         with:
           languages: javascript
 
       - name: Run the CodeQL analysis
-        uses: github/codeql-action/analyze@v3
+        uses: github/codeql-action/analyze@v4
