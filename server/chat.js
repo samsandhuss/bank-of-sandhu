@@ -28,8 +28,8 @@ import path from 'node:path';
 const CHUNK_TARGET_CHARS = 800;     // ~150 words; small enough to be precise, big enough to carry context
 const CHUNK_OVERLAP_CHARS = 120;    // overlap so a sentence near a boundary still appears in one chunk whole
 const TOP_K = 4;                    // how many chunks we send to Claude per question
-const MIN_SCORE = 3.5;              // top chunk must score above this to be considered in-corpus
-const MIN_DISTINCT_MATCHES = 2;     // top chunk must match at least this many distinct query terms
+const MIN_SCORE = 1.0;              // top chunk must score above this to be considered in-corpus
+const MIN_DISTINCT_MATCHES = 1;     // top chunk must match at least this many distinct query terms
 const MODEL = 'claude-haiku-4-5-20251001';
 
 // ---- Corpus loading & chunking ---------------------------------------------
