@@ -6,6 +6,7 @@
   "type": "module",
   "scripts": {
     "dev": "concurrently -n \"bff,web\" -c \"blue,green\" \"npm:dev:bff\" \"npm:dev:web\"",
+    "start": "node server/index.js",
     "dev:bff": "node --watch server/index.js",
     "dev:web": "vite",
     "build": "vite build",
