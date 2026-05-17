@@ -1,0 +1,100 @@
+{
+  "brand": {
+    "id": "noor",
+    "displayName": "Bank of Noor",
+    "shortName": "Noor",
+    "tagline": "Sharia-by-design Islamic digital banking.",
+    "domain": "bankofnoor.demo"
+  },
+  "identity": {
+    "primaryColor": "#0B1F3A",
+    "accentColor": "#D4B254",
+    "background": "#FFFFFF",
+    "fontFamily": "Inter, system-ui, sans-serif",
+    "logoText": "NOOR"
+  },
+  "entities": {
+    "uae": {
+      "legalName": "Bank of Noor UAE PJSC",
+      "regulator": "CBUAE",
+      "regulatorReference": "CBUAE Category B Licence (demo)",
+      "address": "TBD, Abu Dhabi, UAE",
+      "currency": "AED",
+      "currencySymbol": "AED"
+    }
+  },
+  "modes": {
+    "islamic": {
+      "label": "Islamic banking",
+      "subLabel": "Sharia-by-design, AAOIFI-aligned, SSB-approved",
+      "productTerminology": {
+        "lease": "Ijara wa Iqtina",
+        "fee": "Profit rate",
+        "feeShortLabel": "Profit rate",
+        "account": "Wadiah business account"
+      },
+      "contractTemplate": "islamic",
+      "disclosureSet": ["cbuae", "aaoifi", "pdpl"],
+      "sharia": {
+        "supervisoryBoardLabel": "Sharia Supervisory Board (SSB)",
+        "complianceStatement": "Every product is Sharia-compliant by design. SSB Ruleset Engine enforces compliance at transaction time. AAOIFI-aligned governance."
+      }
+    }
+  },
+  "products": {
+    "currentAccount": {
+      "enabled": true,
+      "variants": {
+        "islamic": {
+          "name": "Noor Wadiah Business Account",
+          "monthlyFee": 0,
+          "overdraftAPR": null,
+          "features": [
+            "Halal MCC blocking",
+            "Ramadan-aware cash flow forecasting",
+            "Integrated Zakat calculator",
+            "Multi-user team controls"
+          ]
+        }
+      }
+    },
+    "leasing": {
+      "enabled": true,
+      "variants": {
+        "islamic": {
+          "name": "Noor Murabaha Auto Finance",
+          "structureLabel": "Murabaha (cost-plus deferred payment)",
+          "termMonths": [24, 36, 48, 60],
+          "exampleProfitRate": 6.5,
+          "earlySettlementRules": "No penalty; SSB-approved profit waiver schedule"
+        }
+      }
+    }
+  },
+  "demoMode": {
+    "enabled": true,
+    "prefilledUser": {
+      "name": "SME Owner Demo",
+      "email": "owner@demo-sme.ae",
+      "uaeAddress": "Office 1502, Demo Business Tower, Abu Dhabi",
+      "businessName": "Demo Trading LLC",
+      "employeeCount": 22
+    },
+    "chatbotSampleQuestions": [
+      "How does the Sharia Ruleset Engine work?",
+      "How is asset classification handled for Zakat?",
+      "What is the difference between Murabaha and Ijara for auto finance?",
+      "How does Ramadan-aware cash flow forecasting work?",
+      "Which MCC codes are blocked as haram?",
+      "How is the bank governed by AAOIFI?"
+    ]
+  },
+  "compliance": {
+    "regimes": ["CBUAE", "AAOIFI", "UAE-PDPL"],
+    "complianceDocsPath": "docs/compliance/",
+    "governance": {
+      "ssbStatement": "Sharia Supervisory Board reviews every product variant before launch and audits transaction flows quarterly.",
+      "regulatoryTarget": "CBUAE Category B Licence"
+    }
+  }
+}
