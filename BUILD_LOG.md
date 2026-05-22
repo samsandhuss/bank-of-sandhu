@@ -16,7 +16,7 @@ This file lives in a public repo. Therefore:
 - **Never name the current employer or past employers.** Use generic terms: *"current employer"*, *"a major UK financial services organisation"*, *"a regulated UK bank"*, *"a previous fintech employer"*.
 - **Never name internal tools or terms that identify the employer.**
 - **Specific named CI/CD tools are fine** (GitHub Actions, SonarQube, Snyk, Artifactory, Docker, Jenkins, CloudBees Jenkins, Buildkite, Azure DevOps, Harness, Port.io) — these aren't employer-identifying.
-- **Job application targets I own (ADCB, Mal, Whiteshield) CAN be named.** These are mine, not someone else's secrets.
+- **Job application targets I own (ABCDEFGH) CAN be named.** These are mine, not someone else's secrets.
 - **From Session 06 onward, all worked examples use a generic "imaginary bank" framing.** Never reference my current employer's specific architecture, tooling configuration, or internal patterns. The imaginary bank is plausibly real, regulated, hybrid — but is no real bank.
 
 If Claude is reading this file as session opener, **apply this rule to everything generated for the rest of the session**.
