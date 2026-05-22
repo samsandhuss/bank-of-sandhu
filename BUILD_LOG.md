@@ -17,28 +17,35 @@ This file lives in a public repo. Therefore:
 - **Never name internal tools or terms that identify the employer.**
 - **Specific named CI/CD tools are fine** (GitHub Actions, SonarQube, Snyk, Artifactory, Docker, Jenkins, Buildkite, Azure DevOps, Harness, Port.io) — these aren't employer-identifying.
 - **Job application targets I own (ADCB, Mal) CAN be named.** These are mine, not someone else's secrets.
+- **From Session 06 onward, all worked examples use a generic "imaginary bank" framing.** Never reference my current employer's specific architecture, tooling configuration, or internal patterns. The imaginary bank is plausibly real, regulated, hybrid — but is no real bank.
 
 If Claude is reading this file as session opener, **apply this rule to everything generated for the rest of the session**.
 
 ---
 
-## How this file works
+## §0 — How I learn (do not deviate)
 
-This file is the structured public record of what I've built and what I'm learning. It is **paste-able as the opener** for every new Claude session.
+### Bronze / Silver / Gold layered teaching (added Session 06)
 
-### Three sections that matter most each session
-1. **§4 Concept curriculum** — every concept I'm expected to know, with status, definition, last spot-check date.
-2. **§5 Spot-check log** — running record of when each owned concept was last checked and whether it held.
-3. **§6 NEXT — resume here** — what tomorrow's session does, in order, with the exact opener line.
+Every concept now gets taught in three layers, each only attempted after the previous is owned. Same as belts in martial arts — earn the next one, don't claim it.
 
-### How I learn (do not deviate)
+| Layer | What it means | Test |
+|---|---|---|
+| 🥉 **Bronze** | Plain English. Analogy only. No tech jargon allowed. | Could I explain this to a non-technical family member? |
+| 🥈 **Silver** | Analogy plus the real CI/CD / AI words mapped onto it. | Could I explain this to a junior engineer using both the analogy and the correct technical terms in the same sentence? |
+| 🥇 **Gold** | Imaginary bank example, recruiter-ready. No analogy crutch. Concrete bank context. | Could I say this to a recruiter or hiring manager in a 90-second answer without sounding rehearsed or AI-generated? |
+
+**Status column in §4 now tracks layer ownership**, e.g. 🥉🥈 = bronze + silver owned, gold not yet attempted.
+
+### Core method (unchanged)
 - **I learn by doing.** Concepts taught at the moment an artefact is created, not in parallel docs.
-- **Plain English first.** No jargon until a working analogy is owned.
+- **Plain English first.** No jargon until a working analogy is owned (bronze first).
 - **Slow is correct.** Don't advance until the current concept is explained back in my own words.
-- **Owned ≠ owned forever.** Every concept marked `OWNED` must be spot-checked at random intervals. Memory fades. If I drift, status drops from `OWNED` to `PARTIAL` and we re-teach.
+- **Owned ≠ owned forever.** Every concept marked OWNED at any layer must be spot-checked. Memory fades. If I drift, status drops a layer and we re-teach.
 - **Watch my two named failure modes**, especially when I'm tired:
   1. Reaching for technical-sounding words instead of the plain idea.
   2. When a redo gets uncomfortable, the brain reaches for a fresh shiny topic.
+  3. **New (Session 06):** Saying *"depends on the use case"* when I don't know the real answer — sounds balanced, but it's the jargon-reach failure mode wearing a different costume.
 
 ### Session ritual (every close-out)
 1. ✅ Green ticks of what got done in plain English.
@@ -63,235 +70,257 @@ It is **dual-purpose**:
 
 ---
 
-## §2 — Modules (curriculum running alongside the build)
-
-Five modules, each ties a worked example in `bank-of-sandhu` to a real concept I need to own. Each module follows the structure: **What we built → Why → What it taught me → Interview bridge → Work bridge → Now/Next/Later**.
+## §2 — Modules
 
 | # | Module | Status | Worked example anchor |
 |---|---|---|---|
-| M1 | GitHub + Actions for non-devs | NOT STARTED | The repo's own CI workflow (`.github/workflows/`) |
-| M2 | Code quality gates (SonarQube, Snyk in PR pipeline) | NOT STARTED | Triaged findings in `server/index.js` |
-| M3 | Artefact management (Artifactory, GH Packages, semver) | NOT STARTED | Docker image versioning for the Node BFF |
-| M4 | IDP capabilities applied (catalog, golden paths, scorecards, self-service) | NOT STARTED | The repo itself as a golden-path template; README as service catalog entry |
-| M5 | AI in the SDLC (RAG, agents, MCP) | IN PROGRESS — Chunk 1 owned (Session 05) | `server/chat.js` walkthrough, chunk by chunk |
+| M1 | GitHub + Actions for non-devs | IN PROGRESS — Station 1 owned, Station 2 partial | Imaginary bank cloud→on-prem deployment |
+| M2 | Code quality gates (SonarQube, Snyk) | NOT STARTED | Triaged findings in `server/index.js` |
+| M3 | Artefact management (Artifactory, GH Packages, semver) | NOT STARTED | Docker image versioning for Node BFF |
+| M4 | IDP capabilities (catalog, golden paths, scorecards, self-service) | NOT STARTED | The repo itself as golden-path template |
+| M5 | AI in the SDLC (RAG, agents, MCP) | IN PROGRESS — Chunk 1 owned 🥉 | `server/chat.js` walkthrough |
 
-**Currently active:** M5, Chunk 1 of `server/chat.js`.
+**Currently active:** M1, on-prem + cloud + GHA bundle.
 
 ---
 
-## §3 — Session history (chronological)
+## §3 — Session history
 
-### Session 01 — Clean repo, deploy, RAG chatbot
-**What:** Flattened repo history, made repo public, deployed to Render (one URL), built RAG chatbot with in-repo knowledge file + source citation + refusal threshold, set up professional GitHub profile.
-**Why:** A live link beats a code-only repo for recruiters. Original knowledge file = zero copyright risk in public repo.
-**Status:** ✅ Done. (Session 01 teaching framings are **deprecated** — current analogy from Session 05 is canonical for RAG concepts. Do not regress to Session 01 phrasings like "retrieve, ground, generate, cite".)
+### Session 01 — Clean repo, deploy, RAG chatbot ✅
+Flattened repo history, made repo public, deployed to Render, built RAG chatbot with in-repo knowledge file + citation + refusal threshold, set up professional GitHub profile.
+*Session 01 RAG framings are deprecated. Pizza/kitchen analogy from Session 05 is canonical.*
 
-### Sessions 02–04 — Block A–E build + RAG concept attempts
-**What:** Built blocks A–E of bank-of-sandhu: PDF contract, cookie consent gating, automated tests, GitHub push, working chatbot with Claude Haiku 4.5 + AAOIFI citations. Began the chunked walkthrough of `server/chat.js`.
-**Status:** ✅ Build complete. RAG concept ownership = partial after Session 04 (only the chunk concept + half of "retrieve" owned; augment and generate had drifted into jargon).
-**Failure modes that fired:** Both — jargon reach on augment, shiny topic pull mid-redo.
+### Sessions 02–04 — Blocks A–E + RAG concept attempts ✅
+PDF contract, cookie consent gating, automated tests, GitHub push, working chatbot with Claude Haiku 4.5 + AAOIFI citations. Began chunked walkthrough of `server/chat.js`.
 
-### Session 05 — Chunk 1 of `server/chat.js` FULLY OWNED ✅
-**What:** Locked all four foundational RAG concepts in plain English, using a kitchen / pizza-prep analogy.
-**Concepts owned:**
-- **Chunking** = categorise into small chunks; the fridge with ingredients in various boxes. Prep work that fills the fridge.
-- **Retrieve** = once the order is read, scan the fridge and only get the matching ingredients ready (no pineapple, extra cheese). Fridge → counter. MATCHING.
-- **Augment** = getting the order AND the ingredients in the chef's hands. Counter → chef's hands. HANDOVER. Not picking, not matching, not searching.
-- **Generate** = chef only cooks what's on the cards — nothing else, no added sprinkle of something, because the customer may have allergies. The one strict rule: cook only from handed cards, refuse if missing, label each fact = citations. **Allergies = hallucinations.**
+### Session 05 — Chunk 1 of `server/chat.js` FULLY OWNED 🥉 ✅
+All four foundational RAG concepts locked in plain English using kitchen / pizza-prep analogy.
+- **Chunking** = fridge with ingredient boxes
+- **Retrieve** = scan fridge, get matching ingredients ready
+- **Augment** = order + ingredients into chef's hands (handover)
+- **Generate** = chef cooks only from handed cards, no added sprinkle, allergies = hallucinations
+- Best line banked: *"no added sprinkle of something — the customer may have allergies."*
 
-**Failure modes:** Both fired and both beaten. Shiny-topic pull caught and deferred. Jargon reach on augment caught on second redo with "handover".
-**Best line produced (keep for interviews):** *"no added sprinkle of something — the customer may have allergies."*
+### Session 06 — Spot-check + Station 1 owned, Station 2 paused 🟡
 
-### Session 06 — PLANNED
-**What:** Recap spot-check (5 min), then the on-prem + cloud + GitHub Actions bundle taught as ONE worked example. See §6.
+**Spot-check (recap of A3–A7):**
+- A4 Chunking — held first try ✅
+- A5 Retrieve — drifted into "the order, no action" → redone → re-owned ✅
+- A6 Augment — held first try ✅
+- A7 Generate — held first try ✅
+
+**Station 1 (B13 Cloud vs on-prem split) — 🥉 owned.**
+First attempt drifted into "data lives there" / "years of old data". Redone after correction. Locked second try as: *"At my current bank we have a hybrid model — on-prem for regulated workloads, cloud (AWS / Azure) for flexibility to scale and experiment."*
+
+**Station 2 (B8 GHA reaching into on-prem) — 🟡 PARTIAL. Did not complete.**
+Three slips on first attempt:
+1. Pattern A and Pattern B got mashed together.
+2. Direction of travel confused — said *"asking internally to the outside world"* (should be inside → outside).
+3. Reached for *"depends on the use case"* — the new third failure mode. Banks near-universally choose Pattern B (self-hosted runner, outbound polling). *"Depends"* sounded balanced but was jargon-reach in disguise.
+
+**Session stopped honestly when tired** — before redo cemented as drift. Discipline working as designed.
+
+**New teaching method introduced:** 🥉🥈🥇 Bronze/Silver/Gold layered ownership. Locked into §0.
 
 ---
 
 ## §4 — Concept curriculum
 
-Legend:
-- 🟢 **OWNED** = can explain in plain English to a non-technical stakeholder AND to a senior engineer.
-- 🟡 **PARTIAL** = touched, partially clear, drifts when tired or pressed.
-- 🔴 **NOT STARTED** = haven't been taught it yet, or admitted I can't explain it.
-- 🟠 **STALE** = was owned, but spot-check failed. Re-teach needed.
-
-**JD relevance:** `ADCB` (Abu Dhabi role) · `Mal` (own venture) · `WORK` (current day-job) · `ALL` (all three).
+Legend (updated Session 06):
+- 🥉 = Bronze owned (plain English, analogy)
+- 🥈 = Silver owned (analogy + real terms)
+- 🥇 = Gold owned (imaginary-bank example, recruiter-ready)
+- 🟡 = PARTIAL at current target layer
+- 🟠 = STALE (was owned, spot-check failed)
+- 🔴 = NOT STARTED
 
 ---
 
 ### 4A — AI / ML / GenAI concepts
 
-| # | Concept | Status | Plain-English definition (when owned) | Last spot-check | JD |
+| # | Concept | Status | Plain-English (bronze) | Last check | JD |
 |---|---|---|---|---|---|
-| A1 | LLM (Large Language Model) | 🟡 PARTIAL | A model trained on huge amounts of text that generates human-like answers. On its own it can hallucinate. | — | ALL |
-| A2 | Hallucination | 🟢 OWNED | The model adds a sprinkle of something the customer didn't ask for. Could be an allergy = harmful. | 2026-05-21 (Session 05) | ALL |
-| A3 | RAG (Retrieval-Augmented Generation) | 🟢 OWNED | The full pipeline: chunking, retrieve, augment, generate. Grounds the model in real source documents and cites them. | 2026-05-21 (Session 05) | ADCB, Mal |
-| A4 | Chunking | 🟢 OWNED | Categorise into small chunks — the fridge with ingredients in various boxes. Prep work that fills the fridge. | 2026-05-21 (Session 05) | ADCB, Mal |
-| A5 | Retrieve | 🟢 OWNED | Once the order is read, scan the fridge and only get the matching ingredients ready. Fridge → counter. MATCHING, not speed. | 2026-05-21 (Session 05) | ADCB, Mal |
-| A6 | Augment | 🟢 OWNED | Getting the order AND the ingredients in the chef's hands. Counter → chef's hands. HANDOVER. | 2026-05-21 (Session 05) | ADCB, Mal |
-| A7 | Generate | 🟢 OWNED | Chef cooks ONLY from handed cards. Refuses if missing. Labels each fact = citations. Allergies = hallucinations. | 2026-05-21 (Session 05) | ADCB, Mal |
-| A8 | Refusal / guardrail threshold | 🟡 PARTIAL | The bot refuses when no card is good enough. Need to drill: what's the threshold actually scoring? | — | ADCB, Mal |
-| A9 | Source attribution / citation | 🟢 OWNED | Labelling each ingredient with which box it came from. Why a regulator cares: auditability. | 2026-05-21 (Session 05) | ADCB, Mal |
-| A10 | Embedding | 🔴 NOT STARTED | (Honest gap — needs drill.) | — | ADCB, Mal |
-| A11 | Vector database | 🔴 NOT STARTED | (Honest gap — drill priority.) | — | ADCB, Mal |
-| A12 | Pinecone | 🔴 NOT STARTED | A specific managed vector database. Owned after A11 is owned. | — | ADCB |
-| A13 | Lexical scoring vs vector scoring | 🟡 PARTIAL | Bank-of-sandhu uses lexical (word-match). Production usually uses vector (meaning-match). The next learning jump. | — | ADCB, Mal |
-| A14 | Context window | 🟡 PARTIAL | Why the chef can't hold the whole fridge. The model's limit on how much text it can process at once. | — | ALL |
-| A15 | Prompt / system prompt | 🔴 NOT STARTED | The instructions written on the chef's apron. Needs drill. | — | ALL |
+| A2 | Hallucination | 🥉 OWNED | Chef adds a sprinkle of something the customer didn't ask for — could be an allergy. | 2026-05-22 | ALL |
+| A3 | RAG (end-to-end) | 🥉 OWNED | Pipeline: chunking → retrieve → augment → generate. Grounds the model in real sources + cites them. | 2026-05-22 | ADCB, Mal |
+| A4 | Chunking | 🥉 OWNED | Fridge with ingredient boxes — prep work that fills the fridge. | 2026-05-22 | ADCB, Mal |
+| A5 | Retrieve | 🥉 OWNED | Matching ingredients to the order, preparing for the chef. Fridge → counter. | 2026-05-22 (redone) | ADCB, Mal |
+| A6 | Augment | 🥉 OWNED | Order + ingredients into chef's hands. Counter → chef. Handover. | 2026-05-22 | ADCB, Mal |
+| A7 | Generate | 🥉 OWNED | Chef cooks only from handed cards. Refuses if missing. Labels each fact = citations. | 2026-05-22 | ADCB, Mal |
+| A9 | Source attribution / citation | 🥉 OWNED | Labelling each ingredient with which box it came from. Auditability. | 2026-05-22 | ADCB, Mal |
+| A1 | LLM | 🟡 PARTIAL | Model trained on huge text → generates human-like answers. Can hallucinate on its own. | — | ALL |
+| A8 | Refusal / guardrail threshold | 🟡 PARTIAL | Bot refuses when no card is good enough. Need drill: what's the threshold scoring? | — | ADCB, Mal |
+| A13 | Lexical vs vector scoring | 🟡 PARTIAL | bank-of-sandhu uses lexical (word-match). Production uses vector (meaning-match). | — | ADCB, Mal |
+| A14 | Context window | 🟡 PARTIAL | Why chef can't hold the whole fridge. Model's text-at-once limit. | — | ALL |
+| A10 | Embedding | 🔴 NOT STARTED | — | — | ADCB, Mal |
+| A11 | Vector database | 🔴 NOT STARTED | — | — | ADCB, Mal |
+| A12 | Pinecone | 🔴 NOT STARTED | — | — | ADCB |
+| A15 | Prompt / system prompt | 🔴 NOT STARTED | — | — | ALL |
 | A16 | Few-shot / zero-shot | 🔴 NOT STARTED | — | — | ADCB |
-| A17 | Fine-tuning vs RAG | 🔴 NOT STARTED | Two ways to teach a model new things — important distinction for interviews. | — | ADCB, Mal |
-| A18 | LangChain | 🔴 NOT STARTED | A framework for stitching RAG pieces together. | — | ADCB |
-| A19 | LlamaIndex | 🔴 NOT STARTED | LangChain's main competitor. | — | ADCB |
-| A20 | Azure OpenAI | 🔴 NOT STARTED | Microsoft's hosted version of OpenAI models. | — | ADCB |
-| A21 | Agentic AI | 🔴 NOT STARTED | The chef can pick up the phone and call the supplier. Models that take multi-step actions, not just answer. | — | ADCB, Mal |
-| A22 | MCP (Model Context Protocol) | 🔴 NOT STARTED | A standardised way for models to call external tools. Anthropic's spec. | — | ADCB, Mal |
-| A23 | Evals / RAGAS metrics | 🔴 NOT STARTED | How you measure if your RAG is any good. Critical for governance answers. | — | ADCB |
-| A24 | Governance / responsible AI | 🔴 NOT STARTED | The framework around audit, refusal, bias, transparency. Banking-critical. | — | ADCB, Mal |
-| A25 | Token / tokenisation | 🔴 NOT STARTED | The chef counts ingredients in tokens, not words. Why API pricing matters. | — | ALL |
-| A26 | Temperature / top-p | 🔴 NOT STARTED | How adventurous the chef is allowed to be. | — | ALL |
-| A27 | Streaming vs batch responses | 🔴 NOT STARTED | The pizza arrives slice by slice, or all at once. | — | ALL |
+| A17 | Fine-tuning vs RAG | 🔴 NOT STARTED | — | — | ADCB, Mal |
+| A18 | LangChain | 🔴 NOT STARTED | — | — | ADCB |
+| A19 | LlamaIndex | 🔴 NOT STARTED | — | — | ADCB |
+| A20 | Azure OpenAI | 🔴 NOT STARTED | — | — | ADCB |
+| A21 | Agentic AI | 🔴 NOT STARTED | — | — | ADCB, Mal |
+| A22 | MCP | 🔴 NOT STARTED | — | — | ADCB, Mal |
+| A23 | Evals / RAGAS | 🔴 NOT STARTED | — | — | ADCB |
+| A24 | Governance / responsible AI | 🔴 NOT STARTED | — | — | ADCB, Mal |
+| A25 | Tokens / tokenisation | 🔴 NOT STARTED | — | — | ALL |
+| A26 | Temperature / top-p | 🔴 NOT STARTED | — | — | ALL |
+| A27 | Streaming vs batch | 🔴 NOT STARTED | — | — | ALL |
 
 ---
 
 ### 4B — CI/CD daily-work stack
 
-Treat every one as needing drill until owned.
-
-| # | Concept | Status | Plain-English definition (when owned) | Last spot-check | JD |
+| # | Concept | Status | Plain-English (bronze) | Last check | JD |
 |---|---|---|---|---|---|
-| B1 | CI (Continuous Integration) | 🟡 PARTIAL | Every code change automatically gets built and tested before it's allowed into the main codebase. | — | WORK, ALL |
-| B2 | CD (Continuous Delivery / Deployment) | 🟡 PARTIAL | Every change that passes CI goes to a staging or production environment. Delivery = ready to deploy. Deployment = actually deployed. | — | WORK, ALL |
-| B3 | Pipeline | 🟡 PARTIAL | The end-to-end conveyor belt from `git push` to running in production. | — | WORK |
-| B4 | Build | 🔴 NOT STARTED | Turning source code into a runnable artefact (a JAR, a Docker image, a bundled JS file). | — | WORK |
-| B5 | Artefact | 🔴 NOT STARTED | The output of a build. The thing you actually deploy. | — | WORK |
-| B6 | Test stages (unit, integration, E2E) | 🔴 NOT STARTED | Tiny tests of one thing → tests of things working together → tests of the whole user journey. | — | WORK |
-| B7 | Branch protection / rulesets | 🔴 NOT STARTED | Rules on what's allowed to be merged into main (review required, checks must pass). | — | WORK |
-| B8 | GitHub Actions (GHA) | 🟡 PARTIAL | GitHub's own CI/CD runner. Workflows defined in YAML in `.github/workflows/`. | — | WORK, ALL |
-| B9 | GHA self-hosted runner | 🔴 NOT STARTED | A worker process running inside your own network that GHA talks to — so it can deploy on-prem. **Session 06 topic.** | — | WORK |
-| B10 | Firewall change request process | 🔴 NOT STARTED | The process for getting network access granted between systems — needed when a CI runner has to reach into an internal network. **Session 06 topic.** | — | WORK |
-| B11 | Containerised app testing in CI | 🔴 NOT STARTED | Spinning the app up in Docker inside the pipeline and running tests against the real thing. **Session 06 topic.** | — | WORK |
-| B12 | Headless browser testing in CI | 🔴 NOT STARTED | Playwright/Cypress/Selenium running E2E tests in the pipeline without a visible browser. **Session 06 topic.** | — | WORK |
-| B13 | Cloud vs on-prem split | 🟡 PARTIAL | Where the app physically runs — public cloud (AWS/Azure) vs the org's own data centres. **Session 06 topic.** | — | WORK |
-| B14 | Jenkins / CloudBees Jenkins | 🟡 PARTIAL | The classic CI/CD server. Many orgs migrating off it onto GHA. | — | WORK |
+| B13 | Cloud vs on-prem split | 🥉 OWNED | Hybrid — on-prem for regulated workloads, cloud (AWS / Azure) for flexibility to scale and experiment. | 2026-05-22 | WORK |
+| B8 | GitHub Actions (GHA) reaching on-prem | 🟡 PARTIAL | Started Session 06. Drifted on direction (inside→out) and on Pattern A vs B distinction. Re-teach pending. | — | WORK, ALL |
+| B1 | CI | 🟡 PARTIAL | Every code change auto-built and tested before merge. | — | WORK |
+| B2 | CD | 🟡 PARTIAL | Every change that passes CI goes to staging/prod. Delivery=ready. Deployment=actually deployed. | — | WORK |
+| B3 | Pipeline | 🟡 PARTIAL | End-to-end conveyor from `git push` to running in prod. | — | WORK |
+| B14 | Jenkins / CloudBees Jenkins | 🟡 PARTIAL | Classic CI/CD server. Many orgs migrating off it to GHA. | — | WORK |
 | B15 | Buildkite | 🟡 PARTIAL | A CI/CD platform. | — | WORK |
 | B16 | Azure DevOps | 🟡 PARTIAL | Microsoft's CI/CD + project management platform. | — | WORK |
 | B17 | Harness | 🟡 PARTIAL | A CD-focused platform. | — | WORK |
-| B18 | SonarQube | 🔴 NOT STARTED | Static code analysis — finds bugs and code smells before code is merged. | — | WORK |
+| B24 | Secret management | 🟡 PARTIAL | API keys in env vars on host, never in code. Rotate if exposed. | — | WORK, ALL |
+| B4 | Build | 🔴 NOT STARTED | Source → runnable artefact (JAR / Docker image / bundled JS). | — | WORK |
+| B5 | Artefact | 🔴 NOT STARTED | Output of a build. The thing you deploy. | — | WORK |
+| B6 | Test stages | 🔴 NOT STARTED | Unit → integration → E2E. | — | WORK |
+| B7 | Branch protection | 🔴 NOT STARTED | Rules on what's allowed into main. | — | WORK |
+| B9 | GHA self-hosted runner | 🔴 NOT STARTED | **Session 07 — first concept**. | — | WORK |
+| B10 | Firewall change request process | 🔴 NOT STARTED | **Session 07 topic.** | — | WORK |
+| B11 | Containerised app testing in CI | 🔴 NOT STARTED | **Session 07 topic.** | — | WORK |
+| B12 | Headless browser testing in CI | 🔴 NOT STARTED | **Session 07 topic.** | — | WORK |
+| B18 | SonarQube | 🔴 NOT STARTED | Static code analysis — finds bugs and code smells pre-merge. | — | WORK |
 | B19 | Snyk | 🔴 NOT STARTED | Vulnerability scanning — finds known security holes in dependencies. | — | WORK |
-| B20 | Artifactory | 🔴 NOT STARTED | A central library of all the built artefacts (Docker images, npm packages, JARs). | — | WORK |
-| B21 | Docker | 🔴 NOT STARTED | Packaging an app + everything it needs to run into a single portable container. | — | WORK, ALL |
-| B22 | Docker image vs container | 🔴 NOT STARTED | Image = the recipe. Container = a running instance cooked from the recipe. | — | WORK |
-| B23 | Semver (semantic versioning) | 🔴 NOT STARTED | MAJOR.MINOR.PATCH — the rules for versioning artefacts. | — | WORK |
-| B24 | Secret management | 🟡 PARTIAL | API keys live in env vars on the host, never in code. Rotate if exposed. | — | WORK, ALL |
-| B25 | DORA metrics (deployment frequency, lead time, MTTR, change failure rate) | 🔴 NOT STARTED | The four numbers that prove your delivery is actually improving. | — | WORK |
+| B20 | Artifactory | 🔴 NOT STARTED | Central library of built artefacts (Docker images, npm, JARs). | — | WORK |
+| B21 | Docker | 🔴 NOT STARTED | Packaging app + dependencies into a portable container. | — | WORK, ALL |
+| B22 | Image vs container | 🔴 NOT STARTED | Image = recipe. Container = running instance. | — | WORK |
+| B23 | Semver | 🔴 NOT STARTED | MAJOR.MINOR.PATCH. | — | WORK |
+| B25 | DORA metrics | 🔴 NOT STARTED | Deployment frequency, lead time, MTTR, change failure rate. | — | WORK |
 
 ---
 
 ### 4C — Platform Engineering / IDP concepts
 
-| # | Concept | Status | Plain-English definition (when owned) | Last spot-check | JD |
+| # | Concept | Status | Plain-English (bronze) | Last check | JD |
 |---|---|---|---|---|---|
-| C1 | Platform Engineering | 🟡 PARTIAL | Building internal tools so app teams can self-serve infrastructure and pipelines instead of raising tickets. | — | WORK |
-| C2 | DevEx (Developer Experience) | 🟡 PARTIAL | How easy and fast it is for a developer to do their job. Measured. | — | WORK |
-| C3 | IDP (Internal Developer Portal) | 🟡 PARTIAL | A single front door where developers find their services, run pipelines, see ownership, request resources. | — | WORK |
-| C4 | Golden path template | 🟡 PARTIAL | A pre-built, known-good starting repo + pipeline so teams don't reinvent the wheel. | — | WORK |
-| C5 | Service catalog | 🟡 PARTIAL | A searchable list of every service in the org with metadata (owner, repo, environment, status). | — | WORK |
-| C6 | Scorecards | 🔴 NOT STARTED | A rubric the IDP applies to every service: does it have an owner? CI? security scan? SLOs? Surfaces gaps. | — | WORK |
-| C7 | Self-service provisioning | 🔴 NOT STARTED | Developer clicks a button, gets a new environment / database / pipeline without raising a ticket. | — | WORK |
-| C8 | Team autonomy | 🟡 PARTIAL | Teams can ship without depending on a central platform team for every change. | — | WORK |
-| C9 | Port.io | 🟡 PARTIAL | A third-party SaaS IDP vendor. Integrates GitHub, identity providers, Jira. | — | WORK |
+| C1 | Platform Engineering | 🟡 PARTIAL | Internal tools so app teams self-serve infra/pipelines instead of raising tickets. | — | WORK |
+| C2 | DevEx | 🟡 PARTIAL | How easy/fast it is for a developer to do their job. Measured. | — | WORK |
+| C3 | IDP | 🟡 PARTIAL | Single front door for devs to find services, run pipelines, see ownership, request resources. | — | WORK |
+| C4 | Golden path template | 🟡 PARTIAL | Pre-built starter repo + pipeline so teams don't reinvent the wheel. | — | WORK |
+| C5 | Service catalog | 🟡 PARTIAL | Searchable list of every service with metadata. | — | WORK |
+| C8 | Team autonomy | 🟡 PARTIAL | Teams ship without depending on a central platform team for every change. | — | WORK |
+| C9 | Port.io | 🟡 PARTIAL | Third-party SaaS IDP vendor. Integrates GitHub, IdPs, Jira. | — | WORK |
+| C6 | Scorecards | 🔴 NOT STARTED | A rubric the IDP applies to every service (owner, CI, security, SLOs). | — | WORK |
+| C7 | Self-service provisioning | 🔴 NOT STARTED | Click button → new env/db/pipeline without a ticket. | — | WORK |
 
 ---
 
 ## §5 — Spot-check log
 
-**Rule:** Every concept marked 🟢 OWNED gets spot-checked at random intervals. If I drift, status drops to 🟡 PARTIAL or 🟠 STALE. We re-teach. Owned today ≠ owned forever.
-
-**How spot-checks work:** Claude picks an owned concept without warning, asks me to explain it in plain English. If I drift, we redo using the original method (slow, no jargon, my own analogy).
-
-| Date | Concept checked | Method | Outcome | New status |
+| Date | Concept | Method | Outcome | Status |
 |---|---|---|---|---|
-| 2026-05-21 | Chunking (A4) | Offered unprompted in Session 05 | "Categorise into small chunks — fridge with ingredients in various boxes." | 🟢 OWNED |
-| 2026-05-21 | Retrieve (A5) | First attempt drifted to "speed". Redone — "scan fridge, get matching ingredients ready." | Locked second try. | 🟢 OWNED |
-| 2026-05-21 | Augment (A6) | First attempt drifted into retrieve. Redone — "getting the order AND the ingredients in the chef's hands." | Locked third try. | 🟢 OWNED |
-| 2026-05-21 | Generate (A7) | "Chef only cooks what's on the cards, no added sprinkle — customer may have allergies." | Locked first try. | 🟢 OWNED |
+| 2026-05-21 | A4 Chunking | Session 05 unprompted | "Fridge with ingredient boxes." | 🥉 OWNED |
+| 2026-05-21 | A5 Retrieve | Drifted to "speed" → redone | "Scan fridge, get matching ingredients." | 🥉 OWNED |
+| 2026-05-21 | A6 Augment | Drifted into retrieve → redone | "Order + ingredients in chef's hands." | 🥉 OWNED |
+| 2026-05-21 | A7 Generate | First try | "Cook only from handed cards, allergies = hallucinations." | 🥉 OWNED |
+| 2026-05-22 | A4 Chunking | Session 06 recap | "Fridge with broken-down ingredient boxes." Held. | 🥉 OWNED |
+| 2026-05-22 | A5 Retrieve | Session 06 recap — drifted into "the order, no action" | Redone with kitchen-vs-fridge correction. Locked as "matching ingredients to the order, preparing for the chef." | 🥉 OWNED |
+| 2026-05-22 | A6 Augment | Session 06 recap | "Card + ingredients on the worktop ready for the chef." Held with small flag on word "matching". | 🥉 OWNED |
+| 2026-05-22 | A7 Generate | Session 06 recap | "Chef cooks only what's available, no nuts/sauces, allergies, refusal." Held. | 🥉 OWNED |
+| 2026-05-22 | B13 Cloud vs on-prem | Taught fresh via warehouse/estate analogy. Drifted into "data lives there" → redone. | "Hybrid — on-prem for regulated workloads, cloud for scale and experiment." | 🥉 OWNED |
+| 2026-05-22 | B8 GHA reaching on-prem | Taught fresh — three slips fired. | Pattern A/B mash-up, direction confusion, "depends on use case" hedge. Stopped honestly when tired. | 🟡 PARTIAL |
 
-**Next spot-check candidates (Session 06 opener):** A3 (RAG end-to-end), A4–A7. If any drift after a night's sleep, redo before advancing.
+**Next spot-check candidates (Session 07 opener):** B13 cloud vs on-prem, A5 retrieve (the one that's drifted twice now — watch it).
 
 ---
 
 ## §6 — NEXT (resume here)
 
-### Session 06 plan — locked
+### Session 07 plan
 
 **STEP 1: Recap spot-check (5 min)**
-Quick check that A3–A7 (RAG, chunking, retrieve, augment, generate) are still locked after sleep. No jargon. If any drift, redo before moving on. *Slow is correct.*
+B13 cloud vs on-prem, A5 retrieve. If A5 drifts a third time, mark it 🟠 STALE and book a full re-teach before anything else.
 
-**STEP 2: On-prem + cloud + GitHub Actions bundle — taught as ONE worked example**
-Pick a representative cloud+on-prem app. Walk from `git push` → on-prem deployment. Teach the six stations in context along the way:
+**STEP 2: Redo B8 — GHA reaching on-prem — properly this time**
+Use 🥉🥈🥇 layered approach:
+- 🥉 **Bronze:** the warehouse / gated estate / inside-van picture. Just the analogy.
+- 🥈 **Silver:** map the analogy onto the real words — cloud runner, self-hosted runner, polling, outbound traffic, firewall.
+- 🥇 **Gold:** describe how an imaginary regulated bank — call it **Imaginary Bank plc** — closes the cloud-on-prem gap when migrating from CloudBees Jenkins to GitHub Enterprise. Recruiter-ready.
 
-| Station | Concept | Curriculum ref |
-|---|---|---|
-| 1 | Cloud vs on-prem split | B13 |
-| 2 | GHA reaching into an on-prem data centre | B8 |
-| 3 | Self-hosted CD runner provisioning | B9 |
-| 4 | Firewall change request process | B10 |
-| 5 | Containerised app testing in CI | B11 |
-| 6 | Headless browser testing in CI | B12 |
+The three sentences Sam must own at silver:
+1. **Problem:** default GHA runs in the cloud and can't reach an on-prem network because firewalls block inbound traffic from the public internet.
+2. **Fix:** put a self-hosted runner *inside* the on-prem network. It calls *outbound* to GitHub asking for work.
+3. **Why it wins:** outbound is easy to permit. No inbound hole. Regulator and audit teams comfortable.
 
-Same learning loop: Claude explains, Sam explains back in plain English, no advancing until owned. Watch for both named failure modes.
+**STEP 3: Stations 3–6** — only if Step 2 hits gold. Otherwise hold.
+- Station 3: Self-hosted CD runner provisioning (B9)
+- Station 4: Firewall change request process (B10)
+- Station 5: Containerised app testing in CI (B11)
+- Station 6: Headless browser testing in CI (B12)
 
-**Do NOT this session:** advance to Chunks 2–6 of `server/chat.js`. Those stay queued.
+**Do NOT this session:** advance to Chunks 2–6 of `server/chat.js`. Those stay queued behind on-prem/GHA bundle.
 
 ---
 
-### Exact opener line for Session 06
+### Exact opener line for Session 07
 
-> *Resume Session 06. Read BUILD_LEARN_LOG.md first — including the PERMANENT RULE at the top about never naming colleagues or employers. Quick recap spot-check of A3–A7 (RAG, chunking, retrieve, augment, generate) — owned in Session 05. Then move into the on-prem + cloud + GHA bundle as ONE worked example, walking through stations B13, B8, B9, B10, B11, B12 in context. Same loop — slow is correct, plain English, no advancing until I explain each station back. Watch for my two failure modes.*
+> *Resume Session 07. Read BUILD_LEARN_LOG.md first — including the PERMANENT RULE at the top and the new 🥉🥈🥇 layered teaching rule in §0. Quick recap spot-check of B13 and A5 (A5 has now drifted twice — watch it). Then redo Station 2 (B8 GHA reaching into on-prem) — bronze→silver→gold, with the gold layer being an imaginary-bank scenario, recruiter-ready. Slow is correct. Watch all three failure modes including the new one — "depends on the use case" is jargon-reach in disguise.*
 
 ---
 
 ### Still open (not lost, not done)
 
 - **A8 (refusal threshold)** drill — partial, needs deeper drill on what the threshold actually scores.
-- **A10, A11, A12 (embeddings, vector DBs, Pinecone)** — honest priority gap. Should be next AI block after on-prem/GHA bundle.
+- **A10–A12 (embeddings → vector DBs → Pinecone)** — honest priority gap. Next AI block after on-prem/GHA bundle.
+- **Silver and Gold layers** for all A3–A7 and B13 — currently only Bronze.
 
 ---
 
 ### Now / Next / Later
 
-**NOW (just done):**
-- ✅ Chunk 1 of `server/chat.js` owned (A3–A7).
-- ✅ Both named failure modes fired and beaten.
-- ✅ Curriculum built — every concept catalogued with status.
+**NOW (just done — Session 06):**
+- ✅ Spot-checked A3–A7. Three held overnight, A5 drifted and was re-owned.
+- ✅ Station 1 (B13 Cloud vs on-prem) owned at Bronze.
+- ✅ Caught Pattern A/B confusion + direction confusion + new "depends" failure mode on B8.
+- ✅ Stopped honestly when tired — before drift cemented.
+- ✅ Bronze / Silver / Gold layered teaching rule introduced.
 
-**NEXT (Session 06):**
-- 🍕 Recap spot-check.
-- 🚀 On-prem + cloud + GHA bundle as one worked example.
+**NEXT (Session 07):**
+- 🍕 Recap spot-check (B13, A5).
+- 🚀 Redo Station 2 (B8 GHA reaching on-prem) bronze→silver→gold.
+- 🚀 Then Stations 3–6 if bandwidth holds.
 
 **LATER (queued, prioritised):**
-1. **AI block** — embeddings → vector DBs → Pinecone (A10–A12). Honest priority gap.
+1. **AI block** — embeddings → vector DBs → Pinecone (A10–A12).
 2. **Chunks 2–6 of `server/chat.js`** — chunking code, scoring, system prompt/guardrail, refusal short-circuit, API call/response shape.
-3. **Module 2 (Code Quality Gates)** — SonarQube, Snyk drilled with worked example.
-4. **Module 3 (Artefact Management)** — Artifactory + Docker image versioning.
-5. **Module 4 (IDP Capabilities)** — golden paths, service catalog, scorecards using bank-of-sandhu repo as the worked example.
-6. **DORA metrics (B25)** — once CI/CD bundle owned, layer on the measurement.
-7. **Governance / evals (A23, A24)** — once vector DBs owned, layer on the "how do we prove it works" question.
+3. **Silver + Gold uplift** for already-Bronze concepts.
+4. **Module 2 (Code Quality Gates)** — SonarQube, Snyk drilled with worked example.
+5. **Module 3 (Artefact Management)** — Artifactory + Docker image versioning.
+6. **Module 4 (IDP Capabilities)** — golden paths, service catalog, scorecards using bank-of-sandhu repo as worked example.
+7. **DORA metrics (B25)**.
+8. **Governance / evals (A23, A24)**.
 
 ---
 
 ## §7 — Recruiter-ready talking points (banked)
 
-These are short, in my own voice. Use directly without sounding AI-generated.
+**On RAG (Session 05 — gold-level):**
+> *"I'm building a RAG-based banking chatbot end-to-end — chunking source documents, scoring relevance per query, and enforcing source-only generation with citations. The architectural choices map directly to how I'd scope an internal developer onboarding bot at platform scale — same chunking, retrieve, augment, generate pipeline, just pointed at runbooks instead of compliance standards."*
 
-**On RAG (Session 05):**
-> *"I'm currently building a RAG-based banking chatbot end-to-end — chunking source documents, scoring relevance per query, and enforcing source-only generation with citations. The architectural choices map directly to how I'd scope an internal developer onboarding bot at platform scale — same chunking, retrieve, augment, generate pipeline, just pointed at runbooks instead of compliance standards."*
+**On hallucination safety (Session 05 — gold-level):**
+> *"Think of the model as a chef. Hallucination is the chef adding a sprinkle of something the customer didn't ask for — could be an allergy. In banking, hallucination isn't an inconvenience, it's a compliance breach. RAG forces the chef to cook only from handed cards and label every ingredient."*
 
-**On hallucination safety (Session 05):**
-> *"Think of the model as a chef. Hallucination is the chef adding a sprinkle of something the customer didn't ask for. Could be an allergy. In banking, hallucination isn't an inconvenience — it's a compliance breach. RAG forces the chef to cook only from handed cards and label every ingredient."*
+**On R-A-G end-to-end (Session 06 — silver, single sentence):**
+> *"Retrieve is matching ingredients to the order and putting them on the counter. Augment is handing the order plus those ingredients to the chef. Generate is the chef cooking only from what's been handed over, with the customer's allergies in mind."*
 
-**On platform / on-prem (after Session 06):**
-> *"On the platform side, my current focus is closing the cloud-on-prem automation gap — most enterprise apps have GitHub Actions covering cloud deploys but on-prem still manual. Getting self-hosted runners reaching into the on-prem network, with proper containerised testing in the pipeline, is what genuinely moves release frequency."*
+**On cloud-on-prem split (Session 06 — silver):**
+> *"At my current bank we run a hybrid — on-prem for regulated workloads, cloud (AWS / Azure) for flexibility to scale and experiment. The CI/CD challenge is making one pipeline deploy to both without compromising the on-prem perimeter."*
+
+**On GHA → on-prem (pending — gold once Session 07 completes):**
+> *(To be written after Station 2 is locked at gold.)*
 
 ---
 
