@@ -143,7 +143,7 @@ It is **dual-purpose**:
 | Step | What | Status | CI/CD touchpoint | Concept ref |
 |---|---|---|---|---|
 | Station 1 | Cloud vs on-prem split | 🥉🥈 OWNED | — | B13 |
-| Station 2 | GHA reaching into on-prem | 🟡 PARTIAL (Session 08 redo pending) | **GitHub Actions** | B8 |
+| Station 2 | GHA reaching into on-prem | 🥉 Bronze OWNED · 🥈 Silver in progress (Problem + Fix done, Why-it-wins + Gold pending — Session 09) | **GitHub Actions** | B8 |
 | Station 3 | Self-hosted CD runner provisioning | 🔴 NOT STARTED | **GitHub Actions, Harness** | B9 |
 | Station 4 | Firewall change request process | 🔴 NOT STARTED | (organisational, not tooling) | B10 |
 | Station 5 | Containerised app testing in CI | 🔴 NOT STARTED | **Docker, GHA, Buildkite** | B11, B21, B22 |
@@ -188,7 +188,7 @@ It is **dual-purpose**:
 
 | Step | What | Status | CI/CD touchpoint | Concept ref |
 |---|---|---|---|---|
-| 1 | General platform engineering concepts | 🔴 | **Port.io as reference vendor** | C1, C2, C3, C9 |
+| 1 | General platform engineering concepts | 🔴 | **Portal vendors (e.g. Port.io) as reference** | C1, C2, C3, C9 |
 | 2 | Golden path template — what the bank-of-sandhu repo demonstrates | 🔴 | — | C4 |
 | 3 | Service catalog — README as the catalog entry | 🔴 | — | C5 |
 | 4 | Scorecards — what would my repo score? | 🔴 | — | C6 |
@@ -222,7 +222,7 @@ It is **dual-purpose**:
 **Why queued, not started:** Discipline rule. Starting a second build before bank-of-sandhu hits a defined milestone is the shiny-topic-pull failure mode at module scale.
 
 **Defined start trigger (must hit ALL three):**
-1. M1 Station 2 (B8) owned at Gold.
+1. M1 Station 2 (B8) owned at Gold. *(Bronze + Silver Problem/Fix done as of S08 — Gold is the remaining gate.)*
 2. M2 complete OR Chunks 2–3 of M5 complete.
 3. A10–A12 (embeddings, vector DBs, Pinecone) owned at Bronze.
 
@@ -275,6 +275,23 @@ A3–A7 recap (A5 redone). B13 Cloud vs on-prem owned at Bronze. B8 paused at PA
 
 **Station 2 (B8) redo:** Did not occur this session. Carries forward to Session 08.
 
+### Session 08 — Spot-checks held + B8 redo (bronze owned, silver underway) 🟢
+
+**Spot-check outcomes:**
+- **A5 Retrieve** — HELD. Verb lock intact ("fetching"), no slide to "checking." This is **hold 1 of the 3 consecutive clean holds** needed to clear the watch. Tighten noted: lead with the action verb (*fetching*) — "matching" is the filter, not the action.
+- **B13 Cloud vs on-prem** — HELD at Silver. Anchored on-prem to *sensitivity*, avoided the "old data" trap (failure mode #4 dodged). Tighten noted: state the decider as a rule — *"sensitivity decides which side a workload sits on."*
+
+**B8 — GHA reaching on-prem (Track B NOW item):**
+- 🥉 **Bronze — OWNED.** Worked out the direction solo after two tries: *the worker inside dials out; the outside can never dial in.* This was the bit that had slipped three times across S06.
+- 🥈 **Silver — Problem owned.** Firewall correctly placed as the *bank's* wall (not GitHub's), blocking inbound from the public internet so GitHub can't reach in.
+- 🥈 **Silver — Fix assembled (with scaffold).** Self-hosted runner inside the network, polling outbound for jobs. Not yet said solo — first job Session 09 is to restate it clean without help.
+- 🥈 **Silver — Why-it-wins:** not yet attempted.
+
+**Other:**
+- Stopped honestly when answers shrank to single words (tiredness rule).
+- Discipline held: no Chunks 2–6, no Track C, no curriculum restructure.
+- **Port.io question raised:** confirmed general-industry vendor names (Port.io, GHA, Snyk, etc.) are NOT scrub targets — they don't identify an employer. Agreed to soften the *reference-vendor* mentions (C9, M4) to "portal vendors (e.g. Port.io)" as a style choice, while keeping precise names on hands-on tools.
+
 ---
 
 ## §4 — Concept curriculum
@@ -292,7 +309,7 @@ Legend:
 | A2 | Hallucination | 🥉 OWNED | Chef adds a sprinkle of something the customer didn't ask for — could be an allergy. | 2026-05-22 |
 | A3 | RAG (end-to-end) | 🥉 OWNED | Pipeline: chunking → retrieve → augment → generate. Grounds the model in real sources + cites them. | 2026-05-22 |
 | A4 | Chunking | 🥉 OWNED | Fridge with ingredient boxes — prep work that fills the fridge. | 2026-05-22 |
-| A5 | Retrieve | 🥉 OWNED ⚠️ ON WATCH (3 drifts) | Kitchen fetching and gathering the ingredients that match the order, ready for the next step. | 2026-05-22 (3rd redo) |
+| A5 | Retrieve | 🥉 OWNED ⚠️ ON WATCH (held 1 of 3) | Kitchen fetching and gathering the ingredients that match the order, ready for the next step. Lead with the *action* (fetch), not "matching". | 2026-05-31 (held 1 of 3) |
 | A6 | Augment | 🥉 OWNED | Order + ingredients into chef's hands. Counter → chef. Handover. | 2026-05-22 |
 | A7 | Generate | 🥉 OWNED | Chef cooks only from handed cards. Refuses if missing. Labels each fact = citations. | 2026-05-22 |
 | A9 | Source attribution / citation | 🥉 OWNED | Labelling each ingredient with which box it came from. Auditability. | 2026-05-22 |
@@ -327,8 +344,8 @@ Legend:
 
 | # | Concept | Status | Plain-English (bronze) | Last check |
 |---|---|---|---|---|
-| B13 | Cloud vs on-prem split | 🥉🥈 OWNED | Hybrid — on-prem for regulated workloads, public cloud providers for flexibility to scale and experiment. | 2026-05-22 |
-| B8 | GitHub Actions (GHA) reaching on-prem | 🟡 PARTIAL | Drifted on direction (inside→out) and on Pattern A vs B. Re-teach pending Session 08. | — |
+| B13 | Cloud vs on-prem split | 🥉🥈 OWNED | Hybrid — on-prem for regulated workloads, public cloud providers for flexibility to scale and experiment. Sensitivity decides which side a workload sits on. | 2026-05-31 |
+| B8 | GitHub Actions (GHA) reaching on-prem | 🥉 OWNED · 🥈 Silver in progress | Bronze: worker inside the network dials out; the outside can never dial in. Silver Problem + Fix done; Why-it-wins + Gold pending (Session 09). Direction locked. | 2026-05-31 |
 | B1 | CI | 🟡 PARTIAL | Every code change auto-built and tested before merge. | — |
 | B2 | CD | 🟡 PARTIAL | Every change that passes CI goes to staging/prod. Delivery=ready. Deployment=actually deployed. | — |
 | B3 | Pipeline | 🟡 PARTIAL | End-to-end conveyor from `git push` to running in prod. | — |
@@ -367,7 +384,7 @@ These are widely-documented industry concepts. I'm learning them from public sou
 | C4 | Golden path template | 🟡 PARTIAL | A pre-built starter template (industry term — see Spotify Backstage docs, ThoughtWorks) so teams don't reinvent the wheel. | — |
 | C5 | Service catalog | 🟡 PARTIAL | An industry pattern — a searchable list of every service with metadata. | — |
 | C8 | Team autonomy | 🟡 PARTIAL | A Team Topologies concept — teams ship without dependencies on a central function for every change. | — |
-| C9 | Port.io (industry vendor) | 🟡 PARTIAL | A third-party SaaS portal vendor — publicly-documented, used as a reference example. | — |
+| C9 | Portal vendors (e.g. Port.io) | 🟡 PARTIAL | Third-party SaaS portal vendors such as Port.io — publicly-documented, used as reference examples for the IDP pattern. | — |
 | C6 | Scorecards | 🔴 NOT STARTED | An industry pattern — a rubric applied to services (owner, CI, security, SLOs). | — |
 | C7 | Self-service provisioning | 🔴 NOT STARTED | An industry pattern — click → new env without a ticket. | — |
 
@@ -389,29 +406,32 @@ These are widely-documented industry concepts. I'm learning them from public sou
 | 2026-05-22 | B8 GHA reaching on-prem | Taught fresh — three slips | Stopped honestly when tired. | 🟡 |
 | 2026-05-22 | A5 Retrieve | S07 recap — drifted a 3rd time to "checked" | Redone with verb lock (fetch/gather/pull, not check). ON WATCH. | 🥉 |
 | 2026-05-22 | B13 Cloud vs on-prem | S07 recap — held with minor "historic records" flag | Promoted to Silver. Sentence locked. | 🥉🥈 |
+| 2026-05-31 | A5 Retrieve | S08 recap — held, verb lock intact ("fetching") | Held. **Hold 1 of 3** on the watch. | 🥉 |
+| 2026-05-31 | B13 Cloud vs on-prem | S08 recap — held at silver, no age-drift | Held. Decider stated as "sensitivity decides." | 🥉🥈 |
+| 2026-05-31 | B8 GHA reaching on-prem | Bronze taught fresh — direction owned solo after 2 tries; Silver Problem owned, Fix scaffolded | Bronze owned, Silver underway. | 🥉 |
 
-**Next spot-check candidates (Session 08 opener):** A5 retrieve (3rd-drift watch — must hold three sessions in a row), one of A6 / A7 / B13.
+**Next spot-check candidates (Session 09 opener):** A5 retrieve (mandatory — held 1 of 3, needs 2 more clean holds), one of A6 / A7 / B13.
 
 ---
 
 ## §6 — NEXT (resume here)
 
-### Session 08 plan
+### Session 09 plan
 
 **STEP 1: Recap spot-check (5 min)**
-- A5 Retrieve (mandatory — 3rd-drift watch).
+- A5 Retrieve (mandatory — held 1 of 3, needs 2 more consecutive clean holds).
 - One of A6 / A7 / B13 picked unprompted by Claude.
 
-**STEP 2: Redo B8 — GHA reaching on-prem — bronze→silver→gold**
-This is **Track B's NOW item**.
-- 🥉 **Bronze:** warehouse / gated estate / inside-van picture.
-- 🥈 **Silver:** map to real terms — cloud runner, self-hosted runner, polling, outbound, firewall.
+**STEP 2: Finish B8 — GHA reaching on-prem — Silver → Gold**
+This is **Track B's NOW item**. Bronze is owned; Silver Problem is owned.
+- 🥈 **Restate the Fix sentence solo** (no scaffold): *a self-hosted runner inside the network polls GitHub outbound for jobs.*
+- 🥈 **Why-it-wins (new):** outbound is easy to permit, no inbound hole, regulator and audit comfortable.
 - 🥇 **Gold:** how an imaginary regulated bank closes the cloud-on-prem gap during a CloudBees Jenkins → GitHub Enterprise migration.
 
-Three silver sentences I must own:
-1. **Problem:** default GHA runs in the cloud and can't reach an on-prem network — firewalls block inbound traffic from the public internet.
-2. **Fix:** self-hosted runner *inside* the on-prem network. Calls *outbound* to GitHub asking for work.
-3. **Why it wins:** outbound is easy to permit. No inbound hole. Regulator and audit comfortable.
+The three silver sentences to own end-to-end:
+1. **Problem:** default GHA runs in the cloud and can't reach an on-prem network — the bank's firewall blocks inbound traffic from the public internet. *(Owned S08.)*
+2. **Fix:** self-hosted runner *inside* the on-prem network. Polls *outbound* to GitHub asking for work. *(Assembled with scaffold S08 — restate solo.)*
+3. **Why it wins:** outbound is easy to permit. No inbound hole. Regulator and audit comfortable. *(New — Session 09.)*
 
 **STEP 3: If Step 2 lands gold — Bronze pass on the priority AI gaps**
 - A10 Embedding
@@ -427,9 +447,9 @@ Bronze only. Don't push to Silver in the same session.
 
 ---
 
-### Exact opener line for Session 08
+### Exact opener line for Session 09
 
-> *Resume Session 08. Read BUILD_LEARN_LOG.md first — including the PERMANENT RULE at the top, §0 Bronze/Silver/Gold rule, and §1B the three-track architecture. Spot-check: A5 retrieve (mandatory — 3rd-drift watch) + one of A6/A7/B13 your pick. Then redo Station 2 (B8 GHA reaching on-prem) bronze→silver→gold with the gold layer being an imaginary regulated bank migrating CloudBees Jenkins → GitHub Enterprise. This is Track B's NOW item. If Step 2 hits gold, do a Bronze pass on A10 (embedding), A11 (vector DB), and A28 (A/B testing for AI). Slow is correct. Watch all five failure modes.*
+> *Resume Session 09. Read BUILD_LEARN_LOG.md first — including the PERMANENT RULE at the top, §0 Bronze/Silver/Gold rule, and §1B the three-track architecture. Spot-check: A5 Retrieve (mandatory — held 1 of 3, needs 2 more) + one of A6/A7/B13 your pick. Then B8 (GHA reaching on-prem) at Silver: restate the Fix sentence solo (self-hosted runner inside, polls GitHub outbound for jobs), then teach Why-it-wins (outbound easy to permit, no inbound hole, audit comfortable), then take B8 to Gold — imaginary regulated bank migrating CloudBees Jenkins → GitHub Enterprise. This is Track B's NOW item. If Step 2 hits gold, do a Bronze pass on A10 (embedding), A11 (vector DB), and A28 (A/B testing for AI). Slow is correct. Watch all five failure modes.*
 
 ---
 
@@ -442,24 +462,23 @@ Bronze only. Don't push to Silver in the same session.
 - **A30 (UI/UX for data-rich interfaces)** — priority gap.
 - **A31 (managed cloud AI services)** — priority gap.
 - **Silver / Gold layers** for all A3–A7 and B13 — Bronze is locked, layered uplift queued.
+- **B8 Gold** — the immediate gate for the Track C start trigger (condition 1).
 
 ---
 
 ### Now / Next / Later
 
-**NOW (just done — Session 07):**
-- ✅ A5 spot-check — 3rd drift caught and redone with verb lock.
-- ✅ B13 promoted to 🥈 Silver.
-- ✅ Curriculum restructured — modules now sequenced Now/Next/Later with CI/CD tool touchpoints.
-- ✅ M6 Pipeline Visualiser added, queued behind defined trigger.
-- ✅ Three-track architecture (§1B) committed at session close — Track A, Track B, Track C.
-- ✅ Four new concepts added (A28–A31) covering the gap into data/AI product fluency.
-- ✅ Failure modes #4 and #5 added.
-- ✅ File scrubbed for public safety (no employer/external-role identifiers).
+**NOW (just done — Session 08):**
+- ✅ A5 spot-check — held with verb lock intact. Hold 1 of 3 on the watch.
+- ✅ B13 held at 🥈 Silver — sensitivity-decides framing clean, no "old data" drift.
+- ✅ B8 Bronze owned — direction worked out solo (worker inside dials out; outside can never dial in).
+- ✅ B8 Silver Problem owned; Fix assembled with scaffold (restate solo next).
+- ✅ Discipline held — no chunks, no Track C, no restructure.
+- ✅ Port.io / vendor-name question resolved; C9 + M4 softened to "portal vendors (e.g. Port.io)".
 
-**NEXT (Session 08):**
-- 🔁 Spot-check A5 + one other.
-- 🚀 Redo Station 2 (B8) bronze→silver→gold (Track B NOW).
+**NEXT (Session 09):**
+- 🔁 Spot-check A5 (2 of 3) + one other.
+- 🚀 Finish B8 — Fix solo + Why-it-wins → Gold (Track B NOW).
 - 🚀 If energy holds — Bronze pass on A10, A11, A28.
 
 **LATER (queued, in priority order):**
@@ -470,7 +489,7 @@ Bronze only. Don't push to Silver in the same session.
 5. **M2 Code quality gates** (SonarQube + Snyk worked example).
 6. **M3 Artefact management**.
 7. **M4 Platform patterns applied**.
-8. **Track C / M6 Pipeline Visualiser** — only when start trigger conditions met.
+8. **Track C / M6 Pipeline Visualiser** — only when start trigger conditions met (B8 Gold is condition 1).
 9. **DORA metrics (B25)** — layered on top of CI/CD bundle.
 10. **Governance / evals (A23, A24)** — once vector DBs owned.
 
@@ -493,8 +512,8 @@ Bronze only. Don't push to Silver in the same session.
 **On the three-track build (Session 07 close — draft):**
 > *"I'm building a regulated-banking prototype on my own GitHub as a learning vehicle. One repo, three parallel tracks — a RAG chatbot deepening into vectors and evals, a CI/CD toolchain wiring GitHub Actions, SonarQube, Snyk and Artifactory onto the repo, and an analytics dashboard with an AI summarisation layer on top. Same shape as an enterprise pipeline at smaller scale, but I get to learn each tool by actually wiring it in."*
 
-**On GHA → on-prem (pending — gold once Session 08 completes):**
-> *(To be written.)*
+**On GHA → on-prem (Session 08 — silver, problem + fix; Why-it-wins/gold pending Session 09):**
+> *"A cloud CI service can't reach into a locked-down bank network — the firewall blocks all inbound traffic from the public internet. The fix is a self-hosted runner inside the network that polls outbound for jobs, so nothing ever has to come in."*
 
 ---
 
