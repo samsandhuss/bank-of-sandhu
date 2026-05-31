@@ -51,6 +51,8 @@ Every concept gets taught in three layers, each only attempted after the previou
 
 **Status column in §4 tracks layer ownership**, e.g. 🥉🥈 = bronze + silver owned, gold not yet attempted.
 
+**Layer note (banked S09):** analogies are *bronze training wheels*, not professional answers. At Gold the analogy is dropped entirely — a senior conversation uses plain professional language, never the kitchen/kid/estate. Once a concept's *direction* is locked, switch from metaphor to the plain facts.
+
 ### Core method
 - **Learn by doing.** Concepts taught at the moment an artefact is created, not in parallel docs.
 - **Plain English first.** No jargon until a working analogy is owned (bronze first).
@@ -143,7 +145,7 @@ It is **dual-purpose**:
 | Step | What | Status | CI/CD touchpoint | Concept ref |
 |---|---|---|---|---|
 | Station 1 | Cloud vs on-prem split | 🥉🥈 OWNED | — | B13 |
-| Station 2 | GHA reaching into on-prem | 🥉 Bronze OWNED · 🥈 Silver in progress (Problem + Fix done, Why-it-wins + Gold pending — Session 09) | **GitHub Actions** | B8 |
+| Station 2 | GHA reaching into on-prem | 🥉 Bronze OWNED · 🥈 Silver OWNED (Problem + Fix + Why-it-wins) · 🥇 Gold pending — Session 10 | **GitHub Actions** | B8 |
 | Station 3 | Self-hosted CD runner provisioning | 🔴 NOT STARTED | **GitHub Actions, Harness** | B9 |
 | Station 4 | Firewall change request process | 🔴 NOT STARTED | (organisational, not tooling) | B10 |
 | Station 5 | Containerised app testing in CI | 🔴 NOT STARTED | **Docker, GHA, Buildkite** | B11, B21, B22 |
@@ -222,7 +224,7 @@ It is **dual-purpose**:
 **Why queued, not started:** Discipline rule. Starting a second build before bank-of-sandhu hits a defined milestone is the shiny-topic-pull failure mode at module scale.
 
 **Defined start trigger (must hit ALL three):**
-1. M1 Station 2 (B8) owned at Gold. *(Bronze + Silver Problem/Fix done as of S08 — Gold is the remaining gate.)*
+1. M1 Station 2 (B8) owned at Gold. *(Silver complete as of S09 — Gold is the one remaining gate.)*
 2. M2 complete OR Chunks 2–3 of M5 complete.
 3. A10–A12 (embeddings, vector DBs, Pinecone) owned at Bronze.
 
@@ -278,19 +280,40 @@ A3–A7 recap (A5 redone). B13 Cloud vs on-prem owned at Bronze. B8 paused at PA
 ### Session 08 — Spot-checks held + B8 redo (bronze owned, silver underway) 🟢
 
 **Spot-check outcomes:**
-- **A5 Retrieve** — HELD. Verb lock intact ("fetching"), no slide to "checking." This is **hold 1 of the 3 consecutive clean holds** needed to clear the watch. Tighten noted: lead with the action verb (*fetching*) — "matching" is the filter, not the action.
-- **B13 Cloud vs on-prem** — HELD at Silver. Anchored on-prem to *sensitivity*, avoided the "old data" trap (failure mode #4 dodged). Tighten noted: state the decider as a rule — *"sensitivity decides which side a workload sits on."*
+- **A5 Retrieve** — HELD. Verb lock intact ("fetching"), no slide to "checking." Hold 1 of 3 on the watch. Tighten noted: lead with the action verb (*fetching*) — "matching" is the filter, not the action.
+- **B13 Cloud vs on-prem** — HELD at Silver. Anchored on-prem to *sensitivity*, avoided the "old data" trap. Tighten noted: state the decider as a rule — *"sensitivity decides which side a workload sits on."*
 
 **B8 — GHA reaching on-prem (Track B NOW item):**
-- 🥉 **Bronze — OWNED.** Worked out the direction solo after two tries: *the worker inside dials out; the outside can never dial in.* This was the bit that had slipped three times across S06.
-- 🥈 **Silver — Problem owned.** Firewall correctly placed as the *bank's* wall (not GitHub's), blocking inbound from the public internet so GitHub can't reach in.
-- 🥈 **Silver — Fix assembled (with scaffold).** Self-hosted runner inside the network, polling outbound for jobs. Not yet said solo — first job Session 09 is to restate it clean without help.
+- 🥉 **Bronze — OWNED.** Worked out the direction solo: *the worker inside dials out; the outside can never dial in.*
+- 🥈 **Silver — Problem owned.** Firewall correctly placed as the *bank's* wall, blocking inbound so GitHub can't reach in.
+- 🥈 **Silver — Fix assembled (with scaffold).** Self-hosted runner inside, polling outbound. Not yet solo.
 - 🥈 **Silver — Why-it-wins:** not yet attempted.
 
 **Other:**
-- Stopped honestly when answers shrank to single words (tiredness rule).
+- Stopped honestly when answers shrank to single words.
 - Discipline held: no Chunks 2–6, no Track C, no curriculum restructure.
-- **Port.io question raised:** confirmed general-industry vendor names (Port.io, GHA, Snyk, etc.) are NOT scrub targets — they don't identify an employer. Agreed to soften the *reference-vendor* mentions (C9, M4) to "portal vendors (e.g. Port.io)" as a style choice, while keeping precise names on hands-on tools.
+- **Port.io question:** confirmed general-industry vendor names are NOT scrub targets. Softened reference-vendor mentions (C9, M4) to "portal vendors (e.g. Port.io)".
+
+### Session 09 — A5 redone, B13 held, B8 Silver-complete, Gold attempted 🟢
+
+**Spot-check outcomes:**
+- **A5 Retrieve** — DRIFTED at the top of the session: led with *"matching"* (action-absent), the exact tighten flagged in S08. Redone with a scaffold to land *"Retrieve is fetching the ingredients that match the order."* Because it drifted and needed a redo, the clean streak **resets to 0** — mandatory again next session. Lesson: lead with the action verb, every time.
+- **B13 Cloud vs on-prem** — HELD at Silver (concept). **Framing flag:** slipped twice into a personal, non-generic framing (referring to a current organisation rather than *"a regulated bank"*). Coached back to the generic frame — the phrasing you rehearse is the phrasing that comes out under pressure, so keep worked examples generic and it becomes automatic.
+
+**B8 — GHA reaching on-prem (Track B NOW item):**
+- 🥈 **Fix — OWNED solo.** Restated clean without scaffold: self-hosted runner inside the bank's network, polls GitHub outbound for work, no inbound due to the firewall. (Two side-mix-ups fixed along the way: runner is the bank's not GitHub's; call goes out not in.)
+- 🥈 **Why-it-wins — OWNED.** Landed the contrast: an inbound hole is a permanent open door anyone can probe; outbound is no door at all; perimeter unchanged, so security and audit have nothing new to defend. **→ B8 now Silver-complete (Problem + Fix + Why-it-wins).**
+- 🥇 **Gold — attempted, did not land.** Under full-assembly load the owned pieces degraded — the self-hosted vs GitHub-hosted runner ownership confusion returned, and the gap + why-it-wins beats dropped out. Banked honestly (tiredness/regression). Gold carries to Session 10.
+
+**Banked insight (analogy simplification):**
+- Analogies are **bronze training wheels**, not professional answers. At Gold, drop the analogy entirely — a senior conversation uses plain professional language, not the kitchen/kid/estate. This dissolves the "too many analogies" worry: none of them are used in the room. (Logged in §0.)
+
+**Carry-forward for Gold (the line that keeps slipping):**
+- **Self-hosted runner** = the bank's machine, inside the bank's network (the bank hosts it).
+- **GitHub-hosted (cloud) runner** = GitHub's machine, outside — the one that can't reach in.
+- The bank's self-hosted runner polls **GitHub the service** — it does not poll "github runners."
+
+**Other:** Discipline held — no Chunks 2–6, no Track C, no curriculum restructure (the analogy-simplification urge was reframed, not acted on as a restructure).
 
 ---
 
@@ -309,7 +332,7 @@ Legend:
 | A2 | Hallucination | 🥉 OWNED | Chef adds a sprinkle of something the customer didn't ask for — could be an allergy. | 2026-05-22 |
 | A3 | RAG (end-to-end) | 🥉 OWNED | Pipeline: chunking → retrieve → augment → generate. Grounds the model in real sources + cites them. | 2026-05-22 |
 | A4 | Chunking | 🥉 OWNED | Fridge with ingredient boxes — prep work that fills the fridge. | 2026-05-22 |
-| A5 | Retrieve | 🥉 OWNED ⚠️ ON WATCH (held 1 of 3) | Kitchen fetching and gathering the ingredients that match the order, ready for the next step. Lead with the *action* (fetch), not "matching". | 2026-05-31 (held 1 of 3) |
+| A5 | Retrieve | 🥉 OWNED ⚠️ ON WATCH (streak reset to 0 — drifted S09) | Retrieve is *fetching* the ingredients that match the order. **Lead with the action verb**; matching is the filter, not the action. | 2026-05-31 (S09, redone) |
 | A6 | Augment | 🥉 OWNED | Order + ingredients into chef's hands. Counter → chef. Handover. | 2026-05-22 |
 | A7 | Generate | 🥉 OWNED | Chef cooks only from handed cards. Refuses if missing. Labels each fact = citations. | 2026-05-22 |
 | A9 | Source attribution / citation | 🥉 OWNED | Labelling each ingredient with which box it came from. Auditability. | 2026-05-22 |
@@ -344,8 +367,8 @@ Legend:
 
 | # | Concept | Status | Plain-English (bronze) | Last check |
 |---|---|---|---|---|
-| B13 | Cloud vs on-prem split | 🥉🥈 OWNED | Hybrid — on-prem for regulated workloads, public cloud providers for flexibility to scale and experiment. Sensitivity decides which side a workload sits on. | 2026-05-31 |
-| B8 | GitHub Actions (GHA) reaching on-prem | 🥉 OWNED · 🥈 Silver in progress | Bronze: worker inside the network dials out; the outside can never dial in. Silver Problem + Fix done; Why-it-wins + Gold pending (Session 09). Direction locked. | 2026-05-31 |
+| B13 | Cloud vs on-prem split | 🥉🥈 OWNED | Hybrid — on-prem for regulated workloads, public cloud providers for flexibility to scale and experiment. Sensitivity decides which side a workload sits on. | 2026-05-31 (S09 held) |
+| B8 | GitHub Actions (GHA) reaching on-prem | 🥉 OWNED · 🥈 Silver OWNED · 🥇 Gold pending (S10) | A self-hosted runner (the bank's own machine, inside the bank's network) polls GitHub outbound for work; the firewall allows no inbound; perimeter unchanged so audit is comfortable. Gold (migration narrative) pending. **Watch: self-hosted ≠ GitHub-hosted.** | 2026-05-31 |
 | B1 | CI | 🟡 PARTIAL | Every code change auto-built and tested before merge. | — |
 | B2 | CD | 🟡 PARTIAL | Every change that passes CI goes to staging/prod. Delivery=ready. Deployment=actually deployed. | — |
 | B3 | Pipeline | 🟡 PARTIAL | End-to-end conveyor from `git push` to running in prod. | — |
@@ -406,34 +429,37 @@ These are widely-documented industry concepts. I'm learning them from public sou
 | 2026-05-22 | B8 GHA reaching on-prem | Taught fresh — three slips | Stopped honestly when tired. | 🟡 |
 | 2026-05-22 | A5 Retrieve | S07 recap — drifted a 3rd time to "checked" | Redone with verb lock (fetch/gather/pull, not check). ON WATCH. | 🥉 |
 | 2026-05-22 | B13 Cloud vs on-prem | S07 recap — held with minor "historic records" flag | Promoted to Silver. Sentence locked. | 🥉🥈 |
-| 2026-05-31 | A5 Retrieve | S08 recap — held, verb lock intact ("fetching") | Held. **Hold 1 of 3** on the watch. | 🥉 |
-| 2026-05-31 | B13 Cloud vs on-prem | S08 recap — held at silver, no age-drift | Held. Decider stated as "sensitivity decides." | 🥉🥈 |
-| 2026-05-31 | B8 GHA reaching on-prem | Bronze taught fresh — direction owned solo after 2 tries; Silver Problem owned, Fix scaffolded | Bronze owned, Silver underway. | 🥉 |
+| 2026-05-31 | A5 Retrieve | S08 recap — held, verb lock intact ("fetching") | Held. Hold 1 of 3 on the watch. | 🥉 |
+| 2026-05-31 | B13 Cloud vs on-prem | S08 recap — held at silver, no age-drift | Held. Decider: "sensitivity decides." | 🥉🥈 |
+| 2026-05-31 | B8 GHA reaching on-prem | S08 — Bronze taught fresh, direction owned solo; Silver Problem owned, Fix scaffolded | Bronze owned, Silver underway. | 🥉 |
+| 2026-05-31 | A5 Retrieve | S09 recap — drifted (led with "matching", action-absent) → redone with scaffold | **Streak reset to 0.** Mandatory again S10. Lead with the action verb. | 🥉 |
+| 2026-05-31 | B13 Cloud vs on-prem | S09 recap — held at silver; framing flag (slipped to non-generic framing → coached to generic) | Held. | 🥉🥈 |
+| 2026-05-31 | B8 Fix | S09 — restated solo, clean (inside bank net, polls GH outbound, no inbound) | Owned solo. | 🥈 |
+| 2026-05-31 | B8 Why-it-wins | S09 — held after teach (open door vs no door; audit comfortable) | Owned. **Silver complete.** | 🥈 |
+| 2026-05-31 | B8 Gold | S09 — attempted, regressed under load (self-hosted/GitHub-hosted confusion; gap + why-it-wins beats dropped) | Banked. Gold → S10. | 🥈 |
 
-**Next spot-check candidates (Session 09 opener):** A5 retrieve (mandatory — held 1 of 3, needs 2 more clean holds), one of A6 / A7 / B13.
+**Next spot-check candidates (Session 10 opener):** A5 retrieve (mandatory — streak reset to 0, going for hold 1 of 3), one of A6 / A7 / B13.
 
 ---
 
 ## §6 — NEXT (resume here)
 
-### Session 09 plan
+### Session 10 plan
 
 **STEP 1: Recap spot-check (5 min)**
-- A5 Retrieve (mandatory — held 1 of 3, needs 2 more consecutive clean holds).
+- A5 Retrieve (mandatory — streak reset to 0 after the S09 drift; going for hold 1 of 3). **Lead with the action verb** — fetch/gather/pull. Matching is the filter, not the action.
 - One of A6 / A7 / B13 picked unprompted by Claude.
 
-**STEP 2: Finish B8 — GHA reaching on-prem — Silver → Gold**
-This is **Track B's NOW item**. Bronze is owned; Silver Problem is owned.
-- 🥈 **Restate the Fix sentence solo** (no scaffold): *a self-hosted runner inside the network polls GitHub outbound for jobs.*
-- 🥈 **Why-it-wins (new):** outbound is easy to permit, no inbound hole, regulator and audit comfortable.
-- 🥇 **Gold:** how an imaginary regulated bank closes the cloud-on-prem gap during a CloudBees Jenkins → GitHub Enterprise migration.
+**STEP 2: B8 Gold — the only gate left before the Track C trigger.**
+Bronze + Silver are complete; Gold is the 90-second professional answer with no analogy.
+- **First, lock the line that keeps slipping:** self-hosted runner (the bank's own machine, *inside* the network) vs GitHub-hosted/cloud runner (GitHub's, *outside* — the one that can't reach in). The self-hosted runner polls *GitHub the service*.
+- **Then deliver the 90-second migration answer**, no analogy, three beats:
+  1. **The gap** — GitHub's cloud runners can't reach the on-prem network; the firewall blocks inbound from the public internet.
+  2. **The fix** — a self-hosted runner inside the network polls GitHub outbound for work.
+  3. **Why it wins** — no inbound hole, perimeter unchanged, security and audit have nothing new to defend.
+  - Setting: a regulated bank migrating CloudBees Jenkins → GitHub Enterprise.
 
-The three silver sentences to own end-to-end:
-1. **Problem:** default GHA runs in the cloud and can't reach an on-prem network — the bank's firewall blocks inbound traffic from the public internet. *(Owned S08.)*
-2. **Fix:** self-hosted runner *inside* the on-prem network. Polls *outbound* to GitHub asking for work. *(Assembled with scaffold S08 — restate solo.)*
-3. **Why it wins:** outbound is easy to permit. No inbound hole. Regulator and audit comfortable. *(New — Session 09.)*
-
-**STEP 3: If Step 2 lands gold — Bronze pass on the priority AI gaps**
+**STEP 3: If Gold lands — Bronze pass on the priority AI gaps**
 - A10 Embedding
 - A11 Vector database
 - A28 A/B testing for AI products
@@ -441,45 +467,45 @@ The three silver sentences to own end-to-end:
 Bronze only. Don't push to Silver in the same session.
 
 **Do NOT this session:**
-- Advance to Chunks 2–6 of `server/chat.js` (still queued behind on-prem/GHA bundle).
-- Start Track C / M6 (queued behind defined trigger).
+- Advance to Chunks 2–6 of `server/chat.js` (still queued behind the on-prem/GHA bundle).
+- Start Track C / M6 (queued behind the defined trigger).
 - Restructure the curriculum further. (Failure mode #5.)
 
 ---
 
-### Exact opener line for Session 09
+### Exact opener line for Session 10
 
-> *Resume Session 09. Read BUILD_LEARN_LOG.md first — including the PERMANENT RULE at the top, §0 Bronze/Silver/Gold rule, and §1B the three-track architecture. Spot-check: A5 Retrieve (mandatory — held 1 of 3, needs 2 more) + one of A6/A7/B13 your pick. Then B8 (GHA reaching on-prem) at Silver: restate the Fix sentence solo (self-hosted runner inside, polls GitHub outbound for jobs), then teach Why-it-wins (outbound easy to permit, no inbound hole, audit comfortable), then take B8 to Gold — imaginary regulated bank migrating CloudBees Jenkins → GitHub Enterprise. This is Track B's NOW item. If Step 2 hits gold, do a Bronze pass on A10 (embedding), A11 (vector DB), and A28 (A/B testing for AI). Slow is correct. Watch all five failure modes.*
+> *Resume Session 10. Read BUILD_LEARN_LOG.md first — PERMANENT RULE, §0 Bronze/Silver/Gold, §1B three-track architecture. Spot-check: A5 Retrieve (mandatory — streak reset to 0 after the S09 drift, going for hold 1 of 3; lead with the action verb fetch/gather/pull) + one of A6/A7/B13 your pick. Then B8 Gold: first lock the self-hosted (bank's, inside) vs GitHub-hosted (GitHub's, outside) distinction, then give the 90-second migration answer — no analogy — in three beats: gap, fix, why-it-wins, set in a regulated bank migrating CloudBees Jenkins → GitHub Enterprise. If Gold lands, Bronze pass on A10 (embedding), A11 (vector DB), and A28 (A/B testing for AI). Slow is correct. Watch all five failure modes.*
 
 ---
 
 ### Still open (not lost, not done)
 
+- **B8 Gold** — the last gate for the Track C start trigger (condition 1).
+- **A5** — streak reset to 0; needs three clean unprompted holds in a row. Lead with the action verb.
+- **Framing habit** — keep worked examples in the generic "a regulated bank" frame; don't slip to "where I work." Rehearse generic so it's automatic.
+- **Gold-priority pass** — pick the 4–5 concepts that most need to reach Gold for confident senior conversations (do as a deliberate step, not mid-drill).
 - **A8 (refusal threshold)** — drill on what the threshold actually scores.
 - **A10–A12 (embeddings → vector DBs → Pinecone)** — priority AI gap.
-- **A28 (A/B testing)** — priority gap.
-- **A29 (KPI frameworks)** — priority gap.
-- **A30 (UI/UX for data-rich interfaces)** — priority gap.
-- **A31 (managed cloud AI services)** — priority gap.
-- **Silver / Gold layers** for all A3–A7 and B13 — Bronze is locked, layered uplift queued.
-- **B8 Gold** — the immediate gate for the Track C start trigger (condition 1).
+- **A28 (A/B testing)**, **A29 (KPI frameworks)**, **A30 (UI/UX for data-rich interfaces)**, **A31 (managed cloud AI services)** — priority gaps.
+- **Silver / Gold layers** for A3–A7 and B13 — Bronze is locked, layered uplift queued.
 
 ---
 
 ### Now / Next / Later
 
-**NOW (just done — Session 08):**
-- ✅ A5 spot-check — held with verb lock intact. Hold 1 of 3 on the watch.
-- ✅ B13 held at 🥈 Silver — sensitivity-decides framing clean, no "old data" drift.
-- ✅ B8 Bronze owned — direction worked out solo (worker inside dials out; outside can never dial in).
-- ✅ B8 Silver Problem owned; Fix assembled with scaffold (restate solo next).
-- ✅ Discipline held — no chunks, no Track C, no restructure.
-- ✅ Port.io / vendor-name question resolved; C9 + M4 softened to "portal vendors (e.g. Port.io)".
+**NOW (just done — Session 09):**
+- ✅ A5 redone — drifted (led with "matching"), relocked on "fetching"; streak reset to 0.
+- ✅ B13 held at 🥈 Silver — framing flag noted (keep it generic).
+- ✅ B8 Fix owned solo + Why-it-wins owned → **B8 Silver-complete.**
+- ⏸️ B8 Gold attempted, banked under load → Session 10.
+- ✅ Banked the "analogies = training wheels, Gold = no analogy" insight (logged in §0).
+- ✅ Discipline held — no restructure, no Track C, no chunk advance.
 
-**NEXT (Session 09):**
-- 🔁 Spot-check A5 (2 of 3) + one other.
-- 🚀 Finish B8 — Fix solo + Why-it-wins → Gold (Track B NOW).
-- 🚀 If energy holds — Bronze pass on A10, A11, A28.
+**NEXT (Session 10):**
+- 🔁 Spot-check A5 (going for hold 1 of 3) + one other.
+- 🚀 B8 Gold — lock self-hosted vs GitHub-hosted, then the 90-second migration answer.
+- 🚀 If Gold lands — Bronze pass on A10, A11, A28.
 
 **LATER (queued, in priority order):**
 1. **M1 Stations 3–6** — self-hosted runner, firewall request, containerised testing, headless browser testing.
@@ -489,7 +515,7 @@ Bronze only. Don't push to Silver in the same session.
 5. **M2 Code quality gates** (SonarQube + Snyk worked example).
 6. **M3 Artefact management**.
 7. **M4 Platform patterns applied**.
-8. **Track C / M6 Pipeline Visualiser** — only when start trigger conditions met (B8 Gold is condition 1).
+8. **Track C / M6 Pipeline Visualiser** — only when start trigger conditions met (B8 Gold is the last gate).
 9. **DORA metrics (B25)** — layered on top of CI/CD bundle.
 10. **Governance / evals (A23, A24)** — once vector DBs owned.
 
@@ -512,8 +538,8 @@ Bronze only. Don't push to Silver in the same session.
 **On the three-track build (Session 07 close — draft):**
 > *"I'm building a regulated-banking prototype on my own GitHub as a learning vehicle. One repo, three parallel tracks — a RAG chatbot deepening into vectors and evals, a CI/CD toolchain wiring GitHub Actions, SonarQube, Snyk and Artifactory onto the repo, and an analytics dashboard with an AI summarisation layer on top. Same shape as an enterprise pipeline at smaller scale, but I get to learn each tool by actually wiring it in."*
 
-**On GHA → on-prem (Session 08 — silver, problem + fix; Why-it-wins/gold pending Session 09):**
-> *"A cloud CI service can't reach into a locked-down bank network — the firewall blocks all inbound traffic from the public internet. The fix is a self-hosted runner inside the network that polls outbound for jobs, so nothing ever has to come in."*
+**On GHA → on-prem (Session 09 — silver complete; gold pending):**
+> *"A cloud CI service can't reach into a locked-down bank network — the firewall blocks all inbound from the public internet. The fix is a self-hosted runner inside the network that polls GitHub outbound for work. It wins because the bank gets full CI/CD capability without cutting any inbound hole — the perimeter is unchanged, so security and audit have nothing new to defend."*
 
 ---
 
