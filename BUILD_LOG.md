@@ -215,8 +215,8 @@ It is **dual-purpose**:
 | Chunk 4 | System prompt construction and the citation guardrail | 🔴 NOT STARTED | A15 |
 | Chunk 5 | The API call to Claude Haiku 4.5 | 🔴 NOT STARTED | A14, A25, A26 |
 | Chunk 6 | Response handling, refusal short-circuit | 🔴 NOT STARTED | A7 silver |
-| **Bonus AI block** | Embeddings → vector DBs → Pinecone | 🔴 NOT STARTED (priority gap) | A10, A11, A12 |
-| **Bonus AI block** | Evals + experimentation (A/B testing for AI) | 🔴 NOT STARTED (priority gap) | A23, A28 |
+| **Bonus AI block** | Embeddings → vector DBs → Pinecone | 🟡 IN PROGRESS — A10 🥉🥈 A11 🥉🥈 A12 🔴 | A10, A11, A12 |
+| **Bonus AI block** | Evals + experimentation (A/B testing for AI) | 🥉 A28 Bronze owned S12 | A23, A28 |
 | Wrap | Professional-grade summary of RAG end-to-end | 🔴 NOT STARTED | All |
 
 ---
@@ -228,7 +228,7 @@ It is **dual-purpose**:
 **Defined start trigger (must hit ALL three):**
 1. ✅ M1 Station 2 (B8) owned at Gold — **landed S11**.
 2. 🔴 M2 complete OR Chunks 2–3 of M5 complete — **not yet met**.
-3. 🔴 A10–A12 (embeddings, vector DBs, Pinecone) owned at Bronze — **A10 + A11 Bronze owned S11; A12 (Pinecone) not yet started**.
+3. 🟡 A10–A12 (embeddings, vector DBs, Pinecone) owned at Bronze — **A10 + A11 Bronze + Silver owned S12; A12 (Pinecone) not yet started**.
 
 **Status:** Condition 1 met. Conditions 2 and 3 still open (A12 needed to fully clear condition 3). Track C build can begin once all three are green.
 
@@ -302,69 +302,56 @@ A3–A7 recap (A5 redone). B13 Cloud vs on-prem owned at Bronze. B8 paused at PA
 
 **Spot-check outcomes:**
 - **A5 Retrieve** — DRIFTED at the top of the session: led with *"matching"* (action-absent), the exact tighten flagged in S08. Redone with a scaffold to land *"Retrieve is fetching the ingredients that match the order."* Because it drifted and needed a redo, the clean streak **resets to 0** — mandatory again next session. Lesson: lead with the action verb, every time.
-- **B13 Cloud vs on-prem** — HELD at Silver (concept). **Framing flag:** slipped twice into a personal, non-generic framing (referring to a current organisation rather than *"a regulated bank"*). Coached back to the generic frame — the phrasing you rehearse is the phrasing that comes out under pressure, so keep worked examples generic and it becomes automatic.
+- **B13 Cloud vs on-prem** — HELD at Silver (concept). **Framing flag:** slipped twice into a personal, non-generic framing. Coached back to the generic frame.
 
 **B8 — GHA reaching on-prem (Track B NOW item):**
-- 🥈 **Fix — OWNED solo.** Restated clean without scaffold: self-hosted runner inside the bank's network, polls GitHub outbound for work, no inbound due to the firewall. (Two side-mix-ups fixed along the way: runner is the bank's not GitHub's; call goes out not in.)
-- 🥈 **Why-it-wins — OWNED.** Landed the contrast: an inbound hole is a permanent open door anyone can probe; outbound is no door at all; perimeter unchanged, so security and audit have nothing new to defend. **→ B8 now Silver-complete (Problem + Fix + Why-it-wins).**
-- 🥇 **Gold — attempted, did not land.** Under full-assembly load the owned pieces degraded — the self-hosted vs GitHub-hosted runner ownership confusion returned, and the gap + why-it-wins beats dropped out. Banked honestly (tiredness/regression). Gold carries to Session 10.
+- 🥈 **Fix — OWNED solo.** Restated clean without scaffold.
+- 🥈 **Why-it-wins — OWNED.** Inbound hole = open door; outbound = no door; perimeter unchanged. **→ B8 now Silver-complete.**
+- 🥇 **Gold — attempted, did not land.** Banked honestly. Gold carries to Session 10.
 
-**Banked insight (analogy simplification):**
-- Analogies are **bronze training wheels**, not professional answers. At Gold, drop the analogy entirely — a senior conversation uses plain professional language, not the kitchen/kid/estate. This dissolves the "too many analogies" worry: none of them are used in the room. (Logged in §0.)
-
-**Carry-forward for Gold (the line that keeps slipping):**
-- **Self-hosted runner** = the bank's machine, inside the bank's network (the bank hosts it).
-- **GitHub-hosted (cloud) runner** = GitHub's machine, outside — the one that can't reach in.
-- The bank's self-hosted runner polls **GitHub the service** — it does not poll "github runners."
-
-**Other:** Discipline held — no Chunks 2–6, no Track C, no curriculum restructure (the analogy-simplification urge was reframed, not acted on as a restructure).
+**Banked insight:** Analogies are bronze training wheels — at Gold, drop entirely. (Logged in §0.)
 
 ### Session 10 — A5 held (1/3), A6 + A7 held, B8 flip broken but Gold not landed 🟢
 
 **Spot-check outcomes:**
-- **A5 Retrieve** — HELD. Led with *"gather and fetch the ingredients from the fridge"* — action verb first, no opening on "matching." **Hold 1 of 3** on the watch. (Streak: 1 → going for 2 of 3 in S11.)
-- **A6 Augment** — HELD. Nailed the boundary cleanly: *"prep at the workstation — the ingredients and the order card on the counter, before the chef cooks."* Bounded on both sides (not Retrieve's fetch/gather; not yet Generate's cooking). The crucial "with the card" was preserved — context plus the question, assembled together.
-- **A7 Generate** — bonus HELD (unprompted): *"the chef prepares only with the ingredients asked for — would not add any others, that's not the request."* Cook-only-from-handed-cards + no-extra-sprinkle intact.
+- **A5 Retrieve** — HELD. **Hold 1 of 3.**
+- **A6 Augment** — HELD. Boundary clean both sides.
+- **A7 Generate** — bonus HELD (unprompted).
 
-**B8 — GHA reaching on-prem, Gold attempt:**
-- 🎯 **The flip broke for the first time.** *"GitHub hosted on the cloud"* came out clean and solo — the self-hosted vs GitHub-hosted ownership confusion that had held since S09 was beaten. What did it: the new mnemonic **"the name tells you the owner"** — *Self*-hosted = the bank hosts it = inside; *GitHub*-hosted = GitHub hosts it = GitHub's cloud, outside, can't reach in.
-- ⚠️ **Then degraded under load.** Asked to name the *poll target*, reached for direction words (*"outside"*, then *"inside"*) instead of naming **GitHub** — even though "GitHub" had been said clean minutes earlier. Same under-load regression as S09: owned pieces melting into vaguer words. **Stopped honestly** at that point rather than grinding.
-- 🥇 **Gold — not landed.** Bronze + Silver stay fully owned; it is the *assembly under fatigue* that buckles, not the knowledge. Gold carries to Session 11.
+**B8 Gold attempt:** Flip broke via name-tells-owner mnemonic. Then degraded under load on poll target. Stopped honestly. Gold → S11.
 
-**Banked techniques (logged in §0):**
-- **"The name tells you the owner"** — read the hyphenated word; it names who hosts it, owner tells you location. Broke a two-session flip in one go.
-- **Under-load regression is the stop signal** — when owned pieces melt into direction/filler words, bank and stop; pushing teaches the brain to associate the slot with strain.
-
-**Corrected facts to resume on (so S11 starts right, not on the wrong association):**
-- **Self-hosted** = the bank's own machine, *inside* the bank's network.
-- **GitHub-hosted** = GitHub's machine, in GitHub's cloud, *outside* — the one thing it **can't** do is reach *in* (firewall blocks inbound).
-- The self-hosted runner **polls GitHub** (the service) — outbound — asking "got a job for me?" It checks for **work**, not "changes."
-
-**Other:** Discipline held — no Chunks 2–6, no Track C, no curriculum restructure.
+**Banked techniques:** "The name tells you the owner." Under-load regression = stop signal. (Both logged in §0.)
 
 ### Session 11 — A5 held (2/3), B13 held, B8 Gold landed, A10 + A11 Bronze owned 🟢
 
 **Spot-check outcomes:**
-- **A5 Retrieve** — HELD. Led with *"gathering and fetching from a knowledge base, matched to the user's query."* Action verb first, knowledge base named. **Hold 2 of 3** on the watch. One more clean hold in S12 and it comes off the rota permanently.
-- **B13 Cloud vs on-prem** — HELD at Silver. Framing flag from S09 applied correctly — generic "regulated bank" frame used throughout. Decider word *sensitivity* landed. Minor polish note: in a room, lead with the concept rather than "I was working for a regulated bank."
+- **A5 Retrieve** — HELD. **Hold 2 of 3.**
+- **B13 Cloud vs on-prem** — HELD at Silver. Generic framing correct, sensitivity landed.
 
-**B8 — GHA reaching on-prem, Gold:**
-- Both atoms re-locked cold and solo before assembly:
-  - Atom 1 (distinction via name-tells-owner): self-hosted = bank's machine, inside; GitHub-hosted = GitHub's cloud, outside, can't reach in. ✅ Clean.
-  - Atom 2 (poll target): self-hosted runner polls GitHub (the service), outbound, for work. ✅ Clean — GitHub named, direction right, "work" not "updates."
-- 🥇 **Gold — LANDED.** Three beats present: gap (GitHub can't reach in, firewall blocks inbound), fix (self-hosted runner inside the network polls GitHub outbound), why-it-wins (no inbound hole, perimeter unchanged, audit comfortable). Setting: a regulated bank migrating CloudBees Jenkins → GitHub Enterprise.
-- **Polish notes (not holding Gold back):** "self-hosted runners within GitHub" slipped once — they're within the *bank*, not GitHub. Lead with the concept, not "I was working for." Both noted for S12 polish.
-- **Track C trigger condition 1 now met.**
+**B8 Gold — LANDED. 🥇** Three beats clean: gap, fix, why-it-wins. Setting: regulated bank migrating CloudBees Jenkins → GitHub Enterprise. Track C trigger condition 1 met.
 
-**A10 Embedding — Bronze OWNED:**
-- *"A RAG system stores numbers, not words. Similar meanings produce mathematically close numbers — so 'computer' and 'laptop' end up near each other even though the words look nothing alike."*
+**A10 Embedding — Bronze OWNED:** Numbers not words, similar meanings mathematically close, computer + laptop example.
 
-**A11 Vector database — Bronze OWNED:**
-- *"Stores those number-lists and searches them fast — it's what makes meaning-based retrieval possible at scale. Returns the stored embeddings closest to the user's question."*
+**A11 Vector database — Bronze OWNED:** Stores embeddings, searches fast, returns closest match.
 
-**A28 A/B testing for AI — NOT ATTEMPTED.** Stopped honestly before it. Under-load regression correctly identified and session banked.
+**A28 — not attempted.** Stopped honestly. Carries to S12.
 
-**Other:** Discipline held — no Chunks 2–6, no Track C build started, no curriculum restructure.
+### Session 12 — A5 off the watch, A6 held, A28 Bronze owned, A10 + A11 Silver owned 🟢
+
+**Spot-check outcomes:**
+- **A5 Retrieve** — HELD. **Hold 3 of 3 — OFF THE WATCH PERMANENTLY. 🎉** Led with "fetch, gather and pull from a system matched to the original request." Action verb first, no drift.
+- **A6 Augment** — HELD. Retrieved chunks + original question combined — boundary vs Retrieve clean on both sides.
+
+**A28 — A/B testing for AI products — Bronze OWNED:**
+- *"Two versions, real users, measure which actually works — not which looks better in testing. Key AI insight: changes that seem like improvements in the lab can behave completely differently once real users and the model are involved."*
+
+**A10 Embedding — Silver OWNED:**
+- *"An embedding model converts text into a vector — a long list of numbers that encodes meaning — and that vector is then stored in the vector database."* Real terms landed: embedding model, vector, vectorisation.
+
+**A11 Vector database — Silver OWNED:**
+- *"When a user asks a question, it gets converted into a vector by the embedding model. The vector database runs a similarity search to find stored vectors that are closest — measured by cosine similarity — and returns those chunks."* Real terms landed: similarity search, cosine similarity, query vector.
+
+**Other:** Discipline held — no Track C build, no chunk advance, no curriculum restructure. Stopped cleanly.
 
 ---
 
@@ -383,12 +370,13 @@ Legend:
 | A2 | Hallucination | 🥉 OWNED | Chef adds a sprinkle of something the customer didn't ask for — could be an allergy. | 2026-05-22 |
 | A3 | RAG (end-to-end) | 🥉 OWNED | Pipeline: chunking → retrieve → augment → generate. Grounds the model in real sources + cites them. | 2026-05-22 |
 | A4 | Chunking | 🥉 OWNED | Fridge with ingredient boxes — prep work that fills the fridge. | 2026-05-22 |
-| A5 | Retrieve | 🥉 OWNED ⚠️ ON WATCH (hold 2 of 3 — held clean S11) | Retrieve is *fetching/gathering* from the knowledge base, matched to the user's query. **Lead with the action verb**; matching is the filter, not the action. | 2026-06-19 (S11, held 2/3) |
-| A6 | Augment | 🥉 OWNED | Prep at the workstation — order card + retrieved ingredients assembled together on the counter, before the chef cooks. Not the fetching (that's Retrieve); not the cooking (that's Generate). The "with the card" = context + query combined. | 2026-06-02 (S10 held) |
-| A7 | Generate | 🥉 OWNED | Chef cooks only from handed cards. Refuses if missing. Labels each fact = citations. | 2026-06-02 (S10 held, bonus) |
+| A5 | Retrieve | 🥉 OWNED ✅ OFF WATCH (held 3/3 — S12) | Retrieve is *fetching/gathering/pulling* from the knowledge base, matched to the original request. Lead with the action verb; matching is the filter, not the action. | 2026-06-19 (S12, hold 3/3 — permanent) |
+| A6 | Augment | 🥉 OWNED | Combines retrieved chunks + the user's original question into one package, assembled together before the model generates. Not the fetching (Retrieve); not the cooking (Generate). | 2026-06-19 (S12 held) |
+| A7 | Generate | 🥉 OWNED | Chef cooks only from handed cards. Refuses if missing. Labels each fact = citations. | 2026-06-02 (S10 held) |
 | A9 | Source attribution / citation | 🥉 OWNED | Labelling each ingredient with which box it came from. Auditability. | 2026-05-22 |
-| A10 | Embedding | 🥉 OWNED | A RAG system stores numbers, not words. Similar meanings produce mathematically close numbers — "computer" and "laptop" end up near each other even though the words look nothing alike. | 2026-06-19 (S11) |
-| A11 | Vector database | 🥉 OWNED | Stores those number-lists and searches them fast — makes meaning-based retrieval possible at scale. Returns the embeddings closest to the user's question. | 2026-06-19 (S11) |
+| A10 | Embedding | 🥉🥈 OWNED | Bronze: numbers not words — similar meanings produce mathematically close numbers ("computer" and "laptop" end up near each other). Silver: an embedding model converts text into a vector (vectorisation); that vector is stored in the vector database. | 2026-06-19 (S12 Silver) |
+| A11 | Vector database | 🥉🥈 OWNED | Bronze: stores embeddings, searches fast, returns closest match. Silver: question → embedding model → query vector → similarity search → cosine similarity → closest chunks returned. | 2026-06-19 (S12 Silver) |
+| A28 | A/B testing for AI products | 🥉 OWNED | Two versions, real users, measure which actually works — not which looks better in testing. Changes that seem like improvements in the lab can behave differently once real users and the model are involved. | 2026-06-19 (S12 Bronze) |
 | A1 | LLM | 🟡 PARTIAL | Model trained on huge text → generates human-like answers. Can hallucinate on its own. | — |
 | A8 | Refusal / guardrail threshold | 🟡 PARTIAL | Bot refuses when no card is good enough. Need drill: what's the threshold scoring? | — |
 | A13 | Lexical vs vector scoring | 🟡 PARTIAL | bank-of-sandhu uses lexical (word-match). Production uses vector (meaning-match). | — |
@@ -407,7 +395,6 @@ Legend:
 | A25 | Tokens / tokenisation | 🔴 NOT STARTED | — | — |
 | A26 | Temperature / top-p | 🔴 NOT STARTED | — | — |
 | A27 | Streaming vs batch | 🔴 NOT STARTED | — | — |
-| A28 | A/B testing for AI products | 🔴 NOT STARTED | Feature validation, model testing, experimentation methodology. | — |
 | A29 | KPI / measurement frameworks for AI products | 🔴 NOT STARTED | Defining what good looks like for a data/AI product. | — |
 | A30 | UI/UX for data-rich interfaces | 🔴 NOT STARTED | Designing dashboards / decision-support tools end users can actually use. | — |
 | A31 | Managed cloud AI services | 🔴 NOT STARTED | Hosted model APIs and managed RAG patterns from major providers. | — |
@@ -418,8 +405,8 @@ Legend:
 
 | # | Concept | Status | Plain-English (bronze) | Last check |
 |---|---|---|---|---|
-| B13 | Cloud vs on-prem split | 🥉🥈 OWNED | Hybrid — on-prem for regulated workloads, public cloud providers for flexibility to scale and experiment. Sensitivity decides which side a workload sits on. | 2026-06-19 (S11 held) |
-| B8 | GitHub Actions (GHA) reaching on-prem | 🥉🥈🥇 OWNED | A self-hosted runner (the bank's own machine, inside the bank's network) polls GitHub outbound for work; the firewall allows no inbound; perimeter unchanged so audit is comfortable. **Gold landed S11** — three beats: gap (GitHub can't reach in), fix (self-hosted runner polls outbound), why-it-wins (no inbound hole, perimeter unchanged). | 2026-06-19 (S11, Gold) |
+| B13 | Cloud vs on-prem split | 🥉🥈 OWNED | Hybrid — on-prem for regulated workloads, public cloud for flexibility to scale and experiment. Sensitivity decides which side a workload sits on. | 2026-06-19 (S11 held) |
+| B8 | GitHub Actions (GHA) reaching on-prem | 🥉🥈🥇 OWNED | A self-hosted runner (the bank's own machine, inside the bank's network) polls GitHub outbound for work; the firewall allows no inbound; perimeter unchanged so audit is comfortable. Gold landed S11 — gap, fix, why-it-wins clean. | 2026-06-19 (S11, Gold) |
 | B1 | CI | 🟡 PARTIAL | Every code change auto-built and tested before merge. | — |
 | B2 | CD | 🟡 PARTIAL | Every change that passes CI goes to staging/prod. Delivery=ready. Deployment=actually deployed. | — |
 | B3 | Pipeline | 🟡 PARTIAL | End-to-end conveyor from `git push` to running in prod. | — |
@@ -478,95 +465,89 @@ These are widely-documented industry concepts. I'm learning them from public sou
 | 2026-05-22 | A7 Generate | S06 recap | Held. | 🥉 |
 | 2026-05-22 | B13 Cloud vs on-prem | Taught fresh, drifted to "data lives there" → redone | "Hybrid — on-prem for regulated workloads, cloud for scale and experiment." | 🥉 |
 | 2026-05-22 | B8 GHA reaching on-prem | Taught fresh — three slips | Stopped honestly when tired. | 🟡 |
-| 2026-05-22 | A5 Retrieve | S07 recap — drifted a 3rd time to "checked" | Redone with verb lock (fetch/gather/pull, not check). ON WATCH. | 🥉 |
-| 2026-05-22 | B13 Cloud vs on-prem | S07 recap — held with minor "historic records" flag | Promoted to Silver. Sentence locked. | 🥉🥈 |
-| 2026-05-31 | A5 Retrieve | S08 recap — held, verb lock intact ("fetching") | Held. Hold 1 of 3 on the watch. | 🥉 |
-| 2026-05-31 | B13 Cloud vs on-prem | S08 recap — held at silver, no age-drift | Held. Decider: "sensitivity decides." | 🥉🥈 |
-| 2026-05-31 | B8 GHA reaching on-prem | S08 — Bronze taught fresh, direction owned solo; Silver Problem owned, Fix scaffolded | Bronze owned, Silver underway. | 🥉 |
-| 2026-05-31 | A5 Retrieve | S09 recap — drifted (led with "matching", action-absent) → redone with scaffold | **Streak reset to 0.** Mandatory again S10. Lead with the action verb. | 🥉 |
-| 2026-05-31 | B13 Cloud vs on-prem | S09 recap — held at silver; framing flag (slipped to non-generic framing → coached to generic) | Held. | 🥉🥈 |
-| 2026-05-31 | B8 Fix | S09 — restated solo, clean (inside bank net, polls GH outbound, no inbound) | Owned solo. | 🥈 |
-| 2026-05-31 | B8 Why-it-wins | S09 — held after teach (open door vs no door; audit comfortable) | Owned. **Silver complete.** | 🥈 |
-| 2026-05-31 | B8 Gold | S09 — attempted, regressed under load (self-hosted/GitHub-hosted confusion; gap + why-it-wins beats dropped) | Banked. Gold → S10. | 🥈 |
-| 2026-06-02 | A5 Retrieve | S10 recap — held, led with "gather and fetch" (action verb first) | Held. **Hold 1 of 3** on the watch. | 🥉 |
-| 2026-06-02 | A6 Augment | S10 — boundary tested vs Retrieve; landed "prep at workstation, order card + ingredients, before the chef cooks" | Held. Boundary clean both sides. | 🥉 |
-| 2026-06-02 | A7 Generate | S10 — bonus, unprompted ("cook only with what's asked, add nothing else") | Held. | 🥉 |
-| 2026-06-02 | B8 Gold | S10 — flip BROKE ("GitHub hosts it on the cloud" solo via name-tells-owner); then degraded under load (poll target → "outside"/"inside" not "GitHub"). Stopped honestly. | Banked. Gold → S11. | 🥈 |
-| 2026-06-19 | A5 Retrieve | S11 recap — held, led with "gathering and fetching from a knowledge base, matched to the user's query" | Held. **Hold 2 of 3** on the watch. | 🥉 |
-| 2026-06-19 | B13 Cloud vs on-prem | S11 recap — held at Silver; generic framing used correctly; sensitivity landed | Held. Polish note: lead with concept not personal opener. | 🥉🥈 |
-| 2026-06-19 | B8 Atom 1 (name-tells-owner) | S11 — self-hosted = inside, GitHub-hosted = outside, can't reach in | Clean and solo. | 🥇 |
-| 2026-06-19 | B8 Atom 2 (poll target) | S11 — polls GitHub (the service), outbound, for work | Clean — GitHub named, direction right. | 🥇 |
-| 2026-06-19 | B8 Gold | S11 — three beats landed under stakeholder framing (gap, fix, why-it-wins); migration setting used | **Gold owned. 🥇** Track C trigger condition 1 met. | 🥇 |
-| 2026-06-19 | A10 Embedding | S11 — taught fresh; "numbers not words, similar meanings mathematically close; computer + laptop example" | Bronze owned. | 🥉 |
-| 2026-06-19 | A11 Vector database | S11 — taught fresh; "stores embeddings, searches fast, returns closest match" | Bronze owned. | 🥉 |
-
-**Next spot-check candidates (Session 12 opener):** A5 retrieve (mandatory — going for hold 3 of 3; if held, comes off the watch permanently), one of A6 / A7 / B13 / B8 your pick.
+| 2026-05-22 | A5 Retrieve | S07 recap — drifted a 3rd time to "checked" | Redone with verb lock. ON WATCH. | 🥉 |
+| 2026-05-22 | B13 Cloud vs on-prem | S07 recap — held, "historic records" flag | Promoted to Silver. | 🥉🥈 |
+| 2026-05-31 | A5 Retrieve | S08 recap — held ("fetching") | Hold 1 of 3. | 🥉 |
+| 2026-05-31 | B13 Cloud vs on-prem | S08 recap — held at Silver | Held. Decider: "sensitivity decides." | 🥉🥈 |
+| 2026-05-31 | B8 GHA reaching on-prem | S08 — Bronze owned solo; Silver Problem + Fix scaffolded | Bronze owned, Silver underway. | 🥉 |
+| 2026-05-31 | A5 Retrieve | S09 recap — drifted (led with "matching") | Streak reset to 0. | 🥉 |
+| 2026-05-31 | B13 Cloud vs on-prem | S09 recap — held; framing flag coached | Held. | 🥉🥈 |
+| 2026-05-31 | B8 Fix | S09 — restated solo, clean | Owned solo. | 🥈 |
+| 2026-05-31 | B8 Why-it-wins | S09 — held after teach | **Silver complete.** | 🥈 |
+| 2026-05-31 | B8 Gold | S09 — attempted, regressed under load | Banked. Gold → S10. | 🥈 |
+| 2026-06-02 | A5 Retrieve | S10 — held ("gather and fetch") | Hold 1 of 3. | 🥉 |
+| 2026-06-02 | A6 Augment | S10 — boundary clean both sides | Held. | 🥉 |
+| 2026-06-02 | A7 Generate | S10 — bonus, unprompted | Held. | 🥉 |
+| 2026-06-02 | B8 Gold | S10 — flip broke; degraded under load on poll target. Stopped honestly. | Gold → S11. | 🥈 |
+| 2026-06-19 | A5 Retrieve | S11 — held ("gathering and fetching from a knowledge base") | Hold 2 of 3. | 🥉 |
+| 2026-06-19 | B13 Cloud vs on-prem | S11 — held at Silver; generic framing correct | Held. | 🥉🥈 |
+| 2026-06-19 | B8 Gold | S11 — three beats clean; migration setting used | **Gold owned. 🥇** | 🥇 |
+| 2026-06-19 | A10 Embedding | S11 — taught fresh; numbers not words; computer + laptop | Bronze owned. | 🥉 |
+| 2026-06-19 | A11 Vector database | S11 — taught fresh; stores, searches fast, closest match | Bronze owned. | 🥉 |
+| 2026-06-19 | A5 Retrieve | S12 — held ("fetch, gather and pull, matched to original request") | **Hold 3 of 3 — OFF WATCH PERMANENTLY. 🎉** | 🥉 |
+| 2026-06-19 | A6 Augment | S12 — retrieved chunks + original question combined; boundary clean | Held. | 🥉 |
+| 2026-06-19 | A28 A/B testing | S12 — taught fresh; two versions, real users, measure what works; AI-specific insight landed | Bronze owned. | 🥉 |
+| 2026-06-19 | A10 Embedding Silver | S12 — embedding model → vector (vectorisation) → stored in vector DB; real terms clean | Silver owned. | 🥉🥈 |
+| 2026-06-19 | A11 Vector DB Silver | S12 — question → embedding model → query vector → similarity search → cosine similarity → chunks returned | Silver owned. | 🥉🥈 |
 
 ---
 
 ## §6 — NEXT (resume here)
 
-### Session 12 plan
+### Session 13 plan
 
-**STEP 1: Recap spot-check (5 min)**
-- A5 Retrieve (mandatory — going for **hold 3 of 3**). If held, comes off the watch permanently. Lead with the action verb — fetch/gather/pull. Matching is the filter.
-- One of A6 / A7 / B13 / B8 picked unprompted by Claude.
+**STEP 1: Spot-check (5 min)**
+- A5 is off the watch — no longer mandatory. Claude picks two from: A6 / A7 / A10 / A11 / A28 / B13.
 
-**STEP 2: A28 Bronze — A/B testing for AI products.**
-Not attempted S11 (stopped honestly). This is the first new concept of S12. Bronze only — plain English, no jargon.
+**STEP 2: A12 Pinecone — Bronze.**
+Completes the A10–A12 vector bundle. Once owned, Track C trigger condition 3 is fully met.
 
-**STEP 3: If A28 Bronze lands — Silver pass on A10 and A11.**
-Both are at Bronze. Silver means: real terms mapped onto the plain-English understanding. Don't push to Gold in the same session.
+**STEP 3: A28 Silver — if energy allows.**
+Bronze owned S12. Silver = real terms mapped in (experimentation frameworks, statistical significance, control vs treatment group).
 
-**STEP 4: A12 Pinecone — Bronze.**
-Completes the A10–A12 vector bundle. Once A12 is at Bronze, Track C trigger condition 3 is fully met.
+**STEP 4: A12 leads into a short vector bundle recap.**
+Once A12 Bronze lands, do a quick three-concept recap: A10 → A11 → A12 in sequence. Pinecone is a specific managed vector database — it sits on top of A11.
 
 **Do NOT this session:**
 - Start Track C / M6 build (condition 2 still open — M2 or M5 Chunks 2–3 needed).
-- Advance to Chunks 2–6 of `server/chat.js` (queued).
-- Restructure the curriculum. (Failure mode #5.)
-
-**Watch the under-load regression:** if owned pieces start melting, bank and stop.
+- Advance to Chunks 2–6 of `server/chat.js`.
+- Restructure the curriculum.
 
 ---
 
-### Exact opener line for Session 12
+### Exact opener line for Session 13
 
-> *Resume Session 12. Read BUILD_LEARN_LOG.md first — PERMANENT RULE, §0 Bronze/Silver/Gold (incl. banked notes: name-tells-owner, under-load regression = stop signal), §1B three-track architecture. Spot-check: A5 Retrieve (mandatory — going for hold 3 of 3; if held, off the watch permanently; lead with the action verb fetch/gather/pull) + one of A6/A7/B13/B8 your pick. Then A28 Bronze (A/B testing for AI products — not attempted S11, stopped honestly). If A28 lands, Silver pass on A10 and A11. Then A12 Pinecone Bronze — completes the vector bundle and clears Track C trigger condition 3. Slow is correct. Watch all five failure modes + under-load regression stop signal.*
+> *Resume Session 13. Read BUILD_LEARN_LOG.md first — PERMANENT RULE. Spot-check: two from A6 / A7 / A10 / A11 / A28 / B13 — Claude's pick (A5 is permanently off the watch). Then A12 Pinecone Bronze — completes the vector bundle and clears Track C trigger condition 3. If energy allows, A28 Silver. Slow is correct. Watch all five failure modes and the under-load regression stop signal.*
 
 ---
 
 ### Still open (not lost, not done)
 
-- **A5** — hold 2 of 3 (S11). One more clean hold and it's off the rota permanently.
-- **A28 (A/B testing)** — not attempted S11. First item S12.
-- **A10 + A11 Silver** — Bronze owned S11. Silver queued for S12 once A28 Bronze lands.
 - **A12 Pinecone** — not started. Completes the vector bundle (Track C trigger condition 3).
+- **A28 Silver** — Bronze owned S12. Silver queued for S13.
 - **Track C trigger** — condition 1 met (B8 Gold). Condition 2 open (M2 or M5 Chunks 2–3). Condition 3 partially open (A12 needed).
-- **Framing habit** — keep worked examples in the generic "a regulated bank" frame. Lead with the concept, not a personal opener.
-- **B8 polish** — "self-hosted runners within the bank, not within GitHub" — small wording tighten for next use.
-- **Gold-priority pass** — pick the 4–5 concepts most needed at Gold for senior conversations (do as a deliberate step, not mid-drill).
+- **Gold-priority pass** — pick the 4–5 concepts most needed at Gold for senior conversations.
 - **A8 (refusal threshold)** — drill on what the threshold actually scores.
-- **Silver / Gold layers** for A3–A7 and B13 — Bronze locked, layered uplift queued.
+- **Silver / Gold uplift** for A3–A7 and B13 — Bronze locked, layered uplift queued.
+- **M1 Stations 3–6** — queued.
+- **M5 Chunks 2–6** — queued.
 
 ---
 
 ### Now / Next / Later
 
-**NOW (just done — Session 11):**
-- ✅ A5 held — led with "gathering and fetching from a knowledge base"; **hold 2 of 3** on the watch.
-- ✅ B13 held at Silver — generic framing correct, sensitivity landed.
-- 🥇 B8 Gold landed — three beats clean under stakeholder framing; Track C condition 1 met.
-- ✅ A10 Embedding — Bronze owned ("numbers not words, similar meanings close").
-- ✅ A11 Vector database — Bronze owned ("stores embeddings, searches fast, closest match returned").
-- ⏸️ A28 A/B testing — not attempted; stopped honestly → Session 12.
-- ✅ Discipline held — no Track C build, no chunk advance, no restructure.
+**NOW (just done — Session 12):**
+- ✅ A5 — hold 3 of 3; **permanently off the watch. 🎉**
+- ✅ A6 — held.
+- ✅ A28 — Bronze owned.
+- ✅ A10 — Silver owned (embedding model, vector, vectorisation).
+- ✅ A11 — Silver owned (similarity search, cosine similarity, query vector).
+- ✅ Discipline held — no Track C, no chunk advance, no restructure.
 
-**NEXT (Session 12):**
-- 🔁 Spot-check A5 (going for hold 3 of 3 — off the watch if held) + one other.
-- 🚀 A28 Bronze — A/B testing for AI products.
-- 🚀 A10 + A11 Silver — if A28 Bronze lands.
-- 🚀 A12 Pinecone Bronze — completes the vector bundle.
+**NEXT (Session 13):**
+- 🔁 Spot-check two from A6 / A7 / A10 / A11 / A28 / B13.
+- 🚀 A12 Pinecone — Bronze (completes the vector bundle).
+- 🚀 A28 Silver — if energy holds.
 
 **LATER (queued, in priority order):**
 1. **Track C / M6 start** — once all three trigger conditions met (condition 2 still open).
@@ -601,11 +582,14 @@ Completes the A10–A12 vector bundle. Once A12 is at Bronze, Track C trigger co
 **On GHA → on-prem (Session 11 — Gold):**
 > *"GitHub's cloud runners can't reach into an on-prem network — the firewall blocks all inbound from the public internet. The fix is a self-hosted runner sitting inside the network that polls GitHub outbound for work — when a job is triggered, the runner picks it up and executes it on-prem. The reason this works well in a regulated environment is that no inbound hole has been cut — the network perimeter is completely unchanged, so security and audit have nothing new to defend."*
 
-**On embeddings (Session 11 — Bronze):**
-> *"When you store documents in a RAG system, the computer doesn't store the words — it converts the meaning of those words into a long list of numbers. Similar meanings produce mathematically close numbers, so 'computer' and 'laptop' end up near each other even though the words look nothing alike. That's what makes meaning-based search possible."*
+**On embeddings (Session 12 — Silver):**
+> *"An embedding model converts text into a vector — a long list of numbers that encodes meaning. Similar meanings produce mathematically close vectors, so 'computer' and 'laptop' end up near each other even though the words look nothing alike. Those vectors get stored in a vector database."*
 
-**On vector databases (Session 11 — Bronze):**
-> *"A vector database is built specifically to store those number-lists and search through them fast. When a user asks a question, their question also gets converted into numbers, and the vector database finds the stored entries that are mathematically closest — those are the most relevant chunks to retrieve."*
+**On vector databases (Session 12 — Silver):**
+> *"When a user asks a question, it goes through the embedding model too — producing a query vector. The vector database then runs a similarity search, using cosine similarity to find the stored vectors closest in meaning to the question. Those are the chunks that get retrieved."*
+
+**On A/B testing for AI (Session 12 — Bronze):**
+> *"A/B testing for AI is how you find out which version of something actually works in the real world — two prompts, two models, two chunking approaches — split across real users and measured. The key insight with AI is that changes that look like improvements in the lab can behave completely differently once the model and real users are involved."*
 
 ---
 
@@ -614,9 +598,6 @@ Completes the A10–A12 vector bundle. Once A12 is at Bronze, Track C trigger co
 Before pushing this file to a public branch, run the scrub locally. From the repo root:
 
 ```bash
-# One-line scrub — replace the keyword list below with any others to watch for.
-# Output = empty? → safe to push. Any output? → fix before pushing.
-
 grep -i -n -E "current employer|my employer|my company|my bank|my team lead|my manager|my CTO|whiteshield|quantum|career navigator|adcb|al reem|nationwide|barclays|hsbc|lloyds|natwest|santander|santander uk|monzo|starling|revolut|wise|cursor|uae role|dubai role|abu dhabi role|hiring manager|recruiter|interview|application|job code|JD\b|active target|watching target" BUILD_LEARN_LOG.md
 ```
 
