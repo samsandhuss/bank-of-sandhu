@@ -1,51 +1,100 @@
-# Minimal GitHub Actions CI workflow for bank-of-sandhu.
-# Save this file at:  .github/workflows/ci.yml   (create the folders if they don't exist)
-#
-# What this teaches (B1 / B3 / B8 from the learning log):
-#   - CI (B1):  every push triggers an automatic build/test check, before merge.
-#   - Pipeline (B3): a defined sequence of stages — checkout, install, build, test.
-#   - This workflow runs on GitHub's own cloud runners (`ubuntu-latest`) — no
-#     self-hosted runner needed, because there's no on-prem network to reach
-#     into. That's the B8 distinction: cloud runners work fine for a public
-#     repo; a self-hosted runner only becomes necessary once the pipeline
-#     needs to reach something inside a private/on-prem network.
-#
-# --if-present flags mean this won't fail if a script doesn't exist yet in
-# package.json — it's meant to run safely on the very first push and give you
-# a green (or honestly red) check in the GitHub Actions tab.
+"""
+Toy vector database — built to make A10 (embedding) and A11 (vector database)
+concrete by running real code, not just talking about it.
 
-name: CI
+Pipeline mirrors the real thing exactly, just with a simple hand-built
+embedding instead of a trained neural model:
 
-on:
-  push:
-    branches: [ "main" ]
-  pull_request:
-    branches: [ "main" ]
+    text  -->  EMBEDDING  -->  vector (numbers that encode meaning)
+    vectors -->  stored in a VECTOR DATABASE (here: just a dict)
+    new question --> same embedding step --> QUERY VECTOR
+    query vector --> SIMILARITY SEARCH (cosine similarity) --> closest matches
 
-jobs:
-  build-and-test:
-    runs-on: ubuntu-latest
+In production, the embedding step is a trained neural network (OpenAI,
+Cohere, sentence-transformers, etc). Here we use "bag of words" counting
+instead — deliberately dumb and transparent, so you can see every number
+being produced instead of trusting a black-box API. The similarity search
+step at the end is IDENTICAL to production — cosine similarity is cosine
+similarity whether the vectors came from a neural net or from word counts.
 
-    steps:
-      # Stage 1 — get the code onto the runner
-      - name: Checkout repository
-        uses: actions/checkout@v4
+Run it:  python3 vector_demo.py
+"""
 
-      # Stage 2 — set up the language runtime
-      - name: Set up Node.js
-        uses: actions/setup-node@v4
-        with:
-          node-version: "20"
-          cache: "npm"
+import re
+import math
 
-      # Stage 3 — install dependencies (the "build inputs")
-      - name: Install dependencies
-        run: npm ci --if-present || npm install
+# ---------------------------------------------------------------------------
+# STEP 0 — The data we're going to store (this is what gets embedded)
+# ---------------------------------------------------------------------------
+ITEMS = {
+    "Porsche 911":   "high performance luxury sports car german engineering",
+    "Ferrari 488":    "high performance luxury sports car italian engineering",
+    "Tesla Model 3":  "electric sports car luxury performance american",
+    "MacBook Pro":    "laptop computer productivity apple lightweight",
+    "Dell XPS":       "laptop computer productivity windows lightweight",
+    "ThinkPad X1":    "laptop computer productivity business lightweight",
+}
 
-      # Stage 4 — build (turns source into a runnable artefact — B4/B5)
-      - name: Build
-        run: npm run build --if-present
 
-      # Stage 5 — test (would block a merge in a real branch-protection setup — B7)
-      - name: Run tests
-        run: npm test --if-present
+# ---------------------------------------------------------------------------
+# STEP 1 — THE EMBEDDING MODEL (A10)
+# Converts text into a vector: a list of numbers that encodes meaning.
+# Here: build a vocabulary from every word across all items, then represent
+# each piece of text as "how many times does each vocab word appear".
+# Similar text -> similar word counts -> mathematically close vectors.
+# ---------------------------------------------------------------------------
+
+def tokenize(text: str):
+    return re.findall(r"[a-z]+", text.lower())
+
+
+def build_vocabulary(texts):
+    vocab = set()
+    for t in texts:
+        vocab.update(tokenize(t))
+    return sorted(vocab)  # fixed order so every vector lines up
+
+
+def embed(text: str, vocab: list[str]) -> list[float]:
+    """THE EMBEDDING STEP — text in, vector out."""
+    tokens = tokenize(text)
+    return [float(tokens.count(word)) for word in vocab]
+
+
+# ---------------------------------------------------------------------------
+# STEP 2 — THE VECTOR DATABASE (A11)
+# Stores every item's vector. In production this is Pinecone / Weaviate /
+# pgvector etc. Here it's just a dict — the point isn't the storage engine,
+# it's what happens when you QUERY it.
+# ---------------------------------------------------------------------------
+
+def cosine_similarity(a: list[float], b: list[float]) -> float:
+    dot = sum(x * y for x, y in zip(a, b))
+    mag_a = math.sqrt(sum(x * x for x in a))
+    mag_b = math.sqrt(sum(y * y for y in b))
+    if mag_a == 0 or mag_b == 0:
+        return 0.0
+    return dot / (mag_a * mag_b)
+
+
+class ToyVectorDB:
+    def __init__(self, vocab: list[str]):
+        self.vocab = vocab
+        self.store: dict[str, list[float]] = {}
+
+    def add(self, name: str, text: str):
+        self.store[name] = embed(text, self.vocab)
+
+    def similarity_search(self, query_text: str, top_k: int = 3):
+        """
+        THE RETRIEVAL STEP (A11):
+        1. The query gets run through the SAME embedding step -> query vector
+        2. Compare the query vector against every stored vector
+        3. Rank by cosine similarity
+        4. Return the closest matches
+        """
+        query_vector = embed(query_text, self.vocab)  # same embed() as storage
+        scored = [
+            (name, cosine_similarity(query_vector, vec))
+            for name, vec in self.store.items()
+        ]
