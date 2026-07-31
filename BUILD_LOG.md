@@ -182,6 +182,7 @@ A3–A7 recap (A5 redone). B13 Cloud vs on-prem owned at Bronze. B8 paused at PA
 **New concept surfaced:** **B26 — Compliance as code** (CI fails if a required regulatory doc is deleted).
 **GitHub-UI friction, worth banking as its own lesson:** "Add file" creates paths relative to your current folder, not repo root — caused repeated nesting (`docs/compliance/docs/compliance/...`). Fix: always click the root breadcrumb link before starting a new file. One filename typo also caught (`consumer-duty.m` → `.md`).
 **Time invested:** ~3h 45m (see §9).
+**Reflection:** verbal-only spot-checks felt discouraging today, especially after a 3-week gap — building the vector script and diagnosing the real pipeline re-engaged the session. Banked as the Motivation note in §0.
 **Other:** No Track C, no `chat.js` Chunks 2–6. Session ran entirely on Track B using real existing repo state instead of a fresh toy build — closer to "artefact-driven" than today's earlier pure spot-check attempts.
 ---
 ## §4 — Concept curriculum
@@ -322,8 +323,8 @@ Both are sitting as real, working code in the repo now (`ci.yml`'s `security` an
 **STEP 3: A12 Pinecone — Bronze, if energy allows.**
 Still not started. Completes the A10–A12 vector bundle and clears Track C trigger condition 3.
 
-**STEP 4 (NEW): Agentic AI use case — design, A21 Bronze.**
-First real touch on Agentic AI (A21, currently not started). Candidate use case: an agent that reads a failing GitHub Actions run and produces a plain-English root-cause summary + suggested fix — directly mirrors the manual diagnosis done in S13 on the compliance-docs failure, just automated. Uses the Claude API already wired into bank-of-sandhu (Haiku 4.5). Session 14 scope is design + Bronze explanation only — what does "agentic" actually mean, what would this agent's loop look like — not full implementation yet.
+**STEP 4: Agentic AI use case — design, A21 Bronze.**
+First real touch on Agentic AI (A21, currently not started). Candidate use case: an agent that reads a failing GitHub Actions run and produces a plain-English root-cause summary + suggested fix — directly mirrors the manual diagnosis done in S13 on the compliance-docs failure, just automated. Uses the Claude API already wired into bank-of-sandhu (Haiku 4.5). Session 14 scope is design + Bronze explanation only — not full implementation yet.
 
 **Do NOT this session:**
 - Start Track C / M6 build (condition 2 still open — M2 or M5 Chunks 2–3 needed).
@@ -351,6 +352,7 @@ First real touch on Agentic AI (A21, currently not started). Candidate use case:
 - **M1 Stations 3–6** — queued.
 - **M5 Chunks 2–6** — queued.
 - **GitHub-UI-as-editor habit** — remember to reset to the root breadcrumb before creating each new file; caused repeated nesting errors in S13.
+- **Showcase repo** — extract `vector-db-demo` (+ the agent once built) into a standalone `ai-learning-toolkit` repo alongside `bank-of-sandhu`, each folder self-contained with its own README. Run §8 scrub on it too before it goes public.
 
 ---
 
@@ -365,6 +367,7 @@ First real touch on Agentic AI (A21, currently not started). Candidate use case:
 - ✅ New concept banked: B26 — Compliance as code.
 - ✅ B19 (Snyk) upgraded from not-started to partial — seen live in real code.
 - ✅ Time investment tracking started (§9) — 3h 45m logged.
+- ✅ Method updated: every module now must end in a shareable artifact (§0), not just an explained concept.
 
 **NEXT (Session 14):**
 - 🔁 Redo A10 + A11 hands-on via extended `vector_demo.py`.
@@ -375,15 +378,16 @@ First real touch on Agentic AI (A21, currently not started). Candidate use case:
 
 **LATER (queued, in priority order):**
 1. **Agentic use case — implementation** (once designed at Bronze in S14).
-2. **Track C / M6 start** — once all three trigger conditions met (condition 2 still open).
-3. **M1 Stations 3–6** — self-hosted runner, firewall request, containerised testing, headless browser testing.
-4. **M5 Chunks 2–6** — chunking code, scoring, system prompt, API call, response handling.
-5. **Silver + Gold uplift** for already-Bronze concepts.
-6. **M2 Code quality gates** (SonarQube worked example — Snyk now partially covered via B19).
-7. **M3 Artefact management**.
-8. **M4 Platform patterns applied**.
-9. **DORA metrics (B25)** — layered on top of CI/CD bundle.
-10. **Governance / evals (A23, A24)** — once vector DBs owned.
+2. **Showcase repo** — standalone `ai-learning-toolkit` repo, vector-db-demo + agent as self-contained folders.
+3. **Track C / M6 start** — once all three trigger conditions met (condition 2 still open).
+4. **M1 Stations 3–6** — self-hosted runner, firewall request, containerised testing, headless browser testing.
+5. **M5 Chunks 2–6** — chunking code, scoring, system prompt, API call, response handling.
+6. **Silver + Gold uplift** for already-Bronze concepts.
+7. **M2 Code quality gates** (SonarQube worked example — Snyk now partially covered via B19).
+8. **M3 Artefact management**.
+9. **M4 Platform patterns applied**.
+10. **DORA metrics (B25)** — layered on top of CI/CD bundle.
+11. **Governance / evals (A23, A24)** — once vector DBs owned.
 ---
 ## §7 — Talking points (banked, for general professional use)
 **On RAG (Session 05 — gold-level):**
