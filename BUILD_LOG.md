@@ -4,12 +4,14 @@
 | **A — AI / RAG** | M5 (Chunks 2–6 of `chat.js`) | A/B testing layer, eval framework |
 | **B — CI/CD Toolchain** | M1 (Stations 2–6), M2 (SonarQube + Snyk), M3 (Artefact mgmt), M4 (Platform patterns) | Wires real tools onto the bank-of-sandhu repo |
 | **C — Dashboard + AI overlay** | M6 (Pipeline Visualiser, reframed) | DORA overlay + AI summarisation layer |
+| **D — Agentic Infrastructure / Control Planes** | New module (M7); pulls A21, A22 forward from Track A | Agent identity & access control, sandboxing, agentic protocols (MCP/A2A), API gateways, Kubernetes, distributed systems, control-plane vision-setting |
 ### Why each track exists
 | Track | What it gives me |
 |---|---|
 | **A — AI/RAG** | Genuine RAG fluency from a built artefact — chunking, retrieval, citation guardrails, refusal logic at code level. |
 | **B — CI/CD toolchain** | First-hand experience of the modern toolchain (GHA, SonarQube, Snyk, Artifactory) wired onto my own repo — same shape as an enterprise pipeline at smaller scale. |
 | **C — Dashboard + AI overlay** | Data-rich product UX practice + DORA/KPI fluency + an AI summarisation layer joining Tracks A and B. |
+| **D — Agentic infrastructure** | Platform-PM fluency in the layer *underneath* agentic AI products — identity, sandboxing, protocols, distributed systems — the specific gap for infra-focused agentic PM roles (a live target role, see §11). Builds directly on top of A21 (Agentic AI) and A22 (MCP), which are already queued. |
 ### Two-week rough sequence
 | Week | Focus | End-of-week output |
 |---|---|---|
@@ -96,6 +98,28 @@
 | 5 | DORA metrics overlay (mocked or real) | — | B25, A29 |
 | 6 | **AI layer** — Claude API enriches dashboard with NL pipeline-health summaries | Claude API + Track A RAG | A21 bronze |
 | Wrap | Professional-grade walkthrough | — | — |
+---
+### M7 — Agentic control planes & platform infrastructure 🔴 NOT STARTED
+**Why this module exists:** added after reviewing a real target JD (an Agentic Infrastructure PM role, control-plane focused — see §11 for the full gap analysis). That role sits one layer *below* the AI product work in Track A — it's about the identity, sandboxing, protocol, and distributed-systems infrastructure that agentic products run on top of. Track A proves I can build an AI feature; Track D proves I understand what it takes to run agents safely at platform scale.
+**Worked example:** extend the CI-failure-triage agent already queued for A21 (Session 14 design) with a real control-plane layer — scoped identity, a sandboxed execution step, and an MCP-based tool interface — so these concepts get built on bank-of-sandhu, not just explained. **Feeds Track D.**
+| Step | What | Status | Touchpoint | Concept ref |
+|---|---|---|---|---|
+| 1 | Agentic control plane vs data plane | 🔴 NOT STARTED | — | D1 |
+| 2 | Agent identity — workload identity vs human identity | 🔴 NOT STARTED | SPIFFE/SPIRE, service accounts | D2 |
+| 3 | Agent authN/authZ — scoped, delegated tokens | 🔴 NOT STARTED | OAuth2 client-credentials, token scoping | D3 |
+| 4 | Sandboxing agent code execution | 🔴 NOT STARTED | gVisor, Firecracker microVMs, container isolation | D4 |
+| 5 | Agent network & connectivity architecture | 🔴 NOT STARTED | egress allow-listing, service mesh | D5 |
+| 6 | MCP in practice — wiring a real MCP tool server into the CI-failure-triage agent | 🔴 NOT STARTED | **MCP** | A22, D6 |
+| 7 | A2A — agent-to-agent protocol concepts | 🔴 NOT STARTED | **A2A** | D7 |
+| 8 | API Gateway fundamentals | 🔴 NOT STARTED | rate limiting, routing, auth at the edge | D9 |
+| 9 | Kubernetes fundamentals | 🔴 NOT STARTED | pods, services, namespaces, ingress | D10 |
+| 10 | Service-to-service communication | 🔴 NOT STARTED | mTLS, service mesh (Istio/Linkerd) | D11 |
+| 11 | Distributed systems fundamentals | 🔴 NOT STARTED | CAP theorem, idempotency, consistency | D12 |
+| 12 | Enterprise security architecture for agents | 🔴 NOT STARTED | zero trust, least privilege | D14 |
+| 13 | Agent lifecycle management in production | 🔴 NOT STARTED | versioning, deployment, rollback | D15 |
+| 14 | Observability for agentic systems | 🔴 NOT STARTED | tracing tool calls / agent decisions | D17 |
+| Wrap | Platform-PM vision statement — translating MCP/A2A + open standards into enterprise-grade infra | 🔴 NOT STARTED | All | D18 |
+**Start trigger:** A21 (Agentic AI, Bronze design) lands in Session 14 first. Track D formally kicks off once A21 Bronze is owned — no point building a control plane around an agent that hasn't been scoped yet.
 ---
 ## §3 — Session history (chronological)
 ### Session 01 — Clean repo, deploy, RAG chatbot ✅
@@ -184,6 +208,19 @@ A3–A7 recap (A5 redone). B13 Cloud vs on-prem owned at Bronze. B8 paused at PA
 **Time invested:** ~3h 45m (see §9).
 **Reflection:** verbal-only spot-checks felt discouraging today, especially after a 3-week gap — building the vector script and diagnosing the real pipeline re-engaged the session. Banked as the Motivation note in §0.
 **Other:** No Track C, no `chat.js` Chunks 2–6. Session ran entirely on Track B using real existing repo state instead of a fresh toy build — closer to "artefact-driven" than today's earlier pure spot-check attempts.
+### Session 14 — Pre-session build: RAG demo + agentic workflow demo 🟡 SEEDED, not yet explained back
+Built ahead of the live Session 14 spot-checks, so today's session can start from real running code instead of a cold verbal recap — same "artefact-driven" pattern as Session 13.
+**`learning/rag_demo.py` — hand-built RAG pipeline, feeds Track A / M5:**
+- Chunks 3 mock compliance docs (A4), retrieves via hand-rolled bag-of-words + cosine similarity with a stopword filter (A5, A13), augments query + retrieved chunks (A6), generates a cited, source-only answer or refuses below a 0.12 similarity threshold (A7, A8, A9).
+- Ran clean on 3 queries: 2 correctly matched and cited the right source doc; the 3rd (off-topic "capital of France") correctly refused at score 0.00 — the refusal path (A8) is now a real, tested behaviour, not just a described concept.
+- Falls back to a template answer if no `ANTHROPIC_API_KEY` is set, or calls Claude Haiku 4.5 for real generation if one is.
+**`learning/agentic_workflow_demo.py` — hand-built CI-failure-triage agent, feeds A21 / Track D:**
+- Implements the exact candidate use case queued since S13: observe (read a CI log) → plan (classify the failure against known patterns) → act (produce a suggested fix) → reflect (plain-English summary).
+- Deliberate governance boundary carried over from the real settlement-anomaly example (§10 Q3/Q4): the agent **suggests, never auto-applies** — no PR, no commit, no auto-fix. Logged explicitly as an A24 design decision, not an oversight.
+- Ran clean on 3 mock CI runs (missing compliance file, dependency conflict, flaky test) — each correctly classified, each produced a scoped suggestion, none auto-applied.
+**Status change:** A21 moves from "🟡 QUEUED FOR S14 (design only)" to **🟡 SEEDED — built and running, not yet explained back solo.** Same distinction the log already uses for B19/B26 in S13: code existing and running is not the same as being able to explain it back without the file open. That explain-back pass is today's live session, not this prep step.
+**Also touched, same caveat (seeded, not yet explained back):** A8 (refusal threshold) — now has a real, testable number instead of an abstract description. A13 (lexical vs vector scoring) — retrieval quality visibly changed once stopwords were filtered out, a genuinely useful failure-and-fix to explain back live.
+**Do NOT claim before Session 14 spot-checks:** that A21, A8, or A13 are "owned" — per the log's own Bronze/Silver/Gold rule, that requires explaining them back solo, not just having working code.
 ---
 ## §4 — Concept curriculum
 Legend:
@@ -204,8 +241,8 @@ Legend:
 | A11 | Vector database | 🟠 STALE | Bronze: stores embeddings, searches fast, returns closest match. Silver: question → embedding model → query vector → similarity search → cosine similarity → closest chunks returned. **Regressed S13** — dropped the retrieval mechanism entirely, merged back into A10. Redo hands-on next session via `vector_demo.py`. | 2026-07-31 (S13 — flagged stale) |
 | A28 | A/B testing for AI products | 🥉 OWNED | Two versions, real users, measure which actually works — not which looks better in testing. Changes that seem like improvements in the lab can behave differently once real users and the model are involved. | 2026-06-19 (S12 Bronze) |
 | A1 | LLM | 🟡 PARTIAL | Model trained on huge text → generates human-like answers. Can hallucinate on its own. | — |
-| A8 | Refusal / guardrail threshold | 🟡 PARTIAL | Bot refuses when no card is good enough. Need drill: what's the threshold scoring? | — |
-| A13 | Lexical vs vector scoring | 🟡 PARTIAL | bank-of-sandhu uses lexical (word-match). Production uses vector (meaning-match). | — |
+| A8 | Refusal / guardrail threshold | 🟡 SEEDED | Bot refuses when no card is good enough. Now has a real, tested number: `rag_demo.py` refuses below 0.12 cosine similarity — verified live on an off-topic query (scored 0.00). Not yet explained back solo. | 2026-08-03 (pre-S14 build) |
+| A13 | Lexical vs vector scoring | 🟡 SEEDED | bank-of-sandhu uses lexical (word-match). Production uses vector (meaning-match). `rag_demo.py` made this concrete — retrieval quality visibly changed once stopwords were filtered from the bag-of-words vectors. Not yet explained back solo. | 2026-08-03 (pre-S14 build) |
 | A14 | Context window | 🟡 PARTIAL | Why chef can't hold the whole fridge. Model's text-at-once limit. | — |
 | A12 | Pinecone | 🔴 NOT STARTED | — | — |
 | A15 | Prompt / system prompt | 🔴 NOT STARTED | — | — |
@@ -214,7 +251,7 @@ Legend:
 | A18 | LangChain | 🔴 NOT STARTED | — | — |
 | A19 | LlamaIndex | 🔴 NOT STARTED | — | — |
 | A20 | Azure OpenAI | 🔴 NOT STARTED | — | — |
-| A21 | Agentic AI | 🟡 QUEUED FOR S14 (Bronze — design only) | Candidate use case: an agent that reads a failing GitHub Actions run and produces a plain-English root-cause summary + suggested fix — mirrors the manual diagnosis done in S13. | 2026-07-31 (S13 — queued, not yet taught) |
+| A21 | Agentic AI | 🟡 SEEDED — built, not yet explained back solo | The candidate use case is now real, running code: `learning/agentic_workflow_demo.py` — an agent that reads a CI run log, classifies the failure, suggests a fix, and reflects in plain English, without auto-applying anything. Mirrors the manual diagnosis done in S13. Explain-back pass is Session 14 live. | 2026-08-03 (pre-S14 build) |
 | A22 | MCP | 🔴 NOT STARTED | — | — |
 | A23 | Evals / RAGAS | 🔴 NOT STARTED | — | — |
 | A24 | Governance / responsible AI | 🔴 NOT STARTED | — | — |
@@ -269,6 +306,29 @@ These are widely-documented industry concepts. I'm learning them from public sou
 | C6 | Scorecards | 🔴 NOT STARTED | An industry pattern — a rubric applied to services (owner, CI, security, SLOs). | — |
 | C7 | Self-service provisioning | 🔴 NOT STARTED | An industry pattern — click → new env without a ticket. | — |
 ---
+### 4D — Agentic infrastructure & control-plane concepts (added for the target-role Track D — see §11)
+Source JD asks for: agentic control planes, identity/access control, sandboxing, network/connectivity architecture, MCP/A2A protocols, distributed systems, API Gateways, Kubernetes, cloud-native architecture, enterprise security architecture. Mapped to new concept refs below — all 🔴 until M7 starts.
+| # | Concept | Status | Plain-English (bronze — to fill in as taught) | Last check |
+|---|---|---|---|---|
+| D1 | Agentic control plane vs data plane | 🔴 NOT STARTED | Control plane = the system that decides *what agents are allowed to do and with what identity*; data plane = the actual task/tool execution. Same split as Kubernetes control plane (API server, scheduler) vs worker nodes. | — |
+| D2 | Agent identity (workload identity) | 🔴 NOT STARTED | An agent needs its own identity, distinct from the human who launched it — so access can be scoped, audited, and revoked per-agent. | — |
+| D3 | Agent authN/authZ, scoped tokens | 🔴 NOT STARTED | Agents should hold short-lived, narrowly-scoped credentials for exactly the tools/data they need — not a human's full permission set. | — |
+| D4 | Sandboxing agent code execution | 🔴 NOT STARTED | Untrusted or generated code an agent runs needs isolation (e.g. microVM or container boundary) so a bad tool call can't touch the host system. | — |
+| D5 | Agent network & connectivity architecture | 🔴 NOT STARTED | Controlling what an agent can reach over the network — egress allow-lists, service mesh routing — so an agent can't call arbitrary endpoints. | — |
+| D6 | MCP (Model Context Protocol) | 🔴 NOT STARTED | Cross-ref A22. A standard interface for connecting an agent to external tools/data sources, instead of every integration being bespoke. | — |
+| D7 | A2A (Agent2Agent protocol) | 🔴 NOT STARTED | A standard for agents to discover and communicate with *other* agents (not just tools) across systems/vendors. | — |
+| D8 | Agent orchestration frameworks | 🔴 NOT STARTED | Frameworks (e.g. LangGraph, AutoGen) that coordinate multi-step or multi-agent workflows — sequencing, state, handoffs. | — |
+| D9 | API Gateway | 🔴 NOT STARTED | A single managed entry point for API traffic — auth, rate limiting, routing — sitting in front of backend services. | — |
+| D10 | Kubernetes fundamentals | 🔴 NOT STARTED | Container orchestration — pods (running containers), services (stable networking), namespaces (isolation), ingress (external entry). | — |
+| D11 | Service-to-service communication | 🔴 NOT STARTED | How internal services talk to each other securely — mTLS, service mesh (Istio/Linkerd) — vs how external clients talk to the API Gateway. | — |
+| D12 | Distributed systems fundamentals | 🔴 NOT STARTED | CAP theorem, idempotency, eventual vs strong consistency — the trade-offs any multi-node platform has to make. | — |
+| D13 | Cloud-native architecture patterns | 🔴 NOT STARTED | Microservices, 12-factor app principles, stateless services designed to scale horizontally. | — |
+| D14 | Enterprise security architecture | 🔴 NOT STARTED | Zero trust, least privilege, defence in depth — applied to a platform where the "user" is sometimes an autonomous agent. | — |
+| D15 | Agent lifecycle management | 🔴 NOT STARTED | Versioning, deploying, rolling back, and deprecating agents in production the same way you would a service. | — |
+| D16 | Multi-tenancy & isolation for agent platforms | 🔴 NOT STARTED | Making sure one team's/customer's agents can't see or affect another's, on shared infrastructure. | — |
+| D17 | Observability for agentic systems | 🔴 NOT STARTED | Tracing an agent's reasoning steps and tool calls end-to-end, not just logging the final output — needed to debug and audit agent decisions. | — |
+| D18 | Platform vision-setting for infra PM | 🔴 NOT STARTED | Translating an emerging open standard (e.g. MCP) into a production-grade, enterprise capability roadmap — the specific "define and drive the vision" skill the JD leads with. | — |
+---
 ## §5 — Spot-check log
 | Date | Concept | Method | Outcome | Status |
 |---|---|---|---|---|
@@ -311,34 +371,25 @@ These are widely-documented industry concepts. I'm learning them from public sou
 | 2026-07-31 | A10 Embedding | S13 — same session, same blending pattern | Flagged stale alongside A11. | 🟠 |
 ---
 ## §6 — NEXT (resume here)
-
 ### Session 14 plan
-
 **STEP 1: Redo A10 + A11 from scratch, hands-on — not verbal-only.**
 Both flagged 🟠 STALE in S13 after regressing under time-gap fatigue. Extend `learning/vector_demo.py` rather than just re-explaining: add a few new items, run it, watch the numbers, then explain cosine similarity and embedding back using what just ran — not an analogy recited cold. Don't scaffold off the stale attempt.
-
 **STEP 2: Explain B19 (Snyk) and B26 (Compliance as code) back in your own words — Bronze.**
 Both are sitting as real, working code in the repo now (`ci.yml`'s `security` and `compliance-docs` jobs) — point at the actual file rather than an analogy.
-
 **STEP 3: A12 Pinecone — Bronze, if energy allows.**
 Still not started. Completes the A10–A12 vector bundle and clears Track C trigger condition 3.
-
-**STEP 4: Agentic AI use case — design, A21 Bronze.**
-First real touch on Agentic AI (A21, currently not started). Candidate use case: an agent that reads a failing GitHub Actions run and produces a plain-English root-cause summary + suggested fix — directly mirrors the manual diagnosis done in S13 on the compliance-docs failure, just automated. Uses the Claude API already wired into bank-of-sandhu (Haiku 4.5). Session 14 scope is design + Bronze explanation only — not full implementation yet.
-
+**STEP 4: Agentic AI use case — explain back solo, A21 Bronze.**
+Updated: the CI-failure-triage agent is no longer just a design — it's built and running as `learning/agentic_workflow_demo.py`, seeded ahead of this session. Session 14's job is to explain the observe→plan→act→reflect loop back solo, without the file open, plus the deliberate "suggest, never auto-apply" governance boundary (A24). Bronze = explained back clean without reading from the code.
+**STEP 5: RAG demo — explain back solo, A8 + A13 uplift.**
+`learning/rag_demo.py` is also built and running, seeded ahead of this session. Explain the refusal threshold (A8: why 0.12, what happens below it) and the stopword-filtering fix (A13: why raw bag-of-words over-matched on "the", how filtering fixed it) back solo.
 **Do NOT this session:**
 - Start Track C / M6 build (condition 2 still open — M2 or M5 Chunks 2–3 needed).
 - Advance to Chunks 2–6 of `server/chat.js`.
-- Fully build the agentic use case end-to-end — design + Bronze only, implementation is its own later session.
-
+- Start Track D / M7 build — A21 needs to be explained back solo (not just seeded) before Track D formally kicks off.
 ---
-
 ### Exact opener line for Session 14
-
-> *Resume Session 14. Read BUILD_LEARN_LOG.md first — PERMANENT RULE. A10 and A11 flagged stale in S13 — redo both hands-on by extending `learning/vector_demo.py`, don't just re-explain verbally. Then explain B19 (Snyk) and B26 (Compliance as code) back in plain English, pointing at the real code in `ci.yml`. If energy allows, A12 Pinecone Bronze. New this session: design an Agentic AI use case (A21) at Bronze — candidate idea is a CI-failure-triage agent, mirroring the manual diagnosis from S13. Note the session start time. Slow is correct. Watch all five failure modes and the under-load regression stop signal.*
-
+> *Resume Session 14. Read BUILD_LEARN_LOG.md first — PERMANENT RULE. A10 and A11 flagged stale in S13 — redo both hands-on by extending `learning/vector_demo.py`, don't just re-explain verbally. Then explain B19 (Snyk) and B26 (Compliance as code) back in plain English, pointing at the real code in `ci.yml`. If energy allows, A12 Pinecone Bronze. Two artifacts were built ahead of this session and are seeded but not yet explained back solo: `learning/rag_demo.py` (RAG pipeline — explain the refusal threshold A8 and the stopword fix A13) and `learning/agentic_workflow_demo.py` (CI-failure-triage agent — explain the observe/plan/act/reflect loop and the "suggest, never auto-apply" boundary for A21). Explaining these back solo, without the file open, is what promotes them past seeded. Note the session start time. Slow is correct. Watch all five failure modes and the under-load regression stop signal.*
 ---
-
 ### Still open (not lost, not done)
 - **A10 + A11** — flagged stale S13, redo hands-on next session via `vector_demo.py`.
 - **A12 Pinecone** — not started. Completes the vector bundle (Track C trigger condition 3).
@@ -353,11 +404,8 @@ First real touch on Agentic AI (A21, currently not started). Candidate use case:
 - **M5 Chunks 2–6** — queued.
 - **GitHub-UI-as-editor habit** — remember to reset to the root breadcrumb before creating each new file; caused repeated nesting errors in S13.
 - **Showcase repo** — extract `vector-db-demo` (+ the agent once built) into a standalone `ai-learning-toolkit` repo alongside `bank-of-sandhu`, each folder self-contained with its own README. Run §8 scrub on it too before it goes public.
-
 ---
-
 ### Now / Next / Later
-
 **NOW (just done — Session 13):**
 - ✅ B13 — held, decider rule landed clean.
 - 🟠 A10 + A11 — regressed, flagged stale (honest, not pushed through).
@@ -368,14 +416,12 @@ First real touch on Agentic AI (A21, currently not started). Candidate use case:
 - ✅ B19 (Snyk) upgraded from not-started to partial — seen live in real code.
 - ✅ Time investment tracking started (§9) — 3h 45m logged.
 - ✅ Method updated: every module now must end in a shareable artifact (§0), not just an explained concept.
-
 **NEXT (Session 14):**
 - 🔁 Redo A10 + A11 hands-on via extended `vector_demo.py`.
 - 🔁 Explain B19 + B26 back in own words, pointing at real code.
 - 🚀 A12 Pinecone — Bronze, if energy allows.
 - 🆕 Design an Agentic AI use case (A21) — Bronze, candidate: CI-failure-triage agent.
 - ⏱️ Log start time at open, end time + duration at close.
-
 **LATER (queued, in priority order):**
 1. **Agentic use case — implementation** (once designed at Bronze in S14).
 2. **Showcase repo** — standalone `ai-learning-toolkit` repo, vector-db-demo + agent as self-contained folders.
@@ -388,6 +434,7 @@ First real touch on Agentic AI (A21, currently not started). Candidate use case:
 9. **M4 Platform patterns applied**.
 10. **DORA metrics (B25)** — layered on top of CI/CD bundle.
 11. **Governance / evals (A23, A24)** — once vector DBs owned.
+12. **Track D / M7 kickoff — Agentic control planes** (added for the target infra-PM role in §11) — starts once A21 Bronze lands. Order within Track D: D2/D3 (agent identity & authZ) → D4 (sandboxing) → D6/D7 (MCP in practice, then A2A) → D9–D11 (API Gateway, Kubernetes, service mesh) → D12–D14 (distributed systems, cloud-native, security architecture) → D15–D17 (lifecycle, multi-tenancy, observability) → D18 (vision-setting wrap).
 ---
 ## §7 — Talking points (banked, for general professional use)
 **On RAG (Session 05 — gold-level):**
@@ -414,15 +461,15 @@ First real touch on Agentic AI (A21, currently not started). Candidate use case:
 ## §8 — Sanity check (run after every commit)
 Before pushing this file to a public branch, run the scrub locally. From the repo root:
 ```bash
-grep -i -n -E "current employer|my employer|my company|my bank|my team lead|my manager|my CTO|whiteshield|quantum|career navigator|adcb|al reem|nationwide|barclays|hsbc|lloyds|natwest|santander|santander uk|monzo|starling|revolut|wise|cursor|uae role|dubai role|abu dhabi role|hiring manager|recruiter|interview|application|job code|JD\b|active target|watching target" BUILD_LEARN_LOG.md
+grep -i -n -E "current employer|my employer|my company|my bank|my team lead|my manager|my CTO|whiteshield|quantum|career navigator|adcb|al reem|nationwide|barclays|hsbc|lloyds|natwest|santander|santander uk|monzo|starling|revolut|wise|cursor|uae role|dubai role|abu dhabi role|hiring manager|recruiter|interview|application|job code|JD\b|active target|watching target|bloomberg" BUILD_LEARN_LOG.md
 ```
 If grep returns nothing, the file is safe. If it returns lines, edit those lines out before pushing.
 **Recommended habit:** make this a pre-commit hook on the repo so it runs automatically. Example `.git/hooks/pre-commit`:
 ```bash
 #!/usr/bin/env bash
-if grep -i -q -E "current employer|whiteshield|quantum|adcb|al reem|nationwide|hiring manager|recruiter|JD\b|active target|watching target" BUILD_LEARN_LOG.md; then
+if grep -i -q -E "current employer|whiteshield|quantum|adcb|al reem|nationwide|hiring manager|recruiter|JD\b|active target|watching target|bloomberg" BUILD_LEARN_LOG.md; then
   echo "⛔  Scrub check failed — identifiers found in BUILD_LEARN_LOG.md. Edit before committing."
-  grep -i -n -E "current employer|whiteshield|quantum|adcb|al reem|nationwide|hiring manager|recruiter|JD\b|active target|watching target" BUILD_LEARN_LOG.md
+  grep -i -n -E "current employer|whiteshield|quantum|adcb|al reem|nationwide|hiring manager|recruiter|JD\b|active target|watching target|bloomberg" BUILD_LEARN_LOG.md
   exit 1
 fi
 echo "✅  Scrub check passed."
@@ -439,5 +486,63 @@ Tracks actual hours invested in hands-on learning, logged at every session close
 - At session open, note the wall-clock start time.
 - At session close — triggered by an explicit "close session" / "wrap up the log" request — note the end time, compute duration, add a new row, update the running total.
 - Short or long sessions are both fine. The point is an honest record of time invested, not hitting a target.
+---
+## §10 — Real-world examples mapped to concept refs (from job application answers)
+
+These are answers I wrote for a live job application, based on my actual CV. Kept here because they're the clearest test of whether a concept has moved from "explained in an analogy" to "usable in a real, high-stakes sentence." Each one is tagged against the concept refs in §4 so I can see where the curriculum is already ahead of my instinct, and where it still needs to catch up.
+
+**⚠️ Scrub before any public push.** Unlike the rest of this file, these four answers name real employers and real numbers on purpose — that's the point, they're application material, not a sanitised talking point. Run §8 before this file goes anywhere near a public branch; these paragraphs are exactly what that grep is designed to catch.
+
+**Q1 — Most complex B2B product owned → maps to Track B**
+Concept refs: B7, B8 (🥇 Gold), B14, B17, B18, B19, B20, B24, B26
+
+> Owned the enterprise CI/CD and developer platform at a UK high-street bank — the internal toolchain hundreds of engineering teams used to build, secure, and ship software (GitHub Actions, GitHub Advanced Security, Copilot, Snyk, SonarQube Enterprise, Artifactory), replacing legacy tooling (TFS, Jenkins, Harness). Owned the backlog end-to-end, drove 90% engineering-wide adoption, cut onboarding from 14 days to days, delivered £4m+ in combined annual savings from decommissioning the legacy stack.
+
+**Why this one matters for the curriculum:** this is the real, full-scale version of what M1–M4 simulate on bank-of-sandhu at toy scale. B8 is the only concept in this answer already owned at Gold — it shows in the fluency: the answer states the outcome (adoption, savings, onboarding time) without needing to explain the mechanics, because Gold means the mechanics are assumed knowledge. B18 (SonarQube), B20 (Artifactory), and B26 (compliance as code) are still 🔴/🟡 in §4 — they appear in this answer only as *nouns in a list*, not as explained mechanisms. That gap is the tell: I can name the tool I decommissioned, but I can't yet walk through *why* SonarQube vs Snyk are different checks the way I can for B8. Good marker for the Gold-priority pass queued in §6.
+
+**Q2 — Most workflow-intensive platform (outside creative/marketing) → outside Track A/B, general PM complexity**
+Not concept-mapped to A/B/C refs — this is a stakeholder-complexity example, not a tooling one. Kept as a reminder that not every strong answer needs to trace back to the CI/CD or AI curriculum; some just need clean structure (problem → cross-team complexity → simplification → measurable outcome).
+
+> Re-engineered customer financial-difficulty repayment journeys at a UK bank, coordinating credit risk, policy, operations, engineering, and external debt-management charities on a single regulator-scrutinised workflow. Replaced a 72-question manual script with a real-time API-driven customer snapshot, simplified 30+ repayment options into 12 scalable plans — cut call-handling cost from £18 to £7, delivered £1.2m annual savings, cited by the regulator as industry-leading.
+
+**Q3 & Q4 — AI-powered product shipped / personally built and shaped → maps to Track A**
+Concept refs: A21 (🟡 queued for S14), A24, A29 — and directly feeds the Session 14 agentic design task
+
+> Shaped an AI/LLM-based proof-of-concept at a payments fintech for settlement anomaly detection — automatically flagging missing next-day merchant settlements instead of relying on manual reconciliation. Scoped it detect-and-surface rather than auto-resolve (settlement data is financially sensitive; merchants needed to verify and act themselves), grounded detection in each merchant's own historical pattern rather than a fixed threshold to keep false positives low. Reduced settlement-related support contacts as part of a broader AI-enabled self-service push.
+
+**Why this is the most useful example in this section:** it's a real precedent for the exact task queued at the top of §6 — designing an Agentic AI use case (A21) at Bronze. The "detect-and-surface, not auto-resolve" decision *is* a governance/trust trade-off (A24, still 🔴), and "grounded in the merchant's own history instead of a fixed threshold" *is* a measurement-framework decision (A29, still 🔴). When Session 14 gets to designing the CI-failure-triage agent, this is the pattern to reuse: pick the scope boundary (what the agent does vs. hands back to a human) before anything else, and ground it in run-specific context rather than a static rule.
+
+---
+## §11 — Target role gap analysis: Agentic Infrastructure PM
+
+Added after reviewing a live JD for an "Agentic Infrastructure" product manager role, focused on agentic control planes. This is the clearest external validation yet of the curriculum split: the JD is basically Track A (agent behaviour) + Track B (platform/CI-CD instincts) + an entirely new layer (Track D — identity, sandboxing, protocols, distributed systems) that nothing in M1–M6 covers. Kept here so the gap is visible at a glance rather than re-derived every time a similar JD shows up.
+
+**Responsibility → what's already owned vs new:**
+
+| JD responsibility | Closest owned/partial concept | Gap (Track D ref) |
+|---|---|---|
+| Define and drive vision for agentic control planes | B8 (🥇 Gold) shows I can reason about a control-boundary problem (GHA ↔ on-prem) end-to-end — same shape of thinking, different domain | D1, D18 — no agentic-specific control-plane vocabulary yet |
+| Translate open-source/industry standards into enterprise infra | The whole Track B pattern (GHA, Snyk, SonarQube wired onto a real repo) is this exact muscle, just for CI/CD standards not agentic ones | D6, D7 — MCP/A2A are the standards in question, A22 (MCP) still 🔴 |
+| Integrate agentic capabilities across AI platform teams | A21 (🟡 queued S14) is the first real touch on agent design | D8 — orchestration frameworks, multi-team integration not yet touched |
+| Platform strategy for identity, access control, sandboxing, network/connectivity | B24 (secret management, 🟡) is adjacent but human/service-secret focused, not agent-identity focused | D2, D3, D4, D5 — all net-new |
+| Work with AI product teams on real-world usage → infra requirements | Direct match to my actual PM background (enterprise platform backlog ownership, §10 Q1) — this is a transferable strength, not a gap | — |
+| Partner with engineering on scalable, resilient system architecture | C1–C3 (platform engineering, DevEx, IDP concepts, 🟡) are the closest existing frame | D10, D11, D12, D13 — Kubernetes, service mesh, distributed systems, cloud-native patterns all net-new |
+| Anticipate how agentic systems evolve, shape roadmap | A28 (A/B testing for AI, 🥉) and A29 (KPI frameworks for AI, 🔴) are the measurement half of this; the forecasting half has no owned concept yet | D18 |
+
+**"You'll need to have" → what's already owned vs new:**
+
+| JD requirement | Status against current curriculum |
+|---|---|
+| 5+ yrs technical PM in AI/platform/cloud/security/infra | ✅ Already true — real experience (enterprise CI/CD + API platform ownership, §10 Q1) |
+| Experience with LLMs, GenAI, agent frameworks, orchestration, production requirements | 🟡 Partial — A1 (LLM), A3 (RAG) owned; A21 (Agentic AI) now seeded via `agentic_workflow_demo.py`; D8 (orchestration frameworks) not started |
+| Building/operating large-scale platform infra for developers | ✅ Real experience (Track B worked example is literally modelling this) |
+| Identity, authN/authZ, enterprise security architecture | 🔴 Gap — D2, D3, D14 all net-new. **Highest-priority gap** — appears twice in the JD (as a platform strategy area and as a "need to have") |
+| Distributed systems, service-to-service comms, API Gateways, Kubernetes, cloud-native | 🔴 Gap — D9–D13 all net-new. **Second-highest-priority gap** — broad and foundational |
+| Hands-on with MCP, A2A, interoperability patterns | 🟡 Partial — MCP already queued as A22; A2A is entirely new (D7) |
+| Cross-functional work with engineering, security, product, platform | ✅ Real experience (§10 Q1 stakeholder list: Engineering, Security, Architecture, CDO org) |
+| Communication/storytelling, articulate technical vision | 🟡 Partial — B8's Gold-level talking point (§7) is proof this skill exists; needs a Track-D-specific version once D1–D18 are further along |
+
+**Reading the table:** the "real experience" rows are already strong and need no curriculum time — they're PM/stakeholder skills, not technical ones. The two real gaps are identity/security architecture (D2, D3, D14) and the Kubernetes/distributed-systems/API-Gateway cluster (D9–D13) — both zero-to-one right now. M7's step ordering in §2 was sequenced to hit those two clusters first, right after A21 lands, rather than saving them for later.
+
 ---
 *End of file. Paste this whole file as the opener for the next session.*
