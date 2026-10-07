@@ -260,6 +260,23 @@ Built ahead of the live Session 14 spot-checks, so today's session can start fro
 - **Hour 3 — GraphRAG, RLHF, prompt injection one-liners.** Definitions given, first restatement not attempted — **stopped honestly, tired**, same stop signal the log has used consistently since S06. Carries to Session 17 or a pre-interview warm-up.
 - **Hours 4–5 (LangChain/Azure OpenAI/Pinecone familiarity; full rehearsal) — not reached today.**
 **Explicit ask banked here so it isn't lost: tomorrow's interview should lean on bank-of-sandhu's real vector database work (`vector_demo.py`, `vector_pipeline_real.py`) and the RAG pipeline (`rag_demo.py`) as the core worked examples** — these are the artefacts with real, screenshot-verified output behind them, which is a stronger interview position than anything still at 🔴/🟡. See the Interview-day quick reference in §6.
+### Session 17 — Two-month gap; immersive refresher lap through own code; A10/A11 docstrings written and pushed; four pipelines green from one commit 🟢
+**Start 14:43, end 16:24 (~1h 41m). Start time captured live at open — first time since S14.**
+**Context:** first session in ~7 weeks (last was S16, 2026-08-17). Felt rusty, so the session was redesigned as a refresher lap through the real repo code rather than the planned S17 script — re-learning from my own artefacts, not from memory. Interview-day branch skipped (no interview pending).
+**Stop 1 — RAG end to end, re-verified live.** Ran `python learning/rag_demo.py` in the Codespace: ICO 0.54 (cited `gdpr-ukdpa.md`), Consumer Duty 0.41, France 0.00 → refused at 0.12. Restaurant analogy came back unprompted. Two tightens: chunking is *cutting docs into small citeable pieces* (not "categories"), and the waiter brings the order in — *retrieve* is the runner checking every portion against the ticket. Refusal reasoning landed with one refinement: Consumer Duty is about avoiding foreseeable harm, not "only doing what the law allows". A4–A9 refreshed.
+**Stop 2 — A13 landed via a real flaw in my own output.** In the Consumer Duty query the system answered with the 0.41 chunk ("deliver good outcomes…") instead of the 0.18 chunk that actually holds the answer ("Price and value must be regularly assessed"). Worked it on paper: after stopwords, the 0.41 chunk shares 3 exact words (consumer, duty, firms); the real answer shares 1 (regularly) — `assess` ≠ `assessed`, `require` ≠ `requires`. Needed a multiple-choice prompt to land the one-liner (picked B unaided): *"keyword matching only matches exact spellings, so it ranked the chunk repeating the topic words above the chunk holding the answer."* A13 → Bronze (with prompt).
+**Stop 3 — A10/A11 written-not-spoken redo (the S16 plan, finally run).** Opened `vector_pipeline_real.py` (after first landing on `vector_demo.py` — the S16 "check which file is open" habit flagged it). Identified line 37 (`fit_transform` — text → numbers) and `collection.add(...)` (store in chromadb) in real code. Wrote docstrings as fill-in-the-blanks with a word bank:
+- `build_index()`: *"Turns each description into a list of numbers using vectorizer, and stores them into chromadb."*
+- `query()`: *"Turns the question into numbers using the same vectorizer, then asks chromadb for the 3 closest items."*
+**The images drift appeared twice on paper** (first pass "each images… stores them into vectorizer"; second pass "a list of images") — caught both times by writing rather than speaking, which is exactly what the changed method was for. Broken by showing the real TF-IDF output for the Porsche description (`911→0.24, car→0.24, door→0.24… [0.24, 0.0, 0.17, …]`). One further slip ("a list of Excel") came from a tutor analogy (spreadsheet row) — the analogy, not the concept, misled. Also confused description vs question for `query()` once; fixed via the `def query(…, question, …)` signature. **Written version now correct, but with word bank + prompts — not yet solo.**
+**Real-world fixes, done hands-on:**
+- `learningr/` path typo → "No such file", self-corrected on the next line.
+- `ModuleNotFoundError: chromadb` — Codespace libraries wiped after two months idle. Fixed with `pip install chromadb scikit-learn pytest` — the same line `vector-check.yml` runs on every CI build (manual vs automated restock).
+- Pipeline re-run: budget phone → budget_phone_x 0.339; fast sports car → porsche_911 0.331; family commuting → toyota_corolla 0.397. All correct; 0.000 scores where no words overlap.
+- Commit `cba0fcd` ("Add docstrings to build_index and query (S17)"). Push failed: Git LFS lock-verify not supported by remote → fixed with `git config lfs.<repo-url>/info/lfs.locksverify false`, then pushed.
+- Nearly let Copilot Chat run `npm run dev` from a "run" prompt — skipped. Lesson: run demos from the terminal, not the chat panel.
+**Stop 4 (preview only) — four pipelines green from one push:** Vector Retrieval Check #2 (49s), CI #69 (48s), Code Scanning #79 (1m 6s), pages build and deployment #71 (1m 7s). Walked through `vector-check.yml` line by line (trigger paths → fresh Ubuntu → Python 3.10 → pip install → pytest). What the 4 tests actually assert is still owed.
+**Mood note:** session opened feeling "quite stupid" after the gap — ended with working code, a real flaw diagnosed, and a green pipeline. The rust was surface-level; the mechanisms came back fast once anchored in real output.
 ---
 ## §4 — Concept curriculum
 Legend:
@@ -276,12 +293,12 @@ Legend:
 | A6 | Augment | 🥉 OWNED | Combines retrieved chunks + the user's original question into one package, assembled together before the model generates. Not the fetching (Retrieve); not the cooking (Generate). | 2026-06-19 (S12 held) |
 | A7 | Generate | 🥉 OWNED | Chef cooks only from handed cards. Refuses if missing. Labels each fact = citations. | 2026-06-02 (S10 held) |
 | A9 | Source attribution / citation | 🥉 OWNED | Labelling each ingredient with which box it came from. Auditability. | 2026-05-22 |
-| A10 | Embedding | 🟠 STALE (regressed S15 — new "text→images" drift, survived a code-grounded scaffold) | *"An embedding takes a piece of text and turns it into a list of numbers..."* — S14 landing held only until S15, where it was recast three times as turning **images** into numbers, once even with the real code open and labelled. Stronger regression than S13 (DB-blending) or S14 (alphabet detour), both of which only happened from cold verbal recall. Redo Session 17 written-not-spoken. | 2026-08-07 (S15 — regressed) |
-| A11 | Vector database | 🟠 STALE (same images drift as A10; also mis-defined cosine similarity as "matching a dataset" and mis-sequenced embedding vs storage) | Mechanism still understood from S14 (word-overlap counting done solo and correctly) — the one-sentence synthesis is the part that keeps failing, now under a harder failure mode than before. Redo Session 17, written not spoken, before attempting out loud again. | 2026-08-07 (S15 — still not landed) |
+| A10 | Embedding | 🟡 RECOVERING (S17 — written version correct with word bank; images drift recurred twice on paper and was caught both times) | *"An embedding turns a piece of text into a list of numbers"* — anchored S17 in real TF-IDF output for the Porsche description (`911→0.24, car→0.24…`). Memory hook: *a row of numbers for a piece of text — no pixels.* Now committed as the `build_index()` docstring. Solo write from a blank line still owed. | 2026-10-07 (S17 — recovering) |
+| A11 | Vector database | 🟡 RECOVERING (S17 — located embed + store + query lines in real code; docstring written with prompts) | Stores the number lists (chromadb `collection.add`) and returns the ones closest to the question's numbers (`collection.query`, cosine). S17 slips: "stores into vectorizer" (mixed up the maker vs the store) and description vs question for `query()` — both fixed against the code. Solo write still owed. | 2026-10-07 (S17 — recovering) |
 | A28 | A/B testing for AI products | 🥉 OWNED | Two versions, real users, measure which actually works — not which looks better in testing. Changes that seem like improvements in the lab can behave differently once real users and the model are involved. | 2026-06-19 (S12 Bronze) |
 | A1 | LLM | 🟡 PARTIAL | Model trained on huge text → generates human-like answers. Can hallucinate on its own. | — |
 | A8 | Refusal / guardrail threshold | 🥉 OWNED — re-verified S16 against real, live `rag_demo.py` output (both a sandbox run and a real Codespace run), after correcting a same-session drift where the explanation borrowed `vector_demo.py`'s data and anthropomorphised the mechanism ("knows," "intel"). Correct explanation: the France query shares zero words with `fca.md`/`gdpr-ukdpa.md`/`consumer-duty.md`, so every chunk scores 0.00, below the 0.12 threshold, so `generate()` refuses instead of guessing. | Explained back solo using real output, with one correction round needed today. | 2026-08-17 (S16 — re-verified, drift corrected) |
-| A13 | Lexical vs vector scoring | 🟡 SEEDED | bank-of-sandhu uses lexical (word-match). Production uses vector (meaning-match). `rag_demo.py` made this concrete — retrieval quality visibly changed once stopwords were filtered from the bag-of-words vectors. Not yet explained back solo. | 2026-08-03 (pre-S14 build) |
+| A13 | Lexical vs vector scoring | 🥉 OWNED (S17 — with a multiple-choice prompt) | Keyword matching only matches exact spellings. Proven on my own output: Consumer Duty query ranked the 0.41 "good outcomes" chunk above the 0.18 chunk that held the answer, because `assess` ≠ `assessed`. Production fix = semantic (neural) embeddings; TF-IDF is weighted but still word-based. Restate cold next time without options. | 2026-10-07 (S17) |
 | A14 | Context window | 🟡 PARTIAL | Why chef can't hold the whole fridge. Model's text-at-once limit. | — |
 | A12 | Pinecone | 🔴 NOT STARTED — marketplace context covered S15 (Weaviate/Chroma/Qdrant/Deep Lake vs Pinecone), Pinecone's own one-liner still owed | — | 2026-08-07 (S15 — context only) |
 | A15 | Prompt / system prompt | 🔴 NOT STARTED | — | — |
@@ -423,88 +440,75 @@ Source JD asks for: agentic control planes, identity/access control, sandboxing,
 | 2026-08-17 | A23 Evals/RAGAS | S16 — taught fresh; retrieval/generation split restated solo and correct after one tighten; threshold-to-category mapping tutor-explained, not derived | Seeded, not Bronze — solo explain-back still owed. | 🟡 |
 | 2026-08-17 | A8 Refusal threshold (re-verify) | S16 — live rerun via real `rag_demo.py` output (sandbox + real Codespace, screenshot-verified); drifted twice (borrowed `vector_demo.py`'s data, anthropomorphised "knows"/"intel" language) before correcting and landing with real numbers | Held after correction — new cross-demo-blending drift flagged for the watch list; phrasing still slightly knowledge-lookup framed rather than word-overlap framed. | 🥉 (held, drift noted) |
 | 2026-08-17 | B26 + A8 + settlement-anomaly governance synthesis | S16 — three-system "boundary that stops the system acting past a point it can't be trusted" sentence; B26 piece solo, connecting synthesis and third system needed scaffolding | Practiced with scaffold, not yet cold-solo. Usable interview line regardless. | 🟡 (scaffolded) |
+| 2026-10-07 | A4–A9 RAG pipeline + refusal | S17 — after a 7-week gap; live `rag_demo.py` rerun; restaurant analogy recalled unprompted; chunking and retrieve roles tightened | Held. Refusal now framed as avoiding foreseeable harm (Consumer Duty). | 🥉 (held) |
+| 2026-10-07 | A13 Lexical vs vector | S17 — diagnosed a real ranking flaw in own output (0.41 vs 0.18, assess/assessed); one-liner needed multiple choice | Bronze owned with prompt. | 🥉 |
+| 2026-10-07 | A10/A11 docstrings (written, not spoken) | S17 — images drift twice on paper, "Excel" once (analogy-induced), description/question swap once; all corrected against real code + TF-IDF output | Written version correct and committed (`cba0fcd`) — with word bank. Solo blank-line write owed. | 🟡 |
 ---
 ## §6 — NEXT (resume here)
-### Interview-day quick reference (tomorrow — read this first)
-Per the explicit instruction banked in Session 16: lean on **bank-of-sandhu's real, screenshot-verified artefacts**, not on anything still 🔴/🟡. In priority order for the interview:
-1. **`rag_demo.py`** — the full RAG pipeline (chunk → retrieve → augment → generate), the 0.12 refusal threshold, and the real France/ICO/Consumer-Duty output. This is the single strongest artefact — genuinely run, genuinely verified, twice, today.
-2. **`vector_demo.py` → `vector_pipeline_real.py`** — the "toy hand-rolled embeddings" → "real TF-IDF + chromadb" before/after story (S13 → S15), plus the green `vector-check.yml` CI run. Good evidence of iterating a concept from toy to production-shaped.
-3. **B26 compliance-as-code**, reframed as governance (S16) — "made the regulatory source-of-truth impossible to silently break," chained to the refusal threshold and the real settlement-anomaly scoping decision (§10 Q3/Q4).
-4. If pushed on gaps: answer honestly using the Hour 3 net-new terms (GraphRAG, RLHF, prompt injection) — one clean sentence each, then "haven't built against this yet, it's next on my list" rather than overclaiming.
-**Do not lead with A10/A11 (embeddings/vector-DB one-sentence synthesis)** — still 🟠 STALE, still the least reliable concept under pressure. If it comes up, use the mechanism-level explanation (word-overlap counting, demonstrated solo in S14) rather than attempting the synthesis sentence live.
-### Session 17 plan (carried forward from the original Session 16 plan — deviated for JD review + interview prep, see S16 entry in §3)
-**STEP 1: A10/A11 — changed method, do not attempt verbally first.**
-The "images" drift survived a code-grounded scaffold in S15 — the first drift strong enough to do that. Verbal recall under fatigue is where this keeps breaking, so don't repeat the same method and expect a different result. Instead: write the one-sentence synthesis as a code comment/docstring directly above `build_index()` and `query()` in `vector_pipeline_real.py`, untimed, no pressure to say it out loud first. Only attempt saying it out loud once the written version is solid and correct.
-**STEP 2: Once A10/A11 written version holds, re-verify A10 Silver framing** ("stored in the vector database") without letting it cause the DB-blending drift a third time.
-**STEP 3: A13 — explain back solo,** using `rag_demo.py`'s stopword filtering as the anchor. Carried from S14/S15.
-**STEP 4: Explain B19 (Snyk) and B26 (Compliance as code) back in your own words — Bronze.** Carried from S13/S14/S15/S16, still not done solo (S16 reframed it via scaffold, not cold).
-**STEP 5: Verify `agentic_workflow_demo.py` exists in the repo, run it, explain A21 back solo.**
-**STEP 6: A12 Pinecone — formally close out.** The marketplace overview (Weaviate/Chroma/Qdrant/Deep Lake) was covered informally in S15 — just needs Pinecone's own one-liner said back solo to complete the A10–A12 bundle.
-**STEP 7: Once A10/A11 hold, rehearse the demo run-order script solo** (`vector_demo.py` → `vector_pipeline_real.py` → `test_retrieval.py` → green Actions run) before using it live anywhere.
-**STEP 8 (new, from S16): A23 solo explain-back** — restate the retrieval-vs-generation eval split *and* correctly classify the 0.12 threshold as a retrieval-quality gate, without tutor help this time.
-**STEP 9 (new, from S16): finish Hours 3–5 of the interview-prep sprint** — GraphRAG/RLHF/prompt injection one-liners restated solo, LangChain/Azure OpenAI/Pinecone familiarity, full rehearsal out loud.
-**Do NOT this session:**
-- Start Track C / M6 build (condition 2 still open — M2 or M5 Chunks 2–3 needed).
-- Advance to Chunks 2–6 of `server/chat.js`.
-- Start Track D / M7 build — A21 needs to be explained back solo (not just seeded) before Track D formally kicks off.
+### Session 18 plan
+**STEP 0: Log the start time at open.** (Worked in S17 — keep it.)
+**STEP 1: A10/A11 blank-line spot check.** Close `vector_pipeline_real.py`. On paper, write both docstrings from memory — no word bank. Then open the file and compare against the committed version (`cba0fcd`). Watch for: images, "stores into vectorizer", description vs question.
+**STEP 2: A13 cold one-liner** — no options. Use the Consumer Duty 0.41 vs 0.18 example.
+**STEP 3: Stop 4 in depth — `test_retrieval.py`.** Read the 4 tests and explain each in plain English: what it asserts and why that protects retrieval quality. Link to A23 (evals: this is a retrieval-quality regression suite).
+**STEP 4: A21 Agentic AI** — `agentic_workflow_demo.py` is NOT in `learning/` (checked S17 — only rag_demo, test_retrieval, vector_demo, vector_pipeline_real). Find it elsewhere in the repo or rebuild it, run it, explain back solo.
+**STEP 5: B19 (Snyk) + B26 (compliance as code) explain-back**, pointing at `ci.yml`.
+**STEP 6: A12 Pinecone one-liner** to close the vector bundle.
+**STEP 7: A23 solo explain-back**, including where the 0.12 threshold sits.
+**STEP 8: A34–A37 one-liners** (GraphRAG, permission-aware retrieval, RLHF, prompt injection).
+**Method notes from S17 (keep):**
+- Rebuild from real output, not memory: run the script first, then explain.
+- Written before spoken for anything on the watch list.
+- Avoid spreadsheet/Excel analogies for embeddings — use "a row of numbers".
+- Run demos from the terminal, never via Copilot Chat.
+- One git command at a time; read the result before the next.
+- If a Codespace has been idle: `pip install chromadb scikit-learn pytest` first.
+**Do NOT this session:** start Track C / M6 or Track D / M7; advance `server/chat.js` Chunks 2–6.
 ---
-### Exact opener line for Session 17
-> *Resume Session 17. Read BUILD_LOG.md first — PERMANENT RULE. If this is running the morning of/before the interview, do the Interview-day quick reference in §6 first — bank-of-sandhu's `rag_demo.py` and `vector_demo.py`/`vector_pipeline_real.py` are the artefacts to lean on, not A10/A11's shaky synthesis. Otherwise: A10/A11 hit a new, more stubborn failure mode in S15 (embedding recast as "images," survived a code-grounded scaffold) — do NOT attempt the one-sentence synthesis verbally first this time. Write it as a docstring above `build_index()`/`query()` in `vector_pipeline_real.py` instead, untimed. Only say it out loud once the written version is confirmed correct. Then re-verify A10 Silver, then A13 explained back solo via rag_demo.py's stopword fix, then verify + run `agentic_workflow_demo.py` and explain A21 back solo, then A12 Pinecone to close the vector bundle. Then close out the S16 interview-prep sprint: A23 solo explain-back, and Hours 3–5 (GraphRAG/RLHF/prompt injection, tool familiarity, full rehearsal). If A10/A11 are holding, rehearse the demo run-order script solo before using it live. Note the session start time at open. Slow is correct.*
+### Exact opener line for Session 18
+> *Resume Session 18. Read BUILD_LOG.md first — PERMANENT RULE. Log the start time. Spot check first: write the build_index() and query() docstrings from a blank line, no word bank, then compare with commit cba0fcd. Then A13 cold one-liner (Consumer Duty 0.41 vs 0.18). Then Stop 4 in depth: explain each of the 4 tests in test_retrieval.py in plain English and link to A23. Then locate or rebuild agentic_workflow_demo.py and explain A21 back solo. Slow is correct.*
 ---
 ### Still open (not lost, not done)
-- **A10/A11 one-sentence synthesis** — new failure mode (text→images drift), survived a code-grounded scaffold in S15. Redo Session 17, written not spoken.
-- **A13** — still seeded, not yet explained back solo.
-- **A12 Pinecone** — marketplace context covered S15; still needs its own solo one-liner.
-- **A21 Agentic AI** — `agentic_workflow_demo.py` still unverified/untouched.
-- **B19 + B26** — still not explained back in own words cold-solo, despite being real code in `ci.yml` for 3 sessions running, and despite a scaffolded governance reframe in S16.
-- **A23 Evals/RAGAS** — seeded S16, solo explain-back (including the threshold classification) still owed.
-- **A34–A37 (GraphRAG, permission-aware retrieval, RLHF, prompt injection)** — all flagged S16 from the ADCB JD, introduced but none restated solo.
-- **Demo run-order script** — drafted S15, not yet rehearsed solo.
-- **Foundever JD gaps** — n8n/Langflow hands-on (A32), event-driven architecture (A33/D19): not yet curriculum items, just flagged.
-- **ADCB JD gaps** — see §12 in full; A23 (top priority), A18/A20 (LangChain/Azure OpenAI), A34–A37 (GraphRAG/RLHF/prompt injection/permission-aware retrieval).
-- **A28 Silver** — Bronze owned S12. Silver still queued.
-- **Track C trigger** — condition 1 met (B8 Gold). Condition 2 open (M2 or M5 Chunks 2–3). Condition 3 open (A10–A12 all need re-owning/starting).
-- **Gold-priority pass** — pick the 4–5 concepts most needed at Gold for senior conversations.
-- **Silver / Gold uplift** for A3–A7 and B13 — Bronze locked, layered uplift queued.
-- **M1 Stations 3–6** — queued.
-- **M5 Chunks 2–6** — queued.
-- **Codespaces habits worth banking:** always type commands fresh rather than trusting Up-arrow recall or paste (clipboard can silently hold stale/broken text); double-check a file actually exists in the repo before assuming a "seeded" artifact was ever pushed; watch for stray duplicate lines and indentation after any paste; always click the root breadcrumb before "Add file" (recurred S15 despite being banked S13); double-check file extensions after any rename (recurred S15 — `.ym` vs `.yml`); **new S16 habit: before explaining any script's output, confirm which file/dataset is actually open — don't reuse a different demo's data from memory.**
-- **Showcase repo** — extract `vector-db-demo` + `rag_demo.py` + `vector_pipeline_real.py` (+ the agent once verified) into a standalone `ai-learning-toolkit` repo alongside `bank-of-sandhu`, each folder self-contained with its own README. Run §8 scrub on it too before it goes public.
+- **A10/A11** — written version correct (S17, with word bank). Solo blank-line write owed; then say it out loud.
+- **A13** — Bronze with prompt (S17); cold restate owed.
+- **A12 Pinecone** — own one-liner still owed.
+- **A21 Agentic AI** — `agentic_workflow_demo.py` not found in `learning/`; locate or rebuild.
+- **B19 + B26** — still not explained back cold-solo.
+- **A23 Evals/RAGAS** — solo explain-back owed; `test_retrieval.py` is the natural anchor.
+- **A34–A37** — introduced S16, none restated solo.
+- **Demo run-order script** — not yet rehearsed solo.
+- **Target-role gaps** — see §11/§12.
+- **A28 Silver**, **Gold-priority pass**, **Silver/Gold uplift** for A3–A7 and B13 — queued.
+- **M1 Stations 3–6**, **M5 Chunks 2–6** — queued.
+- **Codespaces habits:** type commands fresh; check the file name in the tab before explaining anything; root breadcrumb before "Add file"; double-check extensions; reinstall Python deps after long idle; Git LFS lock-verify is disabled for this repo (S17).
+- **Showcase repo** — `ai-learning-toolkit`, run §8 scrub before going public.
 ---
 ### Now / Next / Later
-**NOW (just done — Session 16):**
-- ✅ ADCB Global Product Owner – Generative AI (Unstructured Data) JD reviewed — third target-role gap analysis added as **§12**. Strongest artefact match yet (UAE/UK compliance docs already wired into B26 + rag_demo.py).
-- ✅ Four new concept refs proposed: A34 GraphRAG, A35 permission-aware retrieval, A36 RLHF, A37 prompt injection.
-- ✅ Interview-prep sprint opened (5-hour bite-sized plan, §12) — Hours 1–2 run live: A23 seeded, A8 re-verified against real repo output (with a drift caught and corrected), B26/A8/settlement-anomaly governance narrative scaffolded into one sentence.
-- 🟡 Hour 3 (GraphRAG/RLHF/prompt injection) introduced, not landed — stopped honestly, tired.
-- ⚠️ Original Session 16 plan (A10/A11 redo etc.) did not run — deliberately deferred to Session 17 given tomorrow's interview.
-- ⚠️ Time investment not logged — no start time captured today (same gap as S15).
-**NEXT (Session 17, or a pre-interview warm-up first):**
-- 🎯 **Interview-day priority: rehearse `rag_demo.py` and the vector-demo progression solo, out loud, using the Interview-day quick reference above.**
-- 🔁 A10/A11 — written-not-spoken redo, new method after verbal recall failed under a code-grounded scaffold.
-- 🔁 A10 Silver — re-verify once the written version holds.
-- 🆕 A13 — explain back solo via `rag_demo.py`'s stopword fix.
-- 🔁 Explain B19 + B26 back in own words cold-solo, pointing at real code.
-- 🆕 Verify + run `agentic_workflow_demo.py`, then explain A21 back solo.
-- 🚀 A12 Pinecone — formally close out the vector bundle.
-- 🆕 A23 solo explain-back, including the threshold classification.
-- 🆕 Hours 3–5 of the interview-prep sprint: GraphRAG/RLHF/prompt injection one-liners solo, LangChain/Azure OpenAI/Pinecone familiarity, full rehearsal out loud.
-- 🆕 Rehearse the demo run-order script solo, once A10/A11 hold.
-- ⏱️ Log start time at open, end time + duration at close.
+**NOW (just done — Session 17):**
+- ✅ Refresher lap after a 7-week gap: RAG end to end, A13, A10/A11, CI preview — all on real output.
+- ✅ A10/A11 docstrings written and pushed (`cba0fcd`); images drift caught on paper twice.
+- ✅ A13 landed via a real ranking flaw in my own `rag_demo.py` output.
+- ✅ Fixed missing deps and a Git LFS push block hands-on.
+- ✅ Four pipelines green from one push (Vector Retrieval Check, CI, Code Scanning, Pages).
+- ✅ Time logged (first time since S14).
+**NEXT (Session 18):**
+- 🔁 A10/A11 blank-line solo write.
+- 🔁 A13 cold one-liner.
+- 🆕 Stop 4: the 4 tests in `test_retrieval.py`, linked to A23.
+- 🆕 Locate/rebuild `agentic_workflow_demo.py`, explain A21.
+- 🔁 B19 + B26 cold explain-back.
+- 🚀 A12 Pinecone close-out.
 **LATER (queued, in priority order):**
-1. **Track D / M7 kickoff — Agentic control planes** (target infra-PM role, §11) — starts once A21 Bronze lands solo.
-2. **Showcase repo** — standalone `ai-learning-toolkit` repo, vector-db-demo + rag_demo + agent as self-contained folders.
-3. **Track C / M6 start** — once all three trigger conditions met (condition 2 still open).
-4. **M1 Stations 3–6** — self-hosted runner, firewall request, containerised testing, headless browser testing.
-5. **M5 Chunks 2–6** — chunking code, scoring, system prompt, API call, response handling.
-6. **Silver + Gold uplift** for already-Bronze concepts.
-7. **M2 Code quality gates** (SonarQube worked example — Snyk now partially covered via B19).
-8. **M3 Artefact management**.
-9. **M4 Platform patterns applied**.
-10. **DORA metrics (B25)** — layered on top of CI/CD bundle.
-11. **Governance / evals (A23, A24)** — A23 now seeded (S16); A24 still not formally taught, only reused practically.
-12. **A32/A33/D19 (n8n/Langflow, event-driven architecture)** — flagged S15 from the Foundever JD; not yet sequenced into a module.
-13. **A34–A37 (GraphRAG, permission-aware retrieval, RLHF, prompt injection)** — flagged S16 from the ADCB JD; not yet sequenced into a module.
+1. **Track D / M7 kickoff — Agentic control planes** — once A21 Bronze lands solo.
+2. **Showcase repo** — `ai-learning-toolkit`.
+3. **Upgrade retrieval to semantic embeddings** (e.g. sentence-transformers) and re-run the Consumer Duty query — the natural fix for the S17 A13 flaw, and a strong before/after demo.
+4. **Track C / M6 start** — once trigger conditions are met.
+5. **M1 Stations 3–6**, **M5 Chunks 2–6**.
+6. **Silver + Gold uplift** for Bronze concepts.
+7. **M2 Code quality gates**, **M3 Artefact management**, **M4 Platform patterns**.
+8. **DORA metrics (B25)**.
+9. **Governance / evals (A23, A24)**.
+10. **A32/A33/D19** (n8n/Langflow, event-driven architecture).
+11. **A34–A37** (GraphRAG, permission-aware retrieval, RLHF, prompt injection).
 ---
 ## §7 — Talking points (banked, for general professional use)
 **On RAG (Session 05 — gold-level):**
@@ -533,6 +537,10 @@ The "images" drift survived a code-grounded scaffold in S15 — the first drift 
 > *"I use a retrieval-confidence gate to prevent ungrounded generation — my RAG pipeline scores every retrieved chunk against the query with cosine similarity, and if the best match falls below a threshold, it refuses to answer instead of guessing. In production terms, that's the retrieval-quality half of an eval framework acting as a runtime guardrail on generation quality."*
 **On governance-by-design (Session 16 — scaffolded synthesis, real examples):**
 > *"Across the systems I've built, the same instinct shows up repeatedly: a boundary that stops the system acting past a point it can't be trusted. My RAG pipeline refuses to answer once retrieval confidence drops too low. My CI pipeline refuses to pass if a required regulatory document disappears. And in a live settlement-anomaly detector I shaped at a payments fintech, I scoped it to flag and surface anomalies rather than auto-resolve them, because that's financially sensitive data a human needs to verify first. Same governance instinct, three different systems."*
+**On keyword vs semantic retrieval (Session 17 — Bronze, real example):**
+> *"In my RAG prototype, a Consumer Duty question was answered from the wrong passage. The right passage said 'regularly assessed', the question said 'assess', and keyword matching only counts exact spellings, so a passage that repeated the topic words won. That's exactly why production RAG uses semantic embeddings that match on meaning rather than spelling."*
+**On CI/CD from one commit (Session 17 — practical, verified):**
+> *"In my prototype, a single commit triggers four pipelines: a retrieval regression test that rebuilds the environment from scratch, a CI build, a CodeQL security scan and a deployment — all green in under two minutes, no human involved."*
 ---
 ## §8 — Sanity check (run after every commit)
 Before pushing this file to a public branch, run the scrub locally. From the repo root:
@@ -562,6 +570,7 @@ Tracks actual hours invested in hands-on learning, logged at every session close
 | Session 14 | 2026-08-03 | 11:46 | 17:12 | 5h 26m elapsed (includes an unlogged lunch break — active time meaningfully less; logged honestly rather than guessed precisely) | 9h 11m elapsed-tracked |
 | Session 15 | 2026-08-07 | Not captured | Not captured | Not logged — start time wasn't noted at open. Log this properly next session. | 9h 11m elapsed-tracked (unchanged — S15 not added, honestly) |
 | Session 16 | 2026-08-17 | Not captured | Not captured | Not logged — start time wasn't noted at open, same gap as S15. Log this properly next session. | 9h 11m elapsed-tracked (unchanged — S16 not added, honestly) |
+| Session 17 | 2026-10-07 | 14:43 | 16:24 | 1h 41m | 10h 52m elapsed-tracked |
 **How this gets logged going forward:**
 - At session open, note the wall-clock start time.
 - At session close — triggered by an explicit "close session" / "wrap up the log" request — note the end time, compute duration, add a new row, update the running total.
