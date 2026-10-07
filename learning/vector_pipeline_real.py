@@ -30,6 +30,7 @@ ITEMS = {
 
 
 def build_index():
+    """Turns each_ _ _into a list of _ _ _ using _ _ _, and stores them into _ _ _."""
     ids = list(ITEMS.keys())
     docs = list(ITEMS.values())
 
@@ -50,6 +51,7 @@ def build_index():
 
 
 def query(collection, vectorizer, question, n_results=3):
+    """Turns The _ _ _ into numbers using the same _ _ _. then asks _ _ _ for the _ _ _ closet items."""
     query_vector = vectorizer.transform([question]).toarray().tolist()
     results = collection.query(query_embeddings=query_vector, n_results=n_results)
 
