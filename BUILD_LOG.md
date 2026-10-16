@@ -1,4 +1,7 @@
 ### How tracks map onto the existing M1–M6 modules
+> **📦 ARCHIVED 16 Oct 2026** — Sessions 01–17. Nothing deleted. Active learning has moved to [`LEARNING_2.0.md`](LEARNING_2.0.md).
+
+---
 | Track | Pulls from these modules | Adds new |
 |---|---|---|
 | **A — AI / RAG** | M5 (Chunks 2–6 of `chat.js`) | A/B testing layer, eval framework |
