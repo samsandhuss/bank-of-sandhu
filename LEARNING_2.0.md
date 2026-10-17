@@ -49,9 +49,9 @@ Every module below is one paragraph of that job.
 
 | # | Module | The conversation | Head start from the archive | Cold? |
 |---|---|---|---|---|
-| 1 | M1 RAG | "Walk me through how our RAG pipeline works." | `rag_demo.py` runs; restaurant analogy owned; re-verified S17 | ❌ |
-| 2 | M1 RAG | "How should we chunk and tag our documents?" | Chunking owned at analogy level only | ❌ |
-| 3 | M1 RAG | "Why did it answer from the wrong passage?" | Real flaw found S17: 0.41 vs 0.18, assess ≠ assessed | ❌ |
+| 1 | M1 RAG | "Walk me through how our RAG pipeline works." | `rag_demo.py` re-run Day 2 ✅; restaurant analogy owned; 8 words in order (chunk, index, retrieve, add, generate, citations, threshold, refuse) — needs saying cold without blanks | ❌ |
+| 2 | M1 RAG | "How should we chunk and tag our documents?" | Day 2 experiment: `CHUNK_SIZE` 120 → 200 dropped Consumer Duty 0.41 → 0.34, answer got longer and noisier. Three dials learned: size, overlap, tags (filter, cite, restrict). Say step owed | ❌ |
+| 3 | M1 RAG | "Why did it answer from the wrong passage?" | Real flaw found S17: 0.41 vs 0.18, assess ≠ assessed. Day 2 proved it isn't a chunking problem: the right sentence stays at 0.18 at any box size | ❌ |
 | 4 | M2 Evals | "How do we know the RAG is actually any good?" | Retrieval vs generation quality introduced S16 | ❌ |
 | 5 | M2 Evals | "What goes in the eval set, and where does it run?" | `test_retrieval.py` + `vector-check.yml` already green in CI | ❌ |
 | 6 | M3 Guardrails | "What's prompt injection and how do we stop it?" | One-liner drafted S16 | ❌ |
@@ -115,14 +115,21 @@ Banked sentences from Sessions 01–17 live in the archive, §7. Reuse them; don
 - Run demos from the terminal, not the chat panel.
 - Idle Codespace? `pip install chromadb scikit-learn pytest` first.
 - Check the file name in the tab before explaining anything. Root breadcrumb before "Add file".
+- Demos live in `learning/` → run as `python learning/rag_demo.py` from the repo root.
+- Predict before you run: write the guess, then compare with the real numbers.
+- Undo an experiment: Source Control → hover the file → ↶ Discard Changes (or `git checkout <file>` in the terminal).
+- Codespace behind? Click **Sync Changes** before editing anything.
 
 **Watch for**
 - Reaching for jargon when tired → stop, say it plainly.
 - Jumping to a shiny new topic when a redo feels hard → finish today's one thing.
 - Embeddings drifting to "images" → say "text" out loud.
 - Tired answers shrinking to single words → that's the stop signal, not a failure.
+- Typing commands into the editor instead of the terminal → look for the `$` prompt before typing.
+- Mixing up retrieve and augment → retrieve *fetches*, augment *adds* the chunks to the question.
+- Calling grounding "the threshold" → not adding pineapple is grounding; refusing the sushi order is the threshold.
 
-**Hours already invested:** 10h 52m tracked (Sessions 13–17) + Sessions 01–12 untracked.
+**Hours already invested:** 10h 52m tracked (Sessions 13–17) + Sessions 01–12 untracked. LEARNING 2.0: Day 2 = 44m.
 
 ## Modules covered so far (Sessions 01–17, archive)
 
@@ -149,7 +156,8 @@ Track C dashboard · Track D agentic infrastructure · M1 Stations 3–6 · `cha
 
 | Day | Date | Module | Sentence I can now say | Question I'd ask an engineer | Done |
 |---|---|---|---|---|---|
-| 1 | 2026-10-16 | M1 | "First we chunk the documents and index them, once. For each question, retrieval fetches the best-matching chunks, augment adds them to the question, and the LLM answers only from those chunks, with citations — or refuses if the best match scores below the threshold." | "What's our top-k, and what happens when the best match scores low?" | ✅ with word bank — say it cold on Day 2. `rag_demo.py` run still owed. |
+| 1 | 2026-10-16 | M1 | "First we chunk the documents and index them, once. For each question, retrieval fetches the best-matching chunks, augment adds them to the question, and the LLM answers only from those chunks, with citations — or refuses if the best match scores below the threshold." | "What's our top-k, and what happens when the best match scores low?" | ✅ with word bank. `rag_demo.py` run cleared on Day 2. |
+| 2 | 2026-10-17 (Sat) | M1 | *(owed Monday)* | *(owed Monday)* | ⚠️ Warm-up ✅ (8 words in order). Learn ✅ size, overlap, tags. Do ✅ 120 → 200 dropped Consumer Duty 0.41 → 0.34. Say + words & stories owed. |
 
 ---
 
