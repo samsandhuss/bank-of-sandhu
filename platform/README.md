@@ -1,7 +1,7 @@
 # Bank of Sandhu — Front door
 
 Everything a developer needs, one click away.
-
+   👉 **New here? Start at the [front door](platform/README.md).**
 | I need to… | Go here |
 |---|---|
 | See if the build is green | [Pipelines](https://github.com/samsandhuss/bank-of-sandhu/actions) |
