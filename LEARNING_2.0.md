@@ -362,6 +362,122 @@ Workflow = predictable, cheap, easy to test. Agent = flexible, slower, harder to
 | P17 | "What does Istio add on top of Kubernetes?" | Run — service mesh | ❌ | ❌ |
 | P18 | "How do apps get secrets without storing them? Vault vs KMS?" | Secure — secrets & keys | ❌ | ❌ |
 
+### The worked example — one API service, all the way through the portal
+
+To make every portal capability concrete, Track P follows **one** made-up service from idea to live: the **Profit Share API** for Bank of Sandhu. It answers one question: *"If I save £X for N months in the Islamic savings account, what's my expected profit share?"*
+
+Every P session builds one piece of this. By P18 the whole journey exists in my repo.
+
+**Diagram 5 — The Profit Share API's journey through the portal**
+
+```mermaid
+flowchart LR
+  idea["Team: we need a<br/>Profit Share API"] --> door["Portal front door"]
+  door --> t["1 · Golden path<br/>'Node API' template"]
+  t --> repo["New repo, standards baked in"]
+  repo --> cat["2 · Catalogue<br/>owner, API spec, status"]
+  repo --> ci["3 · Pipeline<br/>reusable workflow, gates"]
+  door --> env["4 · Environment request<br/>dev / test / prod"]
+  env --> lz["Landing zone spoke +<br/>cluster namespace + Vault path"]
+  ci --> art["Artifactory image"] --> run["5 · Running in Kubernetes"]
+  lz --> run
+  repo --> own["6 · Team autonomy<br/>CODEOWNERS + access groups"]
+  ci --> sf["7 · Storefront<br/>'Node API CI' workflow shared"]
+```
+
+**1 · Golden path template (P8)** — the developer clicks "New Node API" and gets this, in minutes:
+
+```
+profit-share-api/
+├── src/index.js          # a working "hello" endpoint to start from
+├── test/index.test.js    # one passing test
+├── openapi.yaml          # the API contract
+├── Dockerfile            # how it's packaged
+├── .github/workflows/ci.yml   # calls the platform's reusable workflow
+├── catalog-info.yaml     # registers it in the catalogue
+├── CODEOWNERS            # who approves changes
+└── README.md             # how to run it, who owns it
+```
+
+The point: security scanning, tests, packaging and ownership are there **before the first line of real code**. The approved way is also the fastest way.
+
+**2 · Service and API catalogue (P9)** — `catalog-info.yaml`:
+
+```yaml
+apiVersion: backstage.io/v1alpha1   # the common catalogue format (Port uses its own, same idea)
+kind: Component
+metadata:
+  name: profit-share-api
+  description: Expected profit share for Islamic savings
+spec:
+  type: service
+  lifecycle: production
+  owner: team-savings
+  providesApis: [profit-share-api]
+---
+kind: API
+metadata:
+  name: profit-share-api
+spec:
+  type: openapi
+  owner: team-savings
+  definition: { $text: ./openapi.yaml }
+```
+
+And the contract other teams read before calling it — `openapi.yaml` (short version):
+
+```yaml
+paths:
+  /profit-share:
+    get:
+      parameters:
+        - { name: amount, in: query, required: true, schema: { type: number } }
+        - { name: months, in: query, required: true, schema: { type: integer } }
+      responses:
+        "200": { description: Expected profit share, e.g. {"amount":1000,"months":12,"expectedProfit":38.50,"rate":"3.85% expected, not guaranteed"} }
+        "400": { description: Missing or invalid amount or months }
+```
+
+**3 · Pipeline (P5–P7)** — the repo's whole `ci.yml` is three lines, because the platform owns the standard:
+
+```yaml
+jobs:
+  build:
+    uses: bank-of-sandhu/platform/.github/workflows/node-api-ci.yml@v1   # test, Sonar, Snyk, Docker, push to Artifactory
+```
+
+**4 · Environment provisioning (P10)** — the request form a developer fills in:
+
+| Field | Example |
+|---|---|
+| Service | profit-share-api |
+| Environment | dev |
+| Cloud | Azure |
+| Size | small |
+| Data classification | internal (no customer data in dev) |
+| Cost centre | savings |
+
+What happens next: **automated** — a subscription is vended into the right landing zone (policies inherited: UK regions only, no public IPs, everything tagged), a namespace is created in the dev cluster, and a Vault path is set up for its secrets. **Human step** — prod only, a change approval. **Status** — Requested → Approved → Provisioning → Ready, visible in the portal like a parcel tracker.
+
+**5 · Running it (P16–P18)** — Kubernetes keeps 3 copies running, Istio encrypts calls from the mobile app's backend, and the database password comes from Vault at start-up, never from the repo.
+
+**6 · Team autonomy (P11)** — `CODEOWNERS`:
+
+```
+*                 @bank-of-sandhu/team-savings
+/openapi.yaml     @bank-of-sandhu/team-savings @bank-of-sandhu/api-guild
+```
+
+The team approves its own changes and manages its own access group. The platform still enforces the guardrails: branch protection, required checks, no direct pushes to `main`.
+
+**7 · Storefront (P12)** — once `node-api-ci.yml` is proven, it's listed for other teams:
+
+| Workflow | What it does | Owner | Maturity | Example |
+|---|---|---|---|---|
+| Node API CI | test, scan, package, publish | platform team | ✅ stable (12 teams) | profit-share-api |
+
+**Say it:** "Take a team that needs a new API. They pick the golden path, get a repo with pipelines, scanning and ownership built in, it appears in the catalogue with its contract, they request an environment that lands in a compliant landing zone, and they own it from there inside our guardrails."
+
 ### Track P — session by session (30 min each)
 
 **Diagram 4 — The developer portal: one front door**
@@ -415,27 +531,27 @@ flowchart TB
 - *Build:* write a `Dockerfile` for the Node BFF, build the image in Actions and push it to GitHub's container registry with a version tag. Then pull that exact tag in a second job.
 - *Learn:* Docker packages the app with everything it needs. Build once, deploy many: Artifactory is the single trusted shelf with versions, provenance and scanning.
 
-**Wed 28 Oct — P8 Golden path templates**
+**Wed 28 Oct — P8 Golden path templates** *(builds example step 1)*
 - *Predict:* how long will it take to start a new service from my repo?
 - *Build:* make `bank-of-sandhu` a GitHub template repository, create a new repo from it and time it. List what came baked in.
 - *Learn:* a golden path is the approved route made the fastest route — standards by default, not by policing.
 
-**Thu 29 Oct — P9 Service and API catalogue**
+**Thu 29 Oct — P9 Service and API catalogue** *(builds example step 2)*
 - *Predict:* which catalogue field goes stale first?
 - *Build:* `catalog-info.yaml` — name, owner, repo, API link, lifecycle. Make one field wrong on purpose, then work out how it would be caught.
 - *Learn:* a catalogue is only trusted if ownership is clear and the data refreshes itself from source systems, not from people remembering.
 
-**Fri 30 Oct — P10 Environment provisioning and landing zones**
+**Fri 30 Oct — P10 Environment provisioning and landing zones** *(builds example step 4)*
 - *Predict:* which steps can be automated, and which still need a human?
 - *Build:* (1) `platform/landing-zone.md` — a Mermaid diagram of management groups (Platform, Landing Zones: Corp / Online, Sandbox), a hub network with firewall, and two app spokes. (2) A `workflow_dispatch` "Request an environment" form (cloud, name, size, data classification) that prints the policies the new subscription would inherit and opens a GitHub Issue to track it.
 - *Learn:* an Azure landing zone is pre-approved ground with network, identity, policy and logging already set. Subscription vending turns "give me an environment" into self-service: automated where possible, an approval where needed, status you can track like a parcel.
 
-**Mon 2 Nov — P11 Team autonomy**
+**Mon 2 Nov — P11 Team autonomy** *(builds example step 6)*
 - *Predict:* who can merge to `main` today?
 - *Build:* add a `CODEOWNERS` file and a ruleset requiring owner review.
 - *Learn:* teams own their own services and access, inside guardrails the platform sets (federated access control). Fewer tickets, no loss of control.
 
-**Tue 3 Nov — P12 Storefront before marketplace**
+**Tue 3 Nov — P12 Storefront before marketplace** *(builds example step 7)*
 - *Predict:* what makes someone trust a workflow somebody else wrote?
 - *Build:* `platform/storefront.md` — 3 of my reusable workflows, each with a description, an example, an owner and a maturity tag.
 - *Learn:* reuse needs curation first: description, owner, maturity. Open it into a marketplace only once ownership and lifecycle rules are clear, or you get duplicates and orphans.
