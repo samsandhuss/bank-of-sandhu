@@ -25,7 +25,7 @@ No Bronze/Silver/Gold. No "seeded". Just these two ticks.
 
 Claude opens every session with the check-in, before anything else:
 1. **What did I finish since last time?** Show the commit or the output, not a description.
-2. **Today's two sessions:** the platform slot (Track P until 12 Nov, then Track D) — 30 min — and the AI day (30–40 min). Which is done?
+2. **Today's two sessions:** the platform slot (Track P until 11 Nov, then Track D) — 30 min — and the AI day (30–40 min). Which is done?
 3. **Missed a day?** The missed session comes first. No skipping ahead, no new shiny topic.
 4. **Score it:** ✅ done · ⚠️ part done · ❌ missed — logged in the accountability log at the bottom.
 
@@ -158,12 +158,16 @@ Words & stories still follow, as before.
 | 16 Oct | mitigate | Latin *mitis* (gentle) + *agere* (to do) | to make a risk less severe | |
 | 16 Oct | robust | Latin *robur* — oak | strong, hard to break | |
 | 16 Oct | articulate | Latin *articulus* — a small joint | to express clearly, joint by joint | |
+| 18 Oct | precise | Latin *prae* (in front) + *caedere* (to cut) — cut off cleanly | exact, nothing extra | "Smaller chunks give more precise matches." |
+| 18 Oct | dilute | Latin *diluere* — to wash away | to weaken by adding more | "Bigger chunks dilute the match." |
+| 18 Oct | granular | Latin *granum* — a grain | broken into small, fine pieces | "We need more granular tags." |
 
 ## Stories told
 
 | Date | Sikh sakhi | Greek myth |
 |---|---|---|
 | 16 Oct | Bhai Lalo and Malik Bhago — honest earning | Prometheus and Epimetheus — forethought vs afterthought |
+| 18 Oct | The cup of milk at Multan — Guru Nanak's jasmine petal: add value gently without pushing anything out | Procrustes and his bed — forcing everything into one fixed size (why one chunk size doesn't suit every document) |
 
 ---
 
@@ -172,7 +176,7 @@ Words & stories still follow, as before.
 | # | Module | The conversation | Head start from the archive | Basic | Capable |
 |---|---|---|---|---|---|
 | 1 | M1 RAG | "Walk me through how our RAG pipeline works." | `rag_demo.py` re-run Day 2 ✅; restaurant analogy owned; 8 words in order (chunk, index, retrieve, add, generate, citations, threshold, refuse) — needs saying cold without blanks | ❌ | ❌ |
-| 2 | M1 RAG | "How should we chunk and tag our documents?" | Day 2 experiment: `CHUNK_SIZE` 120 → 200 dropped Consumer Duty 0.41 → 0.34, answer got longer and noisier. Three dials learned: size, overlap, tags (filter, cite, restrict). Say step owed | ❌ | ❌ |
+| 2 | M1 RAG | "How should we chunk and tag our documents?" | Day 2 experiment: `CHUNK_SIZE` 120 → 200 dropped Consumer Duty 0.41 → 0.34, answer got longer and noisier. Three dials learned: size, overlap, tags (filter, cite, restrict). Say cleared 18 Oct; overlap needed a correction → Grill 26 Oct | ✅ | ❌ |
 | 3 | M1 RAG | "Why did it answer from the wrong passage?" | Real flaw found S17: 0.41 vs 0.18, assess ≠ assessed. Day 2 proved it isn't a chunking problem: the right sentence stays at 0.18 at any box size | ❌ | ❌ |
 | 4 | M2 Evals | "How do we know the RAG is actually any good?" | Retrieval vs generation quality introduced S16 | ❌ | ❌ |
 | 5 | M2 Evals | "What goes in the eval set, and where does it run?" | `test_retrieval.py` + `vector-check.yml` already green in CI | ❌ | ❌ |
@@ -343,7 +347,7 @@ Workflow = predictable, cheap, easy to test. Agent = flexible, slower, harder to
 
 | # | The conversation | Theme | Basic | Capable |
 |---|---|---|---|---|
-| P1 | "What is the DevEx front door, and who is it for?" | One front door | ❌ | ❌ |
+| P1 | "What is the DevEx front door, and who is it for?" | One front door | ✅ | ❌ |
 | P2 | "Walk me through onboarding an application onto the platform, end to end." | Onboarding | ❌ | ❌ |
 | P3 | "Why move off four CI/CD tools onto GitHub?" | Migration — the why | ❌ | ❌ |
 | P4 | "How do you migrate a pipeline without breaking a team's releases?" | Migration — the how | ❌ | ❌ |
@@ -496,104 +500,109 @@ flowchart TB
 ```
 
 
-**Mon 19 Oct — P1 One front door**
+**Sun 18 Oct — P1 One front door** ✅ *(done a day early; every later session moved one day earlier)*
 - *Predict:* how many clicks does it take today to reach my pipelines, scans, docs and live app?
 - *Build:* `platform/README.md` — one page linking to everything a developer of `bank-of-sandhu` needs. Count the clicks again.
 - *Learn:* one front door cuts tool-hopping and cognitive load. It's the reason a portal exists, so every other feature must protect it.
+- **What happened:** guessed 20 clicks, real count 7, front door brought it to 5. Built `platform/README.md`, removed a stale "is this the live one?" note, and linked it from the top of the main `README.md` so it's the first thing a newcomer sees.
+- **What the output taught me:** inside one tool, clicks aren't the problem. The real pain is **tool sprawl** — many tools, many logins, not knowing where to go or who owns what. A front door only works if it's **discoverable** (first thing people see) and **trusted** (no stale links).
+- **Banked sentence:** "Developers today hop between lots of tools and logins just to see a build, a scan or who owns a service. The front door is one place to start: find anything, see its status and owner, and get the standard way of doing things. It doesn't replace the tools, it joins them up. It's for every developer, and especially new joiners."
+- **Question back:** "Which tools do you open every day, and where do you lose the most time?"
+- **Correction to remember:** don't say developers "stay in one portal" — engineers will say "I'm not leaving my IDE". The portal is one place to *start, find and own*, not to do everything.
 
-**Tue 20 Oct — P2 Onboarding, end to end**
+**Mon 19 Oct — P2 Onboarding, end to end**
 - *Predict:* how many steps did it take to get my repo from empty to deployed?
 - *Build:* `platform/onboarding.md` — a Mermaid diagram of my own journey: repo → branch protection → CI → scans → deploy. Pull the real dates from my commit history.
 - *Learn:* onboarding is a product; time to first green pipeline is its headline metric (my real story: 14 days → under 2).
 
-**Wed 21 Oct — P3 Migration: the why**
+**Tue 20 Oct — P3 Migration: the why**
 - *Predict:* what are the three biggest costs of running four CI/CD tools?
 - *Build:* `platform/migration-inventory.csv` — 8 made-up pipelines with tool, team, complexity and wave.
 - *Learn:* why consolidate: licence cost, skills spread four ways, four security models, no single audit trail. Waves go from simple and keen teams first to complex last.
 
-**Thu 22 Oct — P4 Migration: the how**
+**Wed 21 Oct — P4 Migration: the how**
 - *Predict:* which parts of an old pipeline won't translate cleanly?
 - *Build:* take a small generic Jenkinsfile and translate it into a GitHub Actions workflow in my repo. Run it green.
 - *Learn:* inventory → translate → parallel run → cut over → decommission the old tool. Decommissioning is where the saving actually lands.
 
-**Fri 23 Oct — P5 Beyond storing code**
+**Thu 22 Oct — P5 Beyond storing code**
 - *Predict:* how many of my workflows repeat the same steps?
 - *Build:* turn one repeated step in `ci.yml` into a reusable workflow (`workflow_call`) and call it.
 - *Learn:* reusable workflows are how a platform team ships a standard once and every team gets it.
 
-**Mon 26 Oct — P6 Quality gates**
+**Fri 23 Oct — P6 Quality gates**
 - *Predict:* would my repo pass a "no High findings" gate today?
 - *Build:* read my Snyk and code-scanning results, then add a gate that fails the build on a High (test it on a branch).
 - *Learn:* SonarQube checks code quality; Snyk checks the libraries I pull in. The bar is set by risk and security, but owned as a product decision.
 
-**Tue 27 Oct — P7 Artefacts**
+**Mon 26 Oct — P7 Artefacts**
 - *Predict:* does my deploy rebuild the code, or reuse what CI built?
 - *Build:* write a `Dockerfile` for the Node BFF, build the image in Actions and push it to GitHub's container registry with a version tag. Then pull that exact tag in a second job.
 - *Learn:* Docker packages the app with everything it needs. Build once, deploy many: Artifactory is the single trusted shelf with versions, provenance and scanning.
 
-**Wed 28 Oct — P8 Golden path templates** *(builds example step 1)*
+**Tue 27 Oct — P8 Golden path templates** *(builds example step 1)*
 - *Predict:* how long will it take to start a new service from my repo?
 - *Build:* make `bank-of-sandhu` a GitHub template repository, create a new repo from it and time it. List what came baked in.
 - *Learn:* a golden path is the approved route made the fastest route — standards by default, not by policing.
 
-**Thu 29 Oct — P9 Service and API catalogue** *(builds example step 2)*
+**Wed 28 Oct — P9 Service and API catalogue** *(builds example step 2)*
 - *Predict:* which catalogue field goes stale first?
 - *Build:* `catalog-info.yaml` — name, owner, repo, API link, lifecycle. Make one field wrong on purpose, then work out how it would be caught.
 - *Learn:* a catalogue is only trusted if ownership is clear and the data refreshes itself from source systems, not from people remembering.
 
-**Fri 30 Oct — P10 Environment provisioning and landing zones** *(builds example step 4)*
+**Thu 29 Oct — P10 Environment provisioning and landing zones** *(builds example step 4)*
 - *Predict:* which steps can be automated, and which still need a human?
 - *Build:* (1) `platform/landing-zone.md` — a Mermaid diagram of management groups (Platform, Landing Zones: Corp / Online, Sandbox), a hub network with firewall, and two app spokes. (2) A `workflow_dispatch` "Request an environment" form (cloud, name, size, data classification) that prints the policies the new subscription would inherit and opens a GitHub Issue to track it.
 - *Learn:* an Azure landing zone is pre-approved ground with network, identity, policy and logging already set. Subscription vending turns "give me an environment" into self-service: automated where possible, an approval where needed, status you can track like a parcel.
 
-**Mon 2 Nov — P11 Team autonomy** *(builds example step 6)*
+**Fri 30 Oct — P11 Team autonomy** *(builds example step 6)*
 - *Predict:* who can merge to `main` today?
 - *Build:* add a `CODEOWNERS` file and a ruleset requiring owner review.
 - *Learn:* teams own their own services and access, inside guardrails the platform sets (federated access control). Fewer tickets, no loss of control.
 
-**Tue 3 Nov — P12 Storefront before marketplace** *(builds example step 7)*
+**Mon 2 Nov — P12 Storefront before marketplace** *(builds example step 7)*
 - *Predict:* what makes someone trust a workflow somebody else wrote?
 - *Build:* `platform/storefront.md` — 3 of my reusable workflows, each with a description, an example, an owner and a maturity tag.
 - *Learn:* reuse needs curation first: description, owner, maturity. Open it into a marketplace only once ownership and lifecycle rules are clear, or you get duplicates and orphans.
 
-**Wed 4 Nov — P13 Measuring developer experience**
+**Tue 3 Nov — P13 Measuring developer experience**
 - *Predict:* how often does my repo deploy, and how long from commit to live?
 - *Build:* use the `gh` CLI to count runs on `main` and work out my own deploy frequency and lead time.
 - *Learn:* DORA metrics (speed and stability) plus onboarding time, adoption and developer satisfaction.
 
-**Thu 5 Nov — P14 Reaching on-prem safely**
+**Wed 4 Nov — P14 Reaching on-prem safely**
 - *Predict:* which direction does the connection go — in or out?
 - *Build:* a Mermaid diagram of cloud GitHub → self-hosted runner → on-prem target, labelling every connection.
 - *Learn:* the runner calls out to GitHub, so no inbound firewall hole is needed. (Owned at Gold in S11; this is the cold re-say.)
 
-**Fri 6 Nov — P15 AI in the platform**
+**Thu 5 Nov — P15 AI in the platform**
 - *Predict:* where does AI already touch my repo?
 - *Build:* `platform/ai-in-the-sdlc.md` — three places: coding assistant, PR summaries, and retrieval evals running in CI (`test_retrieval.py`).
 - *Learn:* AI is now part of the platform: adoption at scale (my real story: 1,700 engineers), guardrails, and evals as quality gates.
 
-**Mon 9 Nov — P16 Kubernetes and clusters**
+**Fri 6 Nov — P16 Kubernetes and clusters**
 - *Predict:* if I delete a running pod, what happens?
 - *Build:* in the Codespace, start a tiny local cluster with `kind`, load my Docker image from P7, and write a Deployment (3 replicas) and a Service. Delete a pod and watch it come back. Change the image tag and watch a rolling update.
 - *Learn:* the cluster is a pool of machines; Kubernetes keeps the desired state true. Pods, deployments, services, namespaces.
 
-**Tue 10 Nov — P17 Istio service mesh**
+**Mon 9 Nov — P17 Istio service mesh**
 - *Predict:* how would I send 10% of users to a new version without a big-bang release?
 - *Build:* `platform/service-mesh.md` — a Mermaid diagram of two services with sidecars, mTLS between them, and a 90/10 traffic split. Write the Istio `VirtualService` YAML for the split (reading it is the goal, not running it).
 - *Learn:* the mesh encrypts and controls service-to-service traffic, enables canary releases and gives tracing on every call. Trade-off: power vs extra moving parts.
 
-**Wed 11 Nov — P18 Vault and KMS**
+**Tue 10 Nov — P18 Vault and KMS**
 - *Predict:* where in my repo could a secret leak today?
 - *Build:* run Vault in dev mode in the Codespace, store a fake database password, and read it from a small script at runtime instead of from a file. Turn on GitHub secret scanning and push protection. Write one paragraph in `platform/secrets.md` on how KMS would encrypt my S3 data.
 - *Learn:* Vault issues, logs and rotates secrets; KMS guards the keys that encrypt data, and the keys never leave it. Secrets never live in code.
 
-**Thu 12 Nov — Track P mock:** all 18, cold, back to back, at Basic. Capable comes from the weekly Grills.
+**Wed 11 Nov — Track P mock:** all 18, cold, back to back, at Basic. Capable comes from the weekly Grills.
 
 **My real career stories** (CI/CD platform outcomes, the repayment-journey redesign, the settlement-anomaly AI scoping) live in the archive, §10. Track P and M6 reuse them.
 
-## Track D — Data & building blocks (from Fri 13 Nov)
+## Track D — Data & building blocks (from Thu 12 Nov)
 
 **Why:** AI products sit on top of data. To talk credibly with data engineers, I need to know how data is modelled, stored, moved, turned into a model and served — and how each piece connects to the next.
-**When:** every weekday in the platform slot once Track P finishes (from Fri 13 Nov), 30 minutes, build-day format.
+**When:** every weekday in the platform slot once Track P finishes (from Thu 12 Nov), 30 minutes, build-day format.
 **How:** one small Bank of Sandhu data platform in a new `data/` folder. Everything runs free and locally (SQLite, DuckDB, a fake S3 called `moto`, `mongomock`, scikit-learn, FastAPI). Databricks and MongoDB Atlas free tiers are optional extras.
 
 ### How the building blocks connect
@@ -634,67 +643,67 @@ Each session adds one box. By D12 the whole picture runs end to end.
 
 ### Track D — session by session (30 min each)
 
-**Fri 13 Nov — D1 Data model**
+**Thu 12 Nov — D1 Data model**
 - *Predict:* how many "things" (entities) does a simple bank need?
 - *Build:* `data/model.md` — a Mermaid diagram of Customer, Account, Transaction and Product (Islamic savings, Murabaha), with the keys that link them. Then write one customer as a JSON document.
 - *Learn:* entities, relationships, primary and foreign keys — and the same data shaped as tables or as one document.
 
-**Mon 16 Nov — D2 SQL vs MongoDB**
+**Fri 13 Nov — D2 SQL vs MongoDB**
 - *Predict:* which query will be simpler in each?
 - *Build:* `data/sql_vs_doc.py` — load the same customers into SQLite tables and into MongoDB-style documents (`mongomock`). Ask both for "all transactions for customer 7".
 - *Learn:* relational = strict schema, joins, great for money. Document = flexible and nested, fast for one customer's whole record. Most banks use both.
 
-**Tue 17 Nov — D3 S3 buckets**
+**Mon 16 Nov — D3 S3 buckets**
 - *Predict:* is a bucket more like a folder or a database?
 - *Build:* with `boto3` and `moto` (a fake S3), create a bucket, upload a messy `transactions_raw.csv` I generate, list it and read it back.
 - *Learn:* object storage — buckets, keys and prefixes. The cheap, durable landing zone where raw data and RAG documents arrive. Private by default, always.
 
-**Wed 18 Nov — D4 ETL**
+**Tue 17 Nov — D4 ETL**
 - *Predict:* how many bad rows are in my raw file?
 - *Build:* `data/etl_demo.py` — **extract** from the bucket, **transform** (fix dates, drop duplicates, mask card numbers, tag a category from the merchant name), **load** into SQLite. Print rows in vs rows out.
 - *Learn:* ETL vs ELT, data quality, and masking personal data before anyone can see it.
 
-**Thu 19 Nov — D5 Lakehouse and Databricks**
+**Wed 18 Nov — D5 Lakehouse and Databricks**
 - *Predict:* what's the difference between my silver and gold tables?
 - *Build:* `data/medallion.py` — the same pipeline as bronze (raw), silver (clean) and gold (monthly spend per customer) using DuckDB. Optional: run it in a Databricks free notebook.
 - *Learn:* a lakehouse keeps cheap files and database-style tables together. Databricks runs this at bank scale with Spark. (Same Bronze/Silver/Gold words I used for my learning levels — now they mean data quality layers.)
 
-**Fri 20 Nov — D6 Train an AI model**
+**Thu 19 Nov — D6 Train an AI model**
 - *Predict:* what accuracy will a tiny model get?
 - *Build:* `data/train_model.py` — train a scikit-learn classifier to tag transactions (groceries, travel, bills…) from merchant names in silver. Split train/test, print accuracy, save the model file.
 - *Learn:* a model is a function learned from examples: training data, features, weights, a test set it has never seen, and overfitting.
 
-**Mon 23 Nov — D7 Small model vs LLM**
+**Fri 20 Nov — D7 Small model vs LLM**
 - *Predict:* which wins on accuracy, speed and cost?
 - *Build:* classify the same 20 test rows with my model and with Claude. Then add a brand-new merchant type and see which copes (drift).
 - *Learn:* small models are cheap, fast and predictable; LLMs handle the unexpected. Models drift, so they need versioning and retraining.
 
-**Tue 24 Nov — D8 Results API**
+**Mon 23 Nov — D8 Results API**
 - *Predict:* what should the JSON response look like?
 - *Build:* `data/api.py` with FastAPI — `GET /customers/{id}/spend` (reads gold) and `POST /classify` (uses my saved model). Call it with `curl` and open the auto-generated `/docs` page.
 - *Learn:* REST endpoints, JSON contracts, status codes, and why an OpenAPI spec is the API's front door (links to the API template in P8).
 
-**Wed 25 Nov — D9 Async result API**
+**Tue 24 Nov — D9 Async result API**
 - *Predict:* what does the caller do while the job runs?
 - *Build:* `POST /reports` returns `202 Accepted` and a job ID; `GET /reports/{id}` moves from `pending` to `done` with the result.
 - *Learn:* long-running jobs, job IDs and polling — the pattern behind most "result" APIs.
 
-**Thu 26 Nov — D10 Webhooks**
+**Wed 25 Nov — D10 Webhooks**
 - *Predict:* how many wasted calls does polling make?
 - *Build:* when a report finishes, my API POSTs to a webhook receiver endpoint. Add a signature check so only my API is trusted. Then look at the real webhooks in my GitHub repo settings.
 - *Learn:* push vs pull, signed payloads, retries, and handling the same event twice safely (idempotency).
 
-**Fri 27 Nov — D11 Trustworthy data**
+**Thu 26 Nov — D11 Trustworthy data**
 - *Predict:* what's the first thing that will break silently?
 - *Build:* add checks to the ETL (row counts, nulls, expected columns) and run them in CI. Write `data/lineage.md`: which table came from which file, and where personal data was masked.
 - *Learn:* data contracts, lineage and privacy — what a regulator or auditor will ask for.
 
-**Mon 30 Nov — D12 Connect everything**
+**Fri 27 Nov — D12 Connect everything**
 - *Predict:* where will the end-to-end run break first?
 - *Build:* drop a new file in the bucket → webhook triggers the ETL → bronze/silver/gold → the model tags spend → the API serves it → my M7 agent calls the API as a tool (`get_spend_summary`).
 - *Learn:* every block has one job, and the contracts between them (files, tables, APIs, events) are what make the system work.
 
-**Tue 1 Dec — Track D mock:** all 12, cold, back to back.
+**Mon 30 Nov — Track D mock:** all 12, cold, back to back.
 
 ## What I carry over from the archive
 
@@ -709,6 +718,8 @@ Each session adds one box. By D12 the whole picture runs end to end.
 - Predict before you run: write the guess, then compare with the real numbers.
 - Undo an experiment: Source Control → hover the file → ↶ Discard Changes (or `git checkout <file>` in the terminal).
 - Codespace behind? Click **Sync Changes** before editing anything.
+- Markdown: a line starting with 4+ spaces becomes a code block, and lines with no blank line between them merge into one paragraph. Check **Preview** before committing.
+- Put new links where people land (the main `README.md`), not only inside a sub-folder.
 
 **Watch for**
 - Reaching for jargon when tired → stop, say it plainly.
@@ -718,8 +729,11 @@ Each session adds one box. By D12 the whole picture runs end to end.
 - Typing commands into the editor instead of the terminal → look for the `$` prompt before typing.
 - Mixing up retrieve and augment → retrieve *fetches*, augment *adds* the chunks to the question.
 - Calling grounding "the threshold" → not adding pineapple is grounding; refusing the sushi order is the threshold.
+- Saying bigger chunks are "slower" → chunk size is about **precision**: bigger chunks dilute the match.
+- Saying overlap "restricts" → overlap **repeats** a little text at the edges so nothing is cut in half.
+- Overclaiming the portal ("stay in one place") → it's one place to *start, find and own*; it joins tools up.
 
-**Hours already invested:** 10h 52m tracked (Sessions 13–17) + Sessions 01–12 untracked. LEARNING 2.0: Day 2 = 44m.
+**Hours already invested:** 10h 52m tracked (Sessions 13–17) + Sessions 01–12 untracked. LEARNING 2.0: Day 2 = 44m · Sun 18 Oct = ~50m (Day 2 Say + P1).
 
 ## Modules covered so far (Sessions 01–17, archive)
 
@@ -742,12 +756,24 @@ Track C dashboard · M1 Stations 3–6 · `chat.js` chunks 2–6.
 
 ---
 
+## Grill queue (Capable checks, one week after Basic)
+
+| Due | Topic | Watch for |
+|---|---|---|
+| Mon 26 Oct | Conversation 2 — chunking and tags | Overlap: it *repeats* a little text at chunk edges so an answer isn't cut in half — it doesn't restrict anything. Chunk size is about **precision**, not speed |
+| Mon 26 Oct | P1 — front door | Tool sprawl, discoverable + trusted, "joins tools up, doesn't replace them" |
+
+## Repo fixes owed (2 minutes each, before the next session)
+
+- [ ] Main `README.md` Quickstart has collapsed into one line — wrap the commands in a code block (three backticks above and below)
+- [ ] Main `README.md` tech stack still says "Retrieval: lexical scorer, no vector database" — update it to mention the chromadb vector pipeline
+
 ## Daily log
 
 | Day | Date | Module | Sentence I can now say | Question I'd ask an engineer | Done |
 |---|---|---|---|---|---|
 | 1 | 2026-10-16 | M1 | "First we chunk the documents and index them, once. For each question, retrieval fetches the best-matching chunks, augment adds them to the question, and the LLM answers only from those chunks, with citations — or refuses if the best match scores below the threshold." | "What's our top-k, and what happens when the best match scores low?" | ✅ with word bank. `rag_demo.py` run cleared on Day 2. |
-| 2 | 2026-10-17 (Sat) | M1 | *(owed Monday)* | *(owed Monday)* | ⚠️ Warm-up ✅ (8 words in order). Learn ✅ size, overlap, tags. Do ✅ 120 → 200 dropped Consumer Duty 0.41 → 0.34. Say + words & stories owed. |
+| 2 | 2026-10-17 (Sat), cleared 2026-10-18 | M1 | "We split documents into chunks with a little overlap, and tag each one with its document, section and date. When I made the chunks bigger, the match dropped from 0.41 to 0.34 and the answers got noisier, so smaller, well-tagged chunks win. Tags let us filter, cite and restrict." | "How do you decide chunk size and overlap, and which tags do you filter on?" | ✅ Warm-up, Learn and Do on Sat. Say cleared Sun after three attempts: first said bigger chunks were *slower* (wrong — it's precision), then said overlap *restricts* results (wrong — it repeats edges). Both corrected. Words & stories done. |
 
 ## Accountability log
 
@@ -755,6 +781,7 @@ Track C dashboard · M1 Stations 3–6 · `chat.js` chunks 2–6.
 |---|---|---|---|---|---|
 | Fri 16 Oct | — | Day 1 | — | ✅ | |
 | Sat 17 Oct | — | Day 2 | — | ⚠️ | Say + words & stories owed |
+| Sun 18 Oct | P1 ✅ | Day 2 Say ✅ (debt cleared) | — | ✅ | 20 guessed → 7 real → 5 clicks; front door linked from README; plan rebuilt with two levels, capability map, diagrams, Tracks P and D |
 
 ---
 
