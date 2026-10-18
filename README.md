@@ -1,4 +1,5 @@
 # Bank of Sandhu — White-Label Digital Bank Prototype
+👉 **New here? Start at the [front door](platform/README.md).**
 
 A working prototype of a dual-market digital bank with a faith-aware product layer and an AI-powered compliance assistant.
 
