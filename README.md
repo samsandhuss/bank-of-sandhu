@@ -22,12 +22,13 @@ A portfolio piece exploring three things at once: dual-market regulated product 
 
 ## Quickstart
 
-git clone <repo-url>
+```bash
+git clone https://github.com/samsandhuss/bank-of-sandhu.git
 cd bank-of-sandhu
 npm install
-copy .env.example .env
-(then edit .env and add your ANTHROPIC_API_KEY)
+cp .env.example .env   # then add your ANTHROPIC_API_KEY to .env
 npm run dev
+```
 
 Open http://localhost:5173 in your browser.
 
@@ -36,7 +37,7 @@ Open http://localhost:5173 in your browser.
 - Frontend: Vite, React
 - Backend: Node 20, Express
 - AI: Anthropic SDK (Claude Haiku 4.5)
-- Retrieval: lexical scorer, no vector database
+- Retrieval: chromadb vector pipeline (semantic search), with a lexical scorer for comparison
 - CI: GitHub Actions
 
 ## Status
