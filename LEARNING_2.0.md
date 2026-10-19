@@ -510,10 +510,15 @@ flowchart TB
 - **Question back:** "Which tools do you open every day, and where do you lose the most time?"
 - **Correction to remember:** don't say developers "stay in one portal" — engineers will say "I'm not leaving my IDE". The portal is one place to *start, find and own*, not to do everything.
 
-**Mon 19 Oct — P2 Onboarding, end to end**
+**Mon 19 Oct — P2 Onboarding, end to end** ⚠️ *(build done, Say owed)*
 - *Predict:* how many steps did it take to get my repo from empty to deployed?
 - *Build:* `platform/onboarding.md` — a Mermaid diagram of my own journey: repo → branch protection → CI → scans → deploy. Pull the real dates from my commit history.
 - *Learn:* onboarding is a product; time to first green pipeline is its headline metric (my real story: 14 days → under 2).
+- **What happened:** predicted 5 steps / 3 days. Real: 5 steps in a different order — CodeQL scanning first (17 May), CI green 31 Jul — about **75 days** to the first green pipeline. Deploy (Render) and branch protection left **no trace in git**. Built `platform/onboarding.md` from `git log` and pushed it.
+- **What the output taught me:** **elapsed time ≠ effort** — most of the 75 days was waiting, not work. **Steps outside git are invisible**, so they can't be measured unless the platform records them. **Good defaults set the order** — scanning came first only because it was offered first.
+- **Target sentence (not yet said cold):** "Onboarding is how a team gets an app from an empty repo to live on the platform. When I traced my own, it took 75 days to reach a green pipeline, and most of that was waiting, with two steps leaving no record at all. So we measure time to first green pipeline, and we hunt the waits, not the work."
+- **Question back:** "When a new team comes onto the platform, where do they wait longest, and who are they waiting on?"
+- **Corrections to remember:** onboarding is **app → platform**, not "getting access to applications" (access is one step inside it). Don't ask leading questions ("why is one tool better…") — ask open ones that get engineers talking about their pain.
 
 **Tue 20 Oct — P3 Migration: the why**
 - *Predict:* what are the three biggest costs of running four CI/CD tools?
@@ -720,6 +725,10 @@ Each session adds one box. By D12 the whole picture runs end to end.
 - Codespace behind? Click **Sync Changes** before editing anything.
 - Markdown: a line starting with 4+ spaces becomes a code block, and lines with no blank line between them merge into one paragraph. Check **Preview** before committing.
 - Put new links where people land (the main `README.md`), not only inside a sub-folder.
+- A `[Preview]` tab is read-only — to edit, open the file itself (Ctrl+P, type the file name).
+- Codespace UI fighting me? Edit on github.com with the pencil ✏️, or commit from the terminal in one line: `git add <file> && git commit -m "message" && git push`.
+- Type the commit message **before** clicking Commit. If a `COMMIT_EDITMSG` tab opens, type the message on line 1 and click Commit.
+- `git log --reverse --date=short --pretty=format:"%ad  %s"` shows my history oldest first — real dates beat guesses.
 
 **Watch for**
 - Reaching for jargon when tired → stop, say it plainly.
@@ -732,8 +741,11 @@ Each session adds one box. By D12 the whole picture runs end to end.
 - Saying bigger chunks are "slower" → chunk size is about **precision**: bigger chunks dilute the match.
 - Saying overlap "restricts" → overlap **repeats** a little text at the edges so nothing is cut in half.
 - Overclaiming the portal ("stay in one place") → it's one place to *start, find and own*; it joins tools up.
+- Defining onboarding as "access" → onboarding is an **app getting onto the platform**, empty repo to live.
+- Leading questions back to engineers → ask open questions about where *they* lose time.
+- Pasting instructions into the file instead of the content → copy only what's inside the code box.
 
-**Hours already invested:** 10h 52m tracked (Sessions 13–17) + Sessions 01–12 untracked. LEARNING 2.0: Day 2 = 44m · Sun 18 Oct = ~50m (Day 2 Say + P1).
+**Hours already invested:** 10h 52m tracked (Sessions 13–17) + Sessions 01–12 untracked. LEARNING 2.0: Day 2 = 44m · Sun 18 Oct = ~50m (Day 2 Say + P1) · Mon 19 Oct = ~50m (README fixes + P2).
 
 ## Modules covered so far (Sessions 01–17, archive)
 
@@ -765,8 +777,8 @@ Track C dashboard · M1 Stations 3–6 · `chat.js` chunks 2–6.
 
 ## Repo fixes owed (2 minutes each, before the next session)
 
-- [ ] Main `README.md` Quickstart has collapsed into one line — wrap the commands in a code block (three backticks above and below)
-- [ ] Main `README.md` tech stack still says "Retrieval: lexical scorer, no vector database" — update it to mention the chromadb vector pipeline
+- [x] Main `README.md` Quickstart has collapsed into one line — wrap the commands in a code block (three backticks above and below) — *done 19 Oct, real clone URL added*
+- [x] Main `README.md` tech stack still says "Retrieval: lexical scorer, no vector database" — update it to mention the chromadb vector pipeline — *done 19 Oct*
 
 ## Daily log
 
@@ -782,6 +794,7 @@ Track C dashboard · M1 Stations 3–6 · `chat.js` chunks 2–6.
 | Fri 16 Oct | — | Day 1 | — | ✅ | |
 | Sat 17 Oct | — | Day 2 | — | ⚠️ | Say + words & stories owed |
 | Sun 18 Oct | P1 ✅ | Day 2 Say ✅ (debt cleared) | — | ✅ | 20 guessed → 7 real → 5 clicks; front door linked from README; plan rebuilt with two levels, capability map, diagrams, Tracks P and D |
+| Mon 19 Oct | P2 ⚠️ (built + pushed, Say owed) | Day 3 ❌ | — | ⚠️ | README fixes done; `platform/onboarding.md` pushed — predicted 3 days, real ~75 days to first green pipeline. **Tue order: P2 Say cold → Day 3 → P3** |
 
 ---
 
