@@ -1,0 +1,128 @@
+{
+  "brand": {
+    "id": "sandhu",
+    "displayName": "Bank of Sandhu",
+    "shortName": "Sandhu",
+    "tagline": "Banking for everyone, on your terms.",
+    "domain": "bankofsandhu.demo"
+  },
+  "identity": {
+    "primaryColor": "#1B3A57",
+    "accentColor": "#C9A86A",
+    "background": "#FAFAF7",
+    "fontFamily": "Inter, system-ui, sans-serif",
+    "logoText": "SANDHU"
+  },
+  "entities": {
+    "uk": {
+      "legalName": "Bank of Sandhu UK Limited",
+      "regulator": "FCA",
+      "regulatorReference": "FRN: 999001 (demo)",
+      "address": "1 King William Street, London EC4N 7AF",
+      "currency": "GBP",
+      "currencySymbol": "£"
+    },
+    "uae": {
+      "legalName": "Bank of Sandhu UAE PJSC",
+      "regulator": "CBUAE",
+      "regulatorReference": "CBUAE Category B Licence (demo)",
+      "address": "Sky Tower, Al Reem Island, Abu Dhabi",
+      "currency": "AED",
+      "currencySymbol": "AED"
+    }
+  },
+  "modes": {
+    "neutral": {
+      "label": "Standard banking",
+      "subLabel": "Conventional products in GBP or AED",
+      "productTerminology": {
+        "lease": "Lease agreement",
+        "fee": "Interest rate (APR)",
+        "feeShortLabel": "APR",
+        "account": "Current account"
+      },
+      "contractTemplate": "conventional",
+      "disclosureSet": ["fca", "cbuae", "gdpr", "pdpl", "consumer-duty"]
+    },
+    "islamic": {
+      "label": "Islamic banking",
+      "subLabel": "Sharia-compliant products, AAOIFI-aligned",
+      "productTerminology": {
+        "lease": "Ijara (lease-to-own)",
+        "fee": "Profit rate",
+        "feeShortLabel": "Profit rate",
+        "account": "Wadiah current account"
+      },
+      "contractTemplate": "islamic",
+      "disclosureSet": ["fca", "cbuae", "aaoifi", "gdpr", "pdpl", "consumer-duty"],
+      "sharia": {
+        "supervisoryBoardLabel": "Sharia Supervisory Board (SSB)",
+        "complianceStatement": "All products in Islamic mode are reviewed and approved by the Sharia Supervisory Board in accordance with AAOIFI standards."
+      }
+    }
+  },
+  "products": {
+    "currentAccount": {
+      "enabled": true,
+      "variants": {
+        "neutral": {
+          "name": "Sandhu Current Account",
+          "monthlyFee": 0,
+          "overdraftAPR": 19.9,
+          "features": ["Debit card", "Mobile app", "Faster Payments / IPI"]
+        },
+        "islamic": {
+          "name": "Sandhu Wadiah Account",
+          "monthlyFee": 0,
+          "overdraftAPR": null,
+          "features": ["Debit card (no riba)", "Mobile app", "Zakat calculator", "Halal merchant filter"]
+        }
+      }
+    },
+    "leasing": {
+      "enabled": true,
+      "variants": {
+        "neutral": {
+          "name": "Sandhu Auto Lease",
+          "structureLabel": "Conventional lease",
+          "termMonths": [24, 36, 48],
+          "exampleAPR": 7.9,
+          "earlySettlementRules": "Subject to APR-based early settlement charge"
+        },
+        "islamic": {
+          "name": "Sandhu Ijara",
+          "structureLabel": "Ijara wa Iqtina (lease-to-own)",
+          "termMonths": [24, 36, 48],
+          "exampleProfitRate": 7.9,
+          "earlySettlementRules": "No early settlement penalty; remaining profit waived as per AAOIFI guidance"
+        }
+      }
+    }
+  },
+  "demoMode": {
+    "enabled": true,
+    "prefilledUser": {
+      "name": "Demo User",
+      "email": "demo@bankofsandhu.test",
+      "ukAddress": "10 Demo Street, London SW1A 1AA",
+      "uaeAddress": "Apartment 101, Demo Tower, Dubai Marina",
+      "dob": "1985-06-15"
+    },
+    "chatbotSampleQuestions": [
+      "What's the difference between your Ijara and your conventional lease?",
+      "Am I covered by FSCS protection?",
+      "How is my data handled under UAE PDPL?",
+      "Can I open an account if I live in the UK but want to lease a car in Dubai?",
+      "What does your Sharia Supervisory Board approve?",
+      "What's your Consumer Duty fair value statement for the auto lease?"
+    ]
+  },
+  "compliance": {
+    "regimes": ["FCA", "CBUAE", "AAOIFI", "GDPR", "UK-DPA", "UAE-PDPL", "Consumer-Duty"],
+    "complianceDocsPath": "docs/compliance/",
+    "consumerDuty": {
+      "targetMarketStatement": "Adults aged 18+ resident in the UK or UAE, seeking transparent banking products with optional Sharia compliance.",
+      "fairValueAssertion": "Annually reviewed; published in product summary pages."
+    }
+  }
+}

@@ -1,0 +1,88 @@
+name: CI
+
+# Pedagogical note (TEACH.md Checkpoint 5):
+# Five gates. Each is a contract. Resist adding flaky gates — they train people to ignore CI.
+
+on:
+  push:
+    branches: [main]
+  pull_request:
+    branches: [main]
+
+jobs:
+  validate:
+    name: Validate
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Setup Node
+        uses: actions/setup-node@v4
+        with:
+          node-version: '20'
+          cache: 'npm'
+
+      - name: Install
+        run: npm ci
+
+      # Gate 1 — Lint. Stylistic and basic-correctness checks.
+      - name: Lint
+        run: npm run lint
+
+      # Gate 2 — Type check. Catches type errors before runtime.
+      - name: Type check
+        run: npm run typecheck
+
+      # Gate 3 — Unit tests.
+      - name: Test
+        run: npm test
+
+      # Gate 4 — Build. Proves the app actually compiles.
+      - name: Build
+        run: npm run build
+
+      # Gate 5 — Validate brand configs against the schema.
+      # This is the platform-y bit: a config is a product surface, so it has tests.
+      - name: Validate brand configs
+        run: node scripts/validate-brands.js
+
+  security:
+    name: Security scan
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Setup Node
+        uses: actions/setup-node@v4
+        with:
+          node-version: '20'
+          cache: 'npm'
+
+      - name: Install
+        run: npm ci
+
+      # Snyk gate (TEACH.md Checkpoint 6) — shift-left security.
+      # In a real setup this would have a SNYK_TOKEN secret and severity thresholds.
+      - name: Snyk
+        uses: snyk/actions/node@master
+        continue-on-error: true  # demo only; in prod this should be a hard fail above HIGH
+        env:
+          SNYK_TOKEN: ${{ secrets.SNYK_TOKEN }}
+        with:
+          args: --severity-threshold=high
+
+  compliance-docs:
+    name: Compliance docs present
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      # Pedagogical note (Checkpoint 8): compliance lives in the repo.
+      # If someone deletes a regime doc, CI fails. This is "compliance as code."
+      - name: Check required compliance docs exist
+        run: |
+          set -e
+          for doc in fca cbuae aaoifi gdpr-ukdpa uae-pdpl consumer-duty; do
+            test -f "docs/compliance/${doc}.md" || (echo "Missing: ${doc}.md" && exit 1)
+          done
+          echo "✓ All required compliance docs present."

@@ -1,0 +1,28 @@
+# CODEOWNERS — auto-assigns reviewers and blocks merges without approval.
+#
+# Pedagogical note (TEACH.md Checkpoint 4):
+# This file is the executable form of "team autonomy with guardrails."
+# Compliance docs need legal review. Brand configs need brand-team review.
+# CI workflows need platform-team review. The repo enforces this — not a wiki.
+#
+# Replace handles with real teams when the repo moves to a real org.
+
+# Default — Sam owns everything not matched below
+*                               @samsandhu45
+
+# Compliance lives or dies on accuracy. Legal/compliance team must approve changes.
+/docs/compliance/               @samsandhu45 @compliance-team
+
+# Brand configs change the live customer experience. Brand managers approve.
+/brands/                        @samsandhu45 @brand-team
+
+# CI/CD workflows can ship insecure code, mask CVEs, or leak secrets.
+# Platform team approves all pipeline changes.
+/.github/workflows/             @samsandhu45 @platform-team
+/scripts/                       @samsandhu45 @platform-team
+
+# Specs are the source of truth for product architecture. Architecture approves.
+/specs/                         @samsandhu45 @architecture-team
+
+# Teaching plan — owner only. Nobody else touches the pedagogical scaffolding.
+/.planning/                     @samsandhu45
